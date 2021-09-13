@@ -1,6 +1,6 @@
 import { generatePhrase, encryptToKeyStore } from '@xchainjs/xchain-crypto'
 import logo from './logo.svg';
-import React, { useState, useEffect } from "react";
+import React, { Component, useEffect } from "react";
 import { Button, Container, Header, Segment, Grid } from 'semantic-ui-react';
 import './App.css';
 
@@ -17,29 +17,34 @@ function App() {
   const [response, setResponse] = React.useState("")
   const [input, setInput] = React.useState("")
   let key
-  useEffect(async () => {
-    const phrase = generatePhrase()
-    console.log(phrase);
-    // const isCorrect = validatePhrase(phrase)
-
-    /*KeyStore Encryption is been done here*/
-    const keystore = async () => {
-      try {
-        key = await encryptToKeyStore(phrase, input);
-        // console.log('key========>', key)
-        return key;
-
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    const res = await keystore();
-    setResponse(res)
-    console.log('========>', res)
-  }
-    , [input]
-  );
+ 
   // console.log("Response ================ ", response)
+
+  const keystore = async () => {
+    try {
+      const phrase = generatePhrase()
+      console.log(phrase);
+      key = await encryptToKeyStore(phrase, input);
+      // console.log('key========>', key)
+      
+      downloadTextFile();
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+//   const handleValidation =() => {
+//     const { input } = this.state;
+
+//     // only each block with generate error
+//     if (!input || isNaN(input)) {
+//       this.setState({ error: 'price is not valid' });
+//     }else {
+//       this.setState({error: ""})
+//       // submit code here
+//     }
+// }
 
 
 
@@ -47,7 +52,8 @@ function App() {
 
   const downloadTextFile = () => {
     const element = document.createElement("a");
-    const file = new Blob([JSON.stringify(response)], {
+    console.log("keyy=====>>",key)
+    const file = new Blob([JSON.stringify(key)], {
       // const file = new Blob([document.getElementById('input').value],{
       type: "text/plain;charset=utf-8"
     });
@@ -60,13 +66,39 @@ function App() {
     element.click();
   }
 
-  //Decryption Going on
+  // state = {
+ 
+  //   // Initially, no file is selected
+  //   selectedFile: null
+  // };
+
+// const  onFileChange = event => {
+    
+//     // Update the state
+//     this.setState({ selectedFile: event.target.files[0] });
+  
+//   };
+
+//  const onFileUpload = () => {
+    
+//     // Create an object of formData
+//     const formData = new FormData();
+  
+//     // Update the formData object
+//     formData.append(
+//       "myFile",
+//       this.state.selectedFile,
+//       this.state.selectedFile.name
+//     );}
+
+    // Decryption Going on
 
   // const phraseDecrypted = async()=>{
   // await decryptFromKeystore(keystore, password)
   // }
   // console.log(decryptFromKeystore)
 
+  
   return <>
     <Container>
       <Segment>
@@ -74,8 +106,22 @@ function App() {
           <h1>Thorchain Custom Keystore Maker</h1>
           <h4>Enter your Password</h4>
           <input id="input" value={input} onChange={e => setInput(e.target.value)} />
-          <Button primary onClick={downloadTextFile}>Create KeyStore</Button>
+          <Button primary onClick={keystore}>Create KeyStore</Button>
         </div>
+        <h1> Thorchain KeyStore Decryption </h1>
+        
+        <div>
+          <h1>Enter your password</h1>
+        <input id="input" value={input} onchange ={e=> setInput(e.target.value)}/>
+        </div>
+        
+        <div>
+        <input type="file"/>
+                <button >
+                  Upload!
+                </button>
+        </div>
+
       </Segment>
     </Container>
   </>;
