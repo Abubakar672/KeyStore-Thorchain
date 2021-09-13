@@ -1,9 +1,10 @@
 import { generatePhrase, encryptToKeyStore } from '@xchainjs/xchain-crypto'
 import logo from './logo.svg';
 import React, { useState, useEffect } from "react";
- 
+import { Button, Container, Header, Segment, Grid } from 'semantic-ui-react';
+// import * as fs from 'fs';
 import './App.css';
- 
+
 // Crypto Constants for xchain
 const cipher = 'aes-128-ctr'
 const kdf = 'pbkdf2'
@@ -12,63 +13,64 @@ const dklen = 32
 const c = 262144
 const hashFunction = 'sha256'
 const meta = 'xchain-keystore'
- 
+
 // const phraseDecrypted = async()=>{
 // await decryptFromKeystore(keystore, password)
 // }
 // console.log(decryptFromKeystore)
- 
+
 function App() {
-  useEffect( async () => {
-    
+  const [response, setResponse] = React.useState("")
+  const [input, setInput] = React.useState("")
+  let key
+  useEffect(async () => {
     const phrase = generatePhrase()
     console.log(phrase);
     // const isCorrect = validatePhrase(phrase)
     const password = 'thorchain'
     console.log(password);
-//  asdsadsadsaadsasdasdasdassaddasd
-     
-    const keystore = async ()=>{
+
+    const keystore = async () => {
       try {
-        let key = await encryptToKeyStore(phrase, password);
-        console.log('key========>',key)
+        key = await encryptToKeyStore(phrase, input);
+        console.log('key========>', key)
         return key;
-        
+
       } catch (error) {
         console.log(error);
- 
-        
       }
-     
-    
     }
     const res = await keystore();
- 
-    console.log('========>',res)
-     
-    
-    
- 
-     }
-    , []
-    );
-return(
- <div className="App">
- <header className="App-header">
- <img src={logo} className="App-logo" alt="logo" />
- <p>
- Edit <code>src/App.js</code> and save to reload.
- </p>
- <a
- className="App-link"
- href="https://reactjs.org"
- target="_blank"
- rel="noopener noreferrer"
- >
- Learn React
- </a>
- </header>
- </div>
-)}
- 
+    setResponse(res)
+    console.log('========>', res)
+  }
+    , [input]
+  );
+console.log("Response ================ ", response)
+  //File creation and saving here 
+  const downloadTextFile = () => {
+    const element = document.createElement("a");
+    const file = new Blob([JSON.stringify(response)], {
+      // const file = new Blob([document.getElementById('input').value],{
+      type: "text/plain;charset=utf-8"
+    });
+console.log("file==========", file)
+    element.href = URL.createObjectURL(file);
+    element.download = "Thro_Custom_Keystore";
+    document.body.appendChild(element);
+    element.click();
+  }
+
+  return <>
+    <Container>
+      <Segment>
+        <div>
+          <input id="input" value={input} onChange={e => setInput(e.target.value)}/>
+          <Button primary onClick={downloadTextFile}>Create KeyStore</Button>
+        </div>
+      </Segment>
+    </Container>
+  </>;
+}
+
 export default App;
