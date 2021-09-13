@@ -66,6 +66,7 @@ console.log("file==========", file)
       <Segment>
         <div>
           <h1>Thorchain Custom Keystore Maker</h1>
+          <h4>Enter your Password</h4>
           <input id="input" value={input} onChange={e => setInput(e.target.value)}/>
           <Button primary onClick={downloadTextFile}>Create KeyStore</Button>
         </div>
