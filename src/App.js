@@ -1,23 +1,16 @@
-import { generatePhrase, encryptToKeyStore } from '@xchainjs/xchain-crypto'
-import logo from './logo.svg';
+import { generatePhrase, encryptToKeyStore ,decryptFromKeystore} from '@xchainjs/xchain-crypto'
 import React, { Component, useEffect } from "react";
 import { Button, Container, Header, Segment, Grid } from 'semantic-ui-react';
 import './App.css';
 
-// Crypto Constants for xchain
-const cipher = 'aes-128-ctr'
-const kdf = 'pbkdf2'
-const prf = 'hmac-sha256'
-const dklen = 32
-const c = 262144
-const hashFunction = 'sha256'
-const meta = 'xchain-keystore'
-
 function App() {
   const [response, setResponse] = React.useState("")
   const [input, setInput] = React.useState("")
+  const [fileKeyStore , setfileKeyStore] = React.useState("")
+
   let key
- 
+  let fileReader
+
   // console.log("Response ================ ", response)
 
   const keystore = async () => {
@@ -46,60 +39,47 @@ function App() {
 //     }
 // }
 
-
-
-  /*File creation and saving here*/
-
+  /*File creation and saving here*/ 
   const downloadTextFile = () => {
     const element = document.createElement("a");
     console.log("keyy=====>>",key)
     const file = new Blob([JSON.stringify(key)], {
-      // const file = new Blob([document.getElementById('input').value],{
       type: "text/plain;charset=utf-8"
     });
-
-    // console.log("file==========", file)
-
     element.href = URL.createObjectURL(file);
     element.download = "Thro_Custom_Keystore";
     document.body.appendChild(element);
     element.click();
   }
 
-  // state = {
- 
-  //   // Initially, no file is selected
-  //   selectedFile: null
-  // };
 
-// const  onFileChange = event => {
-    
-//     // Update the state
-//     this.setState({ selectedFile: event.target.files[0] });
-  
-//   };
+  const decryptKeyStore = async () => {
+    // console.log("password====>", password);
+    // console.log("fileKeyStroe====>", fileKeyStore);
+    fileReader = new FileReader();
+    fileReader.onloadend = handleFileRead;
+    fileReader.readAsText(fileKeyStore);
+    };
 
-//  const onFileUpload = () => {
-    
-//     // Create an object of formData
-//     const formData = new FormData();
-  
-//     // Update the formData object
-//     formData.append(
-//       "myFile",
-//       this.state.selectedFile,
-//       this.state.selectedFile.name
-//     );}
+    const handleFileRead = async (e) => {
+      const content = JSON.parse(fileReader.result);
+      console.log(content);
+      let res = await decryptFromKeystore(content, input);
+      console.log("decryption=====>", res);
+      // … do something with the 'content' …
+      };
 
-    // Decryption Going on
 
-  // const phraseDecrypted = async()=>{
-  // await decryptFromKeystore(keystore, password)
-  // }
-  // console.log(decryptFromKeystore)
 
-  
-  return <>
+const SubmitAll=async()=>{
+  console.log("password====>", typeof input);
+  console.log("fileKeyStroe====>", typeof fileKeyStore);
+  decryptKeyStore()
+  // handleFileRead()
+  // let res = await decryptFromKeystore(fileKeyStore, input);
+  // console.log("decryption=====>", res);
+}
+return <>
     <Container>
       <Segment>
         <div>
@@ -109,15 +89,17 @@ function App() {
           <Button primary onClick={keystore}>Create KeyStore</Button>
         </div>
         <h1> Thorchain KeyStore Decryption </h1>
-        
         <div>
           <h1>Enter your password</h1>
-        <input id="input" value={input} onchange ={e=> setInput(e.target.value)}/>
+       {/* // <input id="password" value={input} onchange ={e=> setInput(e.target.value)}/> */}
         </div>
         
         <div>
-        <input type="file"/>
-                <button >
+        <input type="file"onChange={((e)=>{
+          setfileKeyStore(e.target.files[0]);
+
+        })}/>
+                <button onClick={SubmitAll} >
                   Upload!
                 </button>
         </div>
