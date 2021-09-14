@@ -2,6 +2,7 @@ import { generatePhrase, encryptToKeyStore ,decryptFromKeystore} from '@xchainjs
 import React, { Component, useEffect } from "react";
 import { Button, Container, Header, Segment, Grid } from 'semantic-ui-react';
 import './App.css';
+import { Client } from '@xchainjs/xchain-thorchain';
 
 function App() {
   const [response, setResponse] = React.useState("")
@@ -10,7 +11,7 @@ function App() {
 
   let key
   let fileReader
-
+  let res
   // console.log("Response ================ ", response)
 
   const keystore = async () => {
@@ -54,8 +55,6 @@ function App() {
 
 
   const decryptKeyStore = async () => {
-    // console.log("password====>", password);
-    // console.log("fileKeyStroe====>", fileKeyStore);
     fileReader = new FileReader();
     fileReader.onloadend = handleFileRead;
     fileReader.readAsText(fileKeyStore);
@@ -64,13 +63,12 @@ function App() {
     const handleFileRead = async (e) => {
       const content = JSON.parse(fileReader.result);
       console.log(content);
-      let res = await decryptFromKeystore(content, input);
+      res = await decryptFromKeystore(content, input);
       console.log("decryption=====>", res);
       // … do something with the 'content' …
       };
 
-
-
+      console.log(res);
 const SubmitAll=async()=>{
   console.log("password====>", typeof input);
   console.log("fileKeyStroe====>", typeof fileKeyStore);
@@ -79,6 +77,15 @@ const SubmitAll=async()=>{
   // let res = await decryptFromKeystore(fileKeyStore, input);
   // console.log("decryption=====>", res);
 }
+// let client; 
+// let network;
+
+// client = new Client({ network: Network.Testnet, phrase: 'my secret phrase' })
+// const address = client.getAddress()
+// console.log('address:', client.getAddress())  
+// console.log(address)
+
+
 return <>
     <Container>
       <Segment>
