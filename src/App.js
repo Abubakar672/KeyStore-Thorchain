@@ -17,6 +17,8 @@ function App() {
   let res
   // console.log("Response ================ ", response)
 
+
+  //Generation of Random Phrase and Encryption is going on here 
   const keystore = async () => {
     try {
       const phrase = generatePhrase()
@@ -56,12 +58,16 @@ function App() {
     element.click();
   }
 
-
+  //File Decryption is going here
   const decryptKeyStore = async () => {
     fileReader = new FileReader();
     fileReader.onloadend = handleFileRead;
     fileReader.readAsText(fileKeyStore);
     };
+
+    let client; 
+
+    //File handiling is done here and getting the menomics after the decryption of the file data is done here
 
     const handleFileRead = async (e) => {
       const content = JSON.parse(fileReader.result);
@@ -69,30 +75,20 @@ function App() {
       res = await decryptFromKeystore(content, input);
       console.log("decryption=====>", res);
       // … do something with the 'content' …
-      };
 
-
-      let client; 
-      let network;
-      
-      const thorchaiAddress= async()=>{
-        client = new Client({ network: Network.Testnet, phrase: 'journey reason bulb enjoy interest race response village police lawn pony know' })
-        const address = client.getAddress()
-        console.log('address:', client.getAddress())  
-        console.log(address)
-      };
-      
-
-  console.log(res);
+      //ThorChain address coming from here
+      client = new Client({ network: Network.Testnet, phrase: res })
+      const address = client.getAddress()
+      console.log('address:', client.getAddress())  
+      console.log(address)
+    };
   
+  //Submit button to trigger the things 
   const SubmitAll=async()=>{
   console.log("password====>", typeof input);
   console.log("fileKeyStroe====>", typeof fileKeyStore);
   decryptKeyStore()
-  thorchaiAddress()
 }
-
-
 return <>
     <Container>
       <Segment>
