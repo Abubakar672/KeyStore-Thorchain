@@ -3,6 +3,9 @@ import React, { Component, useEffect } from "react";
 import { Button, Container, Header, Segment, Grid } from 'semantic-ui-react';
 import './App.css';
 import { Client } from '@xchainjs/xchain-thorchain';
+import {Network} from '@xchainjs/xchain-client';
+// import { Client, Network } from '@xchainjs/xchain-bitcoin/lib'
+
 
 function App() {
   const [response, setResponse] = React.useState("")
@@ -68,22 +71,26 @@ function App() {
       // … do something with the 'content' …
       };
 
-      console.log(res);
-const SubmitAll=async()=>{
+
+      let client; 
+      let network;
+      
+      const thorchaiAddress= async()=>{
+        client = new Client({ network: Network.Testnet, phrase: 'journey reason bulb enjoy interest race response village police lawn pony know' })
+        const address = client.getAddress()
+        console.log('address:', client.getAddress())  
+        console.log(address)
+      };
+      
+
+  console.log(res);
+  
+  const SubmitAll=async()=>{
   console.log("password====>", typeof input);
   console.log("fileKeyStroe====>", typeof fileKeyStore);
   decryptKeyStore()
-  // handleFileRead()
-  // let res = await decryptFromKeystore(fileKeyStore, input);
-  // console.log("decryption=====>", res);
+  thorchaiAddress()
 }
-// let client; 
-// let network;
-
-// client = new Client({ network: Network.Testnet, phrase: 'my secret phrase' })
-// const address = client.getAddress()
-// console.log('address:', client.getAddress())  
-// console.log(address)
 
 
 return <>

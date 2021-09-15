@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@xchainjs/xchain-bitcoin": "^0.15.12",
     "@xchainjs/xchain-client": "^0.10.3",
     "@xchainjs/xchain-cosmos": "^0.13.7",
     "@xchainjs/xchain-crypto": "^0.2.6",
@@ -13,13 +14,15 @@
     "@xchainjs/xchain-util": "^0.3.1",
     "axios": "^0.21.4",
     "bignumber.js": "^9.0.1",
+    "bitcoinjs-lib": "^5.2.0",
     "cosmos-client": "^0.39.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "wif": "^2.0.6"
   },
   "scripts": {
     "start": "react-scripts start",

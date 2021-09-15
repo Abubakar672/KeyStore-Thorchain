@@ -2213,6 +2213,11 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
+"@xchainjs/xchain-bitcoin@^0.15.12":
+  "integrity" "sha512-r1EBXJubToklEl26WtHd6hs2Aaizp0PNOZaT1ZjEveNC0kbsW4JOmvQCjigyJ+Sx0NEYowODLar2aAz5/pq/GA=="
+  "resolved" "https://registry.npmjs.org/@xchainjs/xchain-bitcoin/-/xchain-bitcoin-0.15.12.tgz"
+  "version" "0.15.12"
+
 "@xchainjs/xchain-client@^0.10.1", "@xchainjs/xchain-client@^0.10.3":
   "integrity" "sha512-+RhRwOmlBZYnSsZJ4XchJM0bxTROUqKBo7/N4N3KWmmWG3MQ8kx8qENCEU8wSlqXoJt9fNOztQBlq/ypRijO6w=="
   "resolved" "https://registry.npmjs.org/@xchainjs/xchain-client/-/xchain-client-0.10.3.tgz"
@@ -2895,6 +2900,11 @@
   dependencies:
     "tweetnacl" "^0.14.3"
 
+"bech32@^1.1.2":
+  "integrity" "sha512-s0IrSOzLlbvX7yp4WBfPITzpAU8sqQcpsmwXDiKwrG4r491vwCO/XpejasRNl0piBMe/DvP4Tz0mIS/X1DPJBQ=="
+  "resolved" "https://registry.npmjs.org/bech32/-/bech32-1.1.4.tgz"
+  "version" "1.1.4"
+
 "bech32@^1.1.3":
   "integrity" "sha512-s0IrSOzLlbvX7yp4WBfPITzpAU8sqQcpsmwXDiKwrG4r491vwCO/XpejasRNl0piBMe/DvP4Tz0mIS/X1DPJBQ=="
   "resolved" "https://registry.npmjs.org/bech32/-/bech32-1.1.4.tgz"
@@ -2947,7 +2957,12 @@
   dependencies:
     "file-uri-to-path" "1.0.0"
 
-"bip32@^2.0.5":
+"bip174@^2.0.1":
+  "integrity" "sha512-i3X26uKJOkDTAalYAp0Er+qGMDhrbbh2o93/xiPyAN2s25KrClSpe3VXo/7mNJoqA5qfko8rLS2l3RWZgYmjKQ=="
+  "resolved" "https://registry.npmjs.org/bip174/-/bip174-2.0.1.tgz"
+  "version" "2.0.1"
+
+"bip32@^2.0.4", "bip32@^2.0.5":
   "integrity" "sha512-HpV5OMLLGTjSVblmrtYRfFFKuQB+GArM0+XP8HGWfJ5vxYBqo+DesvJwOdC2WJ3bCkZShGf0QIfoIpeomVzVdA=="
   "resolved" "https://registry.npmjs.org/bip32/-/bip32-2.0.6.tgz"
   "version" "2.0.6"
@@ -2969,6 +2984,39 @@
     "create-hash" "^1.1.0"
     "pbkdf2" "^3.0.9"
     "randombytes" "^2.0.1"
+
+"bip66@^1.1.0":
+  "integrity" "sha1-AfqHSHhcpwlV1QESF9GzE5lpyiI="
+  "resolved" "https://registry.npmjs.org/bip66/-/bip66-1.1.5.tgz"
+  "version" "1.1.5"
+  dependencies:
+    "safe-buffer" "^5.0.1"
+
+"bitcoin-ops@^1.3.0", "bitcoin-ops@^1.4.0":
+  "integrity" "sha512-pef6gxZFztEhaE9RY9HmWVmiIHqCb2OyS4HPKkpc6CIiiOa3Qmuoylxc5P2EkU3w+5eTSifI9SEZC88idAIGow=="
+  "resolved" "https://registry.npmjs.org/bitcoin-ops/-/bitcoin-ops-1.4.1.tgz"
+  "version" "1.4.1"
+
+"bitcoinjs-lib@^5.2.0":
+  "integrity" "sha512-5DcLxGUDejgNBYcieMIUfjORtUeNWl828VWLHJGVKZCb4zIS1oOySTUr0LGmcqJBQgTBz3bGbRQla4FgrdQEIQ=="
+  "resolved" "https://registry.npmjs.org/bitcoinjs-lib/-/bitcoinjs-lib-5.2.0.tgz"
+  "version" "5.2.0"
+  dependencies:
+    "bech32" "^1.1.2"
+    "bip174" "^2.0.1"
+    "bip32" "^2.0.4"
+    "bip66" "^1.1.0"
+    "bitcoin-ops" "^1.4.0"
+    "bs58check" "^2.0.0"
+    "create-hash" "^1.1.0"
+    "create-hmac" "^1.1.3"
+    "merkle-lib" "^2.0.10"
+    "pushdata-bitcoin" "^1.0.1"
+    "randombytes" "^2.0.1"
+    "tiny-secp256k1" "^1.1.1"
+    "typeforce" "^1.11.3"
+    "varuint-bitcoin" "^1.0.4"
+    "wif" "^2.0.1"
 
 "blakejs@^1.1.0":
   "integrity" "sha512-bLG6PHOCZJKNshTjGRBvET0vTciwQE6zFKOKKXPDJfwFBd4Ac0yBfPZqcGvGJap50l7ktvlpFqc2jGVaUgbJgg=="
@@ -3165,7 +3213,7 @@
   dependencies:
     "base-x" "^3.0.2"
 
-"bs58check@^2.1.1", "bs58check@^2.1.2", "bs58check@<3.0.0":
+"bs58check@^2.0.0", "bs58check@^2.1.1", "bs58check@^2.1.2", "bs58check@<3.0.0":
   "integrity" "sha512-0TS1jicxdU09dwJMNZtVAfzPi6Q6QeN0pM1Fkzrjn+XYHvzMKPU3pHVpva+769iNVSfIYWf7LJ6WR+BuuMf8cA=="
   "resolved" "https://registry.npmjs.org/bs58check/-/bs58check-2.1.2.tgz"
   "version" "2.1.2"
@@ -3582,6 +3630,11 @@
     "chalk" "^2.4.1"
     "q" "^1.1.2"
 
+"coinselect@^3.1.12":
+  "integrity" "sha512-XKnm9wwZzJRGuvR1BGNbFZEfa4SEr38do8Z5riq0797QwMT836EqhdPuhtbn8uAX8vCMqJ7+gS4CHa1G9M5xhw=="
+  "resolved" "https://registry.npmjs.org/coinselect/-/coinselect-3.1.12.tgz"
+  "version" "3.1.12"
+
 "collect-v8-coverage@^1.0.0":
   "integrity" "sha512-iBPtljfCNcTKNAto0KEtDfZ3qzjJvqE3aTGZsbhjSBlorqpXJlaWWtPO35D+ZImoC3KWejX64o+yPGxhWSTzfg=="
   "resolved" "https://registry.npmjs.org/collect-v8-coverage/-/collect-v8-coverage-1.0.1.tgz"
@@ -3882,7 +3935,7 @@
     "ripemd160" "^2.0.1"
     "sha.js" "^2.4.0"
 
-"create-hmac@^1.1.0", "create-hmac@^1.1.4", "create-hmac@^1.1.7":
+"create-hmac@^1.1.0", "create-hmac@^1.1.3", "create-hmac@^1.1.4", "create-hmac@^1.1.7":
   "integrity" "sha512-MJG9liiZ+ogc4TzUwuvbER1JRdgvUFSB5+VR/g5h82fGaIRWMWddtKBHi7/sVhfjQZ6SehlyhvQYrcYkaUIpLg=="
   "resolved" "https://registry.npmjs.org/create-hmac/-/create-hmac-1.1.7.tgz"
   "version" "1.1.7"
@@ -7560,6 +7613,11 @@
   "resolved" "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz"
   "version" "1.4.1"
 
+"merkle-lib@^2.0.10":
+  "integrity" "sha1-grjbrnXieneFOItz+ddyXQ9vMyY="
+  "resolved" "https://registry.npmjs.org/merkle-lib/-/merkle-lib-2.0.10.tgz"
+  "version" "2.0.10"
+
 "methods@~1.1.2":
   "integrity" "sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4="
   "resolved" "https://registry.npmjs.org/methods/-/methods-1.1.2.tgz"
@@ -9406,6 +9464,13 @@
   "resolved" "https://registry.npmjs.org/punycode/-/punycode-1.3.2.tgz"
   "version" "1.3.2"
 
+"pushdata-bitcoin@^1.0.1":
+  "integrity" "sha1-FZMdPNlnreUiBvUjqnMxrvfUOvc="
+  "resolved" "https://registry.npmjs.org/pushdata-bitcoin/-/pushdata-bitcoin-1.0.1.tgz"
+  "version" "1.0.1"
+  dependencies:
+    "bitcoin-ops" "^1.3.0"
+
 "q@^1.1.2":
   "integrity" "sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc="
   "resolved" "https://registry.npmjs.org/q/-/q-1.5.1.tgz"
@@ -11182,7 +11247,7 @@
   "resolved" "https://registry.npmjs.org/timsort/-/timsort-0.3.0.tgz"
   "version" "0.3.0"
 
-"tiny-secp256k1@^1.1.3":
+"tiny-secp256k1@^1.1.1", "tiny-secp256k1@^1.1.3":
   "integrity" "sha512-FmqJZGduTyvsr2cF3375fqGHUovSwDi/QytexX1Se4BPuPZpTE5Ftp5fg+EFSuEf3lhZqgCRjEG3ydUQ/aNiwA=="
   "resolved" "https://registry.npmjs.org/tiny-secp256k1/-/tiny-secp256k1-1.1.6.tgz"
   "version" "1.1.6"
@@ -11414,7 +11479,7 @@
   "resolved" "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   "version" "0.0.6"
 
-"typeforce@^1.11.5":
+"typeforce@^1.11.3", "typeforce@^1.11.5":
   "integrity" "sha512-7uc1O8h1M1g0rArakJdf0uLRSSgFcYexrVoKo+bzJd32gd4gDy2L/Z+8/FjPnU9ydY3pEnVPtr9FyscYY60K1g=="
   "resolved" "https://registry.npmjs.org/typeforce/-/typeforce-1.18.0.tgz"
   "version" "1.18.0"
@@ -11641,6 +11706,13 @@
   dependencies:
     "spdx-correct" "^3.0.0"
     "spdx-expression-parse" "^3.0.0"
+
+"varuint-bitcoin@^1.0.4":
+  "integrity" "sha512-4EVb+w4rx+YfVM32HQX42AbbT7/1f5zwAYhIujKXKk8NQK+JfRVl3pqT3hjNn/L+RstigmGGKVwHA/P0wgITZw=="
+  "resolved" "https://registry.npmjs.org/varuint-bitcoin/-/varuint-bitcoin-1.1.2.tgz"
+  "version" "1.1.2"
+  dependencies:
+    "safe-buffer" "^5.1.1"
 
 "vary@~1.1.2":
   "integrity" "sha1-IpnwLG3tMNSllhsLn3RSShj2NPw="
@@ -11905,7 +11977,7 @@
   dependencies:
     "isexe" "^2.0.0"
 
-"wif@^2.0.6":
+"wif@^2.0.1", "wif@^2.0.6":
   "integrity" "sha1-CNP1IFbGZnkplyb63g1DKudLRwQ="
   "resolved" "https://registry.npmjs.org/wif/-/wif-2.0.6.tgz"
   "version" "2.0.6"
