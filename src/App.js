@@ -107,6 +107,9 @@ function App() {
 
       const thorAddress = await userThorchainClient.getAddress();
       console.log("thorAddress=======================>", thorAddress); 
+      const balanceThor = await userThorchainClient.getBalance(thorAddress);
+
+      console.log('balanceThor>>>>>:', balanceThor[0]) 
 
       console.log("decryption=====>", dec);
       const userEthereumClient = new ethereumClient({
