@@ -122,11 +122,10 @@ function App() {
 
       const provider = userEthereumClient.getProvider();
       console.log(provider)
-      // let addressEth = userEthereumClient.getAddress();
-      // const ethBalance = await provider.getBalance(addressEth);
-      // const balance1eth = await userEthereumClient.getBalance(addressEth);
-      // console.log("balance<><><><>", ethBalance);
-
+      let addressEth = userEthereumClient.getAddress();
+      const ethBalance = await provider.getBalance(addressEth);
+      const balance1eth = await userEthereumClient.getBalance(addressEth);
+      console.log("balance<><><><>", ethBalance.toString());
 
       const userLtcClient = new litecoinClient({ network, phrase:res });
       console.log("userLtcClient",userLtcClient.getAddress());
