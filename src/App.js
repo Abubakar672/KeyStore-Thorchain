@@ -9,6 +9,7 @@ import { Client as thorchainClient } from '@xchainjs/xchain-thorchain';
 import { Client as ethereumClient } from '@xchainjs/xchain-ethereum/lib';
 import { Client as litecoinClient } from '@xchainjs/xchain-litecoin';
 import { Client as bitcoinCashClient } from '@xchainjs/xchain-bitcoincash';
+import { AssetRuneNative, BaseAmount, assetAmount, assetToBase, baseAmount, AssetETH } from '@xchainjs/xchain-util'
 import {environment} from './environments';
 import {Client as PolkadotClient} from '@xchainjs/xchain-polkadot';
 
@@ -22,7 +23,7 @@ function App() {
   let fileReader
   let res
   let phrase
-  let dec
+  // let userThorchainClient
 
   //Generation of Random Phrase and Encryption is going on here 
   const keystore = async () => {
@@ -47,7 +48,7 @@ function App() {
       type: "text/plain;charset=utf-8"
     });
     element.href = URL.createObjectURL(file);
-    element.download = "Thro_Custom_Keystore";
+    element.download = "Thor_Custom_Keystore";
     document.body.appendChild(element);
     element.click();
   }
@@ -59,7 +60,34 @@ function App() {
     fileReader.readAsText(fileKeyStore);
     };
 
-    let client; 
+    //send Transaction
+    const sendTransaction = async ()=>{
+    // const userThorchainClient = new thorchainClient({ network: Network.Testnet, phrase :res });
+    // console.log("User Thorchain Client: ---------------> ",userThorchainClient);
+    const userEthereumClient = new ethereumClient({
+      network:'testnet',
+      phrase:res,
+      etherscanApiKey: environment.etherscanKey,
+      infuraCreds: { projectId: environment.infuraProjectId },
+    });
+    
+    //Ethereum Client Address is generation from here
+    console.log("User Ethereum Client: ---------------> ", userEthereumClient.getAddress());
+    const to_address= '0xf50dc8f6670b1c4f85565fc6dc8c316578a4fadd';
+    const send_amount = baseAmount(100000000000, 6);
+    const memo = 'transfer'
+
+    const result = await userEthereumClient.transfer({
+      asset: AssetETH,
+      recipient: to_address,
+      amount: send_amount,
+      memo,
+    })
+    console.log(result)
+   
+  }
+
+
     //File handiling is done here and getting the menomics after the decryption of the file data is done here
     const handleFileRead = async (e) => {
       const content = JSON.parse(fileReader.result);
@@ -73,7 +101,7 @@ function App() {
 
       //Binance Address is getting from here
       const userBinanceClient = new binanceClient({ network, phrase:res });
-      console.log("User Binance Client: ---------------> ", userBinanceClient.getAddress())
+      console.log("User Binance Client address: ---------------> ", userBinanceClient.getAddress())
       
       //Bitcoin Client is set here 
       const userBtcClient = new bitcoinClient({
@@ -102,7 +130,7 @@ function App() {
       const balanceThor = await userThorchainClient.getBalance(thorAddress);
       console.log('THORChain Balance: ---------------> ', balanceThor);
 
-      //Ethereum CLinet is set here 
+      // Ethereum CLinet is set here  
       const userEthereumClient = new ethereumClient({
         network:'testnet',
         phrase:res,
@@ -175,6 +203,11 @@ return <>
                   Upload!
                 </button>
         </div>
+        
+        <button
+         onClick={sendTransaction}>
+         send Transaction
+        </button>
 
       </Segment>
     </Container>
