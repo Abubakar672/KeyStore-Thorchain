@@ -9,7 +9,7 @@ import { Client as thorchainClient } from '@xchainjs/xchain-thorchain';
 import { Client as ethereumClient } from '@xchainjs/xchain-ethereum/lib';
 import { Client as litecoinClient } from '@xchainjs/xchain-litecoin';
 import { Client as bitcoinCashClient } from '@xchainjs/xchain-bitcoincash';
-import { AssetRuneNative, BaseAmount, assetAmount, assetToBase, baseAmount, AssetETH } from '@xchainjs/xchain-util'
+import { AssetRuneNative, BaseAmount, assetAmount, assetToBase, baseAmount, AssetETH, AssetBNB } from '@xchainjs/xchain-util'
 import {environment} from './environments';
 import {Client as PolkadotClient} from '@xchainjs/xchain-polkadot';
 
@@ -62,8 +62,6 @@ function App() {
 
     //send Transaction
     const sendTransaction = async ()=>{
-    // const userThorchainClient = new thorchainClient({ network: Network.Testnet, phrase :res });
-    // console.log("User Thorchain Client: ---------------> ",userThorchainClient);
     const userEthereumClient = new ethereumClient({
       network:'testnet',
       phrase:res,
@@ -71,7 +69,7 @@ function App() {
       infuraCreds: { projectId: environment.infuraProjectId },
     });
     
-    //Ethereum Client Address is generation from here
+    //Ethereum Transaction is doing here
     console.log("User Ethereum Client: ---------------> ", userEthereumClient.getAddress());
     const to_address= '0xf50dc8f6670b1c4f85565fc6dc8c316578a4fadd';
     const send_amount = baseAmount(100000000000, 6);
@@ -86,6 +84,27 @@ function App() {
     console.log(result)
    
   }
+
+  // const swapTransaction = async ()=>{
+
+  //   const userEthereumClient = new ethereumClient({
+  //     network:'testnet',
+  //     phrase:res,
+  //     etherscanApiKey: environment.etherscanKey,
+  //     infuraCreds: { projectId: environment.infuraProjectId },
+  //   });
+  //   console.log("User Ethereum Client: ---------------> ", userEthereumClient.getAddress());
+  //   const to_address= '0xf50dc8f6670b1c4f85565fc6dc8c316578a4fadd';
+  //   const send_amount = baseAmount(10000, 6);
+  //   const memo = 'swap:ETH.BNB:tbnb1ftzhmpzr4t8ta3etu4x7nwujf9jqckp3th2lh0'
+    
+  //   const result = await userEthereumClient.deposit({
+  //   asset: AssetBNB,
+  //   amount: send_amount,
+  //   memo,
+  //   })
+  //   console.log(result)
+  //   }
 
 
     //File handiling is done here and getting the menomics after the decryption of the file data is done here
@@ -207,6 +226,11 @@ return <>
         <button
          onClick={sendTransaction}>
          send Transaction
+        </button>
+
+        <button
+         onClick={sendTransaction}>
+         Swap
         </button>
 
       </Segment>
