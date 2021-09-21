@@ -10,7 +10,8 @@ import { Client as ethereumClient } from '@xchainjs/xchain-ethereum/lib';
 import { Client as litecoinClient } from '@xchainjs/xchain-litecoin';
 import { Client as bitcoinCashClient } from '@xchainjs/xchain-bitcoincash';
 import {environment} from './environments';
-import {Assets} from '@xchainjs/xchain-util';
+import {Client as PolkadotClient} from '@xchainjs/xchain-polkadot';
+
 
 function App() {
   const [response, setResponse] = React.useState("")
@@ -99,8 +100,7 @@ function App() {
       console.log("THORChain Address: ---------------> ", thorAddress);
       //Balance of THORChain is getting from here 
       const balanceThor = await userThorchainClient.getBalance(thorAddress);
-      // console.log('balances:', balanceThor[0].amount.amount().toString()) 
-      // console.log('balanceThor>>>>>:', balanceThor) 
+      console.log('THORChain Balance: ---------------> ', balanceThor);
 
       //Ethereum CLinet is set here 
       const userEthereumClient = new ethereumClient({
@@ -135,6 +135,13 @@ function App() {
       //BCH Client is setup here 
       const userbchClient = new bitcoinCashClient({ network, phrase:res });
       console.log("User BCH Client: ---------------> ",userbchClient.getAddress());
+
+      //PolkaDot Client is setup here
+      const userPolkaDotClient = new PolkadotClient({
+        network:'testnet',
+        phrase:res
+      });
+      console.log("User PolkaDot Client: ---------------> ", userPolkaDotClient.getAddress());
 
     };
   
