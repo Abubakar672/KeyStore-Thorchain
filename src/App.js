@@ -2,17 +2,15 @@ import { generatePhrase, encryptToKeyStore ,decryptFromKeystore} from '@xchainjs
 import React, { Component, useEffect } from "react";
 import { Button, Container, Header, Segment, Grid } from 'semantic-ui-react';
 import './App.css';
-import { Client } from '@xchainjs/xchain-thorchain';
 import {Network} from '@xchainjs/xchain-client';
-// import { Client, Network } from '@xchainjs/xchain-bitcoin/lib'
 import { Client as binanceClient } from '@xchainjs/xchain-binance';
 import { Client as bitcoinClient } from '@xchainjs/xchain-bitcoin';
 import { Client as thorchainClient } from '@xchainjs/xchain-thorchain';
 import { Client as ethereumClient } from '@xchainjs/xchain-ethereum/lib';
 import { Client as litecoinClient } from '@xchainjs/xchain-litecoin';
 import { Client as bitcoinCashClient } from '@xchainjs/xchain-bitcoincash';
-import {environment} from './environments'
-
+import {environment} from './environments';
+import {Assets} from '@xchainjs/xchain-util';
 
 function App() {
   const [response, setResponse] = React.useState("")
@@ -24,8 +22,6 @@ function App() {
   let res
   let phrase
   let dec
-  // console.log("Response ================ ", response)
-
 
   //Generation of Random Phrase and Encryption is going on here 
   const keystore = async () => {
@@ -35,24 +31,12 @@ function App() {
       key = await encryptToKeyStore(phrase, input);
       // console.log('key========>', key)
       
+      /*File Downloading function is called here to download the Text File*/
       downloadTextFile();
-
     } catch (error) {
       console.log(error);
     }
   }
-
-//   const handleValidation =() => {
-//     const { input } = this.state;
-
-//     // only each block with generate error
-//     if (!input || isNaN(input)) {
-//       this.setState({ error: 'price is not valid' });
-//     }else {
-//       this.setState({error: ""})
-//       // submit code here
-//     }
-// }
 
   /*File creation and saving here*/ 
   const downloadTextFile = () => {
@@ -66,7 +50,7 @@ function App() {
     document.body.appendChild(element);
     element.click();
   }
-
+  
   //File Decryption is going here
   const decryptKeyStore = async () => {
     fileReader = new FileReader();
@@ -75,70 +59,83 @@ function App() {
     };
 
     let client; 
-
     //File handiling is done here and getting the menomics after the decryption of the file data is done here
-
     const handleFileRead = async (e) => {
       const content = JSON.parse(fileReader.result);
       console.log("content", content);
       res = await decryptFromKeystore(content, input);
       console.log("decryption=====>", res);
-      dec = await decryptFromKeystore(content, input);
-      console.log("decryption=====>", dec);
-      // … do something with the 'content' …
+
+      //Network is defined here for all the general networks 
       const network = environment.network === 'testnet' ? Network.Testnet : Network.Mainnet;
-      console.log("Network", network)
+      console.log("Enabled Network: ---------------> ", network)
+
+      //Binance Address is getting from here
       const userBinanceClient = new binanceClient({ network, phrase:res });
-      console.log("userBinanceClient", userBinanceClient.getAddress())
+      console.log("User Binance Client: ---------------> ", userBinanceClient.getAddress())
       
+      //Bitcoin Client is set here 
       const userBtcClient = new bitcoinClient({
         network,
         phrase:res,
         sochainUrl: 'https://sochain.com/api/v2',
         blockstreamUrl: 'https://blockstream.info',
       });
-      console.log("userBtcClient<><><><><><><>", userBtcClient.getAddress())
+
+      //Bitcoin Client is Address generating from here
+      console.log("User Btc Client: ---------------> ", userBtcClient.getAddress())
       let addressBtc = userBtcClient.getAddress();
+      console.log("BTC Address: ---------------> ",addressBtc);
+      //Balance of Bitcoin is getting from here
       const balanceBtc = await userBtcClient.getBalance(addressBtc);
-      console.log("balance<><><><>", balanceBtc);
+      console.log("balance: ---------------> ", balanceBtc);
 
-      const userThorchainClient = new thorchainClient({ network, phrase :dec });
-      console.log("userThorchainClient",userThorchainClient);
+      //Thorchain Client is set here 
+      const userThorchainClient = new thorchainClient({ network, phrase :res });
+      console.log("User Thorchain Client: ---------------> ",userThorchainClient);
 
+      //Thorchain Address is generation from here 
       const thorAddress = await userThorchainClient.getAddress();
-      console.log("thorAddress=======================>", thorAddress); 
+      console.log("THORChain Address: ---------------> ", thorAddress);
+      //Balance of THORChain is getting from here 
       const balanceThor = await userThorchainClient.getBalance(thorAddress);
+      // console.log('balances:', balanceThor[0].amount.amount().toString()) 
+      // console.log('balanceThor>>>>>:', balanceThor) 
 
-      console.log('balanceThor>>>>>:', balanceThor[0]) 
-
-      console.log("decryption=====>", dec);
+      //Ethereum CLinet is set here 
       const userEthereumClient = new ethereumClient({
         network:'testnet',
-        phrase:dec,
+        phrase:res,
         etherscanApiKey: environment.etherscanKey,
         infuraCreds: { projectId: environment.infuraProjectId },
       });
-      console.log("userEthereumClient======================>", userEthereumClient.getAddress());
-
-      const provider = userEthereumClient.getProvider();
-      console.log(provider)
-      let addressEth = userEthereumClient.getAddress();
-      const ethBalance = await provider.getBalance(addressEth);
-      const balance1eth = await userEthereumClient.getBalance(addressEth);
-      console.log("balance<><><><>", ethBalance.toString());
-
-      const userLtcClient = new litecoinClient({ network, phrase:res });
-      console.log("userLtcClient",userLtcClient.getAddress());
       
+      //Ethereum Client Address is generation from here
+      console.log("User Ethereum Client: ---------------> ", userEthereumClient.getAddress());
+      
+      //Ethereum CLient Provider is printing here
+      const provider = userEthereumClient.getProvider();
+      console.log("Ethereum Provider: ---------------> ",provider);
+      
+      let addressEth = userEthereumClient.getAddress();
+      console.log("Ethereum Address: ---------------> ", addressEth)
+      
+      //Ethereum Client Balance is getting from here 
+      const balance1eth = await userEthereumClient.getBalance(addressEth);
+      console.log("Ethereum Client Balance: ---------------> ",balance1eth);
+
+      //Ethereum Balance is getting from here
+      const ethBalance = await provider.getBalance(addressEth);
+      console.log("Ethereum Balance: ---------------> ", ethBalance.toString());
+
+      //LTC Client is setup here 
+      const userLtcClient = new litecoinClient({ network, phrase:res });
+      console.log("User LTC Client: ---------------> ",userLtcClient.getAddress());
+      
+      //BCH Client is setup here 
       const userbchClient = new bitcoinCashClient({ network, phrase:res });
-      console.log("userbchClient",userbchClient.getAddress());
+      console.log("User BCH Client: ---------------> ",userbchClient.getAddress());
 
-
-      //ThorChain address coming from here
-      client = new Client({ network: Network.Testnet, phrase: res })
-      const address = client.getAddress()
-      console.log('address:', client.getAddress())  
-      console.log(address)
     };
   
   //Submit button to trigger the things 
