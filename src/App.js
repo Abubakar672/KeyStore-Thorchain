@@ -86,7 +86,6 @@ function App() {
   }
 
   // const swapTransaction = async ()=>{
-
   //   const userEthereumClient = new ethereumClient({
   //     network:'testnet',
   //     phrase:res,
@@ -117,11 +116,16 @@ function App() {
       //Network is defined here for all the general networks 
       const network = environment.network === 'testnet' ? Network.Testnet : Network.Mainnet;
       console.log("Enabled Network: ---------------> ", network)
-
       //Binance Address is getting from here
       const userBinanceClient = new binanceClient({ network, phrase:res });
-      console.log("User Binance Client address: ---------------> ", userBinanceClient.getAddress())
+      let BinanceClientAddress= userBinanceClient.getAddress();
+      console.log("User Binance Client address: ---------------> ",BinanceClientAddress);
+      //Transactions history of Binance Client getting here 
+      const transationResultOfBinanceClient= await userBinanceClient.getTransactions({address: BinanceClientAddress})
+      console.log("Transaction Data of Binance CLient", transationResultOfBinanceClient);
       
+
+
       //Bitcoin Client is set here 
       const userBtcClient = new bitcoinClient({
         network,
@@ -129,7 +133,6 @@ function App() {
         sochainUrl: 'https://sochain.com/api/v2',
         blockstreamUrl: 'https://blockstream.info',
       });
-
       //Bitcoin Client is Address generating from here
       console.log("User Btc Client: ---------------> ", userBtcClient.getAddress())
       let addressBtc = userBtcClient.getAddress();
@@ -137,17 +140,26 @@ function App() {
       //Balance of Bitcoin is getting from here
       const balanceBtc = await userBtcClient.getBalance(addressBtc);
       console.log("balance: ---------------> ", balanceBtc);
+      //Transactions history of BTC Client getting here 
+      const transationResultOfBTCClient= await userBtcClient.getTransactions({address: addressBtc})
+      console.log("Transaction Data of BTC CLient", transationResultOfBTCClient);
+
+
+
 
       //Thorchain Client is set here 
       const userThorchainClient = new thorchainClient({ network, phrase :res });
       console.log("User Thorchain Client: ---------------> ",userThorchainClient);
-
       //Thorchain Address is generation from here 
       const thorAddress = await userThorchainClient.getAddress();
-      console.log("THORChain Address: ---------------> ", thorAddress);
+      console.log("THORChain Address: ---------------> ", thorAddress);      
       //Balance of THORChain is getting from here 
       const balanceThor = await userThorchainClient.getBalance(thorAddress);
       console.log('THORChain Balance: ---------------> ', balanceThor);
+      //Transactions history of Thorchain Client getting here 
+      const transationResultOfTHORChain= await userThorchainClient.getTransactions({address: thorAddress})
+      console.log("Transaction Data of Binance CLient", transationResultOfTHORChain);
+      
 
       // Ethereum CLinet is set here  
       const userEthereumClient = new ethereumClient({
