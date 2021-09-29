@@ -1,0 +1,62 @@
+{
+    "name": "mmap-io",
+    "version": "1.1.7",
+    "license": "MIT",
+    "author": {
+        "name": "Oscar Campbell",
+        "email": "oscar@campbell.nu",
+        "url": "https://github.com/ozra"
+    },
+    "description": "io.js/node.js mmap bindings revisited.",
+    "homepage": "https://github.com/ozra/mmap-io",
+    "keywords": [
+        "low level",
+        "file",
+        "memory mapped",
+        "mmap",
+        "advise",
+        "sync",
+        "shared memory",
+        "C++",
+        "performance"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ozra/mmap-io.git"
+    },
+    "bugs": {
+        "url": "http://github.com/ozra/mmap-io/issues"
+    },
+    "main": "mmap-io.js",
+    "files": [
+        "binding.gyp",
+        "LICENSE",
+        "dist",
+        "mmap-io.d.ts",
+        "mmap-io.js",
+        "package.json",
+        "package-lock.json",
+        "README.md",
+        "src"
+    ],
+    "scripts": {
+        "clean": "rm -rf build dist",
+        "build": "npm run build-addon && npm run build-es && npm run test",
+        "build-addon": "node-gyp configure && node-gyp rebuild",
+        "build-es": "./node_modules/typescript/bin/tsc && cp ./dist/mmap-io.d.ts ./",
+        "prepare": "npm run build",
+        "install": "npm run build-addon",
+        "test": "./node_modules/livescript/bin/lsc -o ./dist/ -b -c ./src/test.ls && ((which nodejs && nodejs ./dist/test.js) || node ./dist/test.js)",
+        "watch": "while true; do (npm run build; inotifywait -qre close_write,moved_to --exclude '\\.git' ./src/; ) done;"
+    },
+    "devDependencies": {
+        "@types/node": "^11.10.5",
+        "typescript": "^3.5.3",
+        "livescript": "^1.6.0"
+    },
+    "dependencies": {
+        "errno": "*",
+        "bindings": "^1.5.0",
+        "nan": "^2.14.0"
+    }
+}
