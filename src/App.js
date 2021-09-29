@@ -105,13 +105,13 @@ function App() {
   //   console.log(result)
   //   }
 
-
     //File handiling is done here and getting the menomics after the decryption of the file data is done here
     const handleFileRead = async (e) => {
       const content = JSON.parse(fileReader.result);
       console.log("content", content);
       res = await decryptFromKeystore(content, input);
       console.log("decryption=====>", res);
+
 
       //Network is defined here for all the general networks 
       const network = environment.network === 'testnet' ? Network.Testnet : Network.Mainnet;
@@ -158,8 +158,9 @@ function App() {
       console.log('THORChain Balance: ---------------> ', balanceThor);
       //Transactions history of Thorchain Client getting here 
       const transationResultOfTHORChain= await userThorchainClient.getTransactions({address: thorAddress})
-      console.log("Transaction Data of Binance CLient", transationResultOfTHORChain);
+      console.log("Transaction Data of THORChain CLient", transationResultOfTHORChain);
       
+
 
       // Ethereum CLinet is set here  
       const userEthereumClient = new ethereumClient({
@@ -168,32 +169,56 @@ function App() {
         etherscanApiKey: environment.etherscanKey,
         infuraCreds: { projectId: environment.infuraProjectId },
       });
-      
-      //Ethereum Client Address is generation from here
-      console.log("User Ethereum Client: ---------------> ", userEthereumClient.getAddress());
-      
+      // //Ethereum Client Address is generation from here
+      // console.log("User Ethereum Client: ---------------> ", userEthereumClient.getAddress());
       //Ethereum CLient Provider is printing here
       const provider = userEthereumClient.getProvider();
       console.log("Ethereum Provider: ---------------> ",provider);
-      
+      // //Ethereum Balance is getting from here
+      // const ethBalance = await provider.getBalance(addressEth);
+      // console.log("Ethereum Balance: ---------------> ", ethBalance.toString());
       let addressEth = userEthereumClient.getAddress();
       console.log("Ethereum Address: ---------------> ", addressEth)
-      
       //Ethereum Client Balance is getting from here 
       const balance1eth = await userEthereumClient.getBalance(addressEth);
       console.log("Ethereum Client Balance: ---------------> ",balance1eth);
+      //Transactions history of Ethereum Client getting here 
+      const transationResultOfEthereum= await userEthereumClient.getTransactions({address: addressEth})
+      console.log("Transaction Data of Ethereum CLient", transationResultOfEthereum);
 
-      //Ethereum Balance is getting from here
-      const ethBalance = await provider.getBalance(addressEth);
-      console.log("Ethereum Balance: ---------------> ", ethBalance.toString());
 
+
+     
       //LTC Client is setup here 
-      const userLtcClient = new litecoinClient({ network, phrase:res });
-      console.log("User LTC Client: ---------------> ",userLtcClient.getAddress());
-      
+      const userLtcClient = new litecoinClient({
+         network, 
+         phrase:res 
+        });
+      // LTC Client Address generation is done here
+      let addressLTC = userLtcClient.getAddress();
+      console.log("User LTC Client: ---------------> ",addressLTC);
+      //LTC Client Balance is getting from here 
+      const balanceLTC = await userLtcClient.getBalance(addressLTC);
+      console.log("LTC Client Balance: ---------------> ",balanceLTC);
+      //Transactions history of LTC Client getting here 
+      const transationResultOfLTC= await userLtcClient.getTransactions({address: addressLTC})
+      console.log("Transaction Data of LTC CLient", transationResultOfLTC);
+
+
+
       //BCH Client is setup here 
-      const userbchClient = new bitcoinCashClient({ network, phrase:res });
-      console.log("User BCH Client: ---------------> ",userbchClient.getAddress());
+      const userbchClient = new bitcoinCashClient({ network,
+        phrase:res 
+      });
+      //BCH Client Address generation is done here
+      let addressBCH =userbchClient.getAddress();
+      console.log("User BCH Client: ---------------> ",addressBCH);
+      //BCH Client Balance getting is done here
+      const balanceBCH = await userbchClient.getBalance(addressBCH);
+      console.log("LTC Client Balance: ---------------> ",balanceBCH);
+      //Transaction History of BCH Client getting here
+      const transationResultOfBCH= await userbchClient.getTransactions({address: addressBCH})
+      console.log("Transaction Data of LTC CLient", transationResultOfBCH);
 
       //PolkaDot Client is setup here
       const userPolkaDotClient = new PolkadotClient({
