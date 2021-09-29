@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@binance-chain/javascript-sdk": "^4.2.0",
+    "@ethersproject/providers": "^5.4.5",
     "@polkadot/api": "^6.0.5",
     "@polkadot/util": "^7.4.1",
     "@psf/bitcoincashjs-lib": "^4.0.2",
@@ -30,6 +31,7 @@
     "bignumber.js": "^9.0.1",
     "bitcoinjs-lib": "^5.2.0",
     "cosmos-client": "^0.39.2",
+    "ethers": "^5.4.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
