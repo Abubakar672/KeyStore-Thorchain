@@ -12,7 +12,9 @@ import { Client as bitcoinCashClient } from '@xchainjs/xchain-bitcoincash';
 import { AssetRuneNative, BaseAmount, assetAmount, assetToBase, baseAmount, AssetETH, AssetBNB } from '@xchainjs/xchain-util'
 import {environment} from './environments';
 import {Client as PolkadotClient} from '@xchainjs/xchain-polkadot';
-
+// import {isBigNumberValue} from '@xchainjs/xchain-util/lib/asset';
+import BigNumber from 'bignumber.js';
+import { Amount, Asset, AssetAmount, Denomination } from '@xchainjs/xchain-util'
 
 function App() {
   const [response, setResponse] = React.useState("")
@@ -153,7 +155,7 @@ function App() {
       //Thorchain Address is generation from here 
       const thorAddress = await userThorchainClient.getAddress();
       console.log("THORChain Address: ---------------> ", thorAddress);      
-      //Balance of THORChain is getting from here 
+      //Balance of THORChain is getting from here "transfer"
       const balanceThor = await userThorchainClient.getBalance(thorAddress);
       console.log('THORChain Balance: ---------------> ', balanceThor);
       //Transactions history of Thorchain Client getting here 
@@ -182,10 +184,7 @@ function App() {
       //Ethereum Client Balance is getting from here 
       const balance1eth = await userEthereumClient.getBalance(addressEth);
       console.log("Ethereum Client Balance: ---------------> ",balance1eth);
-      //Transactions history of Ethereum Client getting here 
-      const transationResultOfEthereum= await userEthereumClient.getTransactions({address: addressEth})
-      console.log("Transaction Data of Ethereum CLient", transationResultOfEthereum);
-
+      //Transactions import { Amount, Asset, AssetAmount, Denomination } from '@xchainjs/xchain-util/lib/types';
 
 
      
@@ -227,7 +226,12 @@ function App() {
       });
       console.log("User PolkaDot Client: ---------------> ", userPolkaDotClient.getAddress());
 
-    };
+
+//Assets getting work from xchain done here 
+
+    //   let gettingValue= AssetValue.isBig
+
+     };
   
   //Submit button to trigger the things 
   const SubmitAll=async()=>{
