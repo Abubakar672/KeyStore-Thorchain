@@ -9,18 +9,20 @@ import { Client as thorchainClient } from '@xchainjs/xchain-thorchain';
 import { Client as ethereumClient } from '@xchainjs/xchain-ethereum/lib';
 import { Client as litecoinClient } from '@xchainjs/xchain-litecoin';
 import { Client as bitcoinCashClient } from '@xchainjs/xchain-bitcoincash';
-import { AssetRuneNative, BaseAmount, assetAmount, assetToBase, baseAmount, AssetETH, AssetBNB } from '@xchainjs/xchain-util'
+import { AssetRuneNative, BaseAmount, assetAmount, assetToBase, baseAmount, AssetETH, AssetBNB ,assetFromString} from '@xchainjs/xchain-util'
+import * as types from '@xchainjs/xchain-util'
 import {environment} from './environments';
 import {Client as PolkadotClient} from '@xchainjs/xchain-polkadot';
-// import {isBigNumberValue} from '@xchainjs/xchain-util/lib/asset';
+import * as asset  from '@xchainjs/xchain-util';
 import BigNumber from 'bignumber.js';
-import { Amount, Asset, AssetAmount, Denomination } from '@xchainjs/xchain-util'
 
 function App() {
   const [response, setResponse] = React.useState("")
   const [input, setInput] = React.useState("")
   const [fileKeyStore , setfileKeyStore] = React.useState("")
 
+let test = types;
+console.log("HLLLLLLOOOOOO", test.AssetETH);
   let key
   let fileReader
   let res
@@ -229,8 +231,39 @@ function App() {
 
 //Assets getting work from xchain done here 
 
-    //   let gettingValue= AssetValue.isBig
+// const getChainAsset = (chain) => {
+//   console.log("=====> I AMM HERE ", chain)
+//   switch (chain) {
+//     case 'BTC':
+//       return new asset('BTC.BTC');
 
+//     case 'LTC':
+//       return new asset('LTC.LTC');
+
+//     case 'BCH':
+//       return new asset('BCH.BCH');
+
+//     case 'ETH':
+
+//       return new asset('ETH.ETH');
+
+//     case 'BNB':
+//       return new asset('BNB.BNB');
+
+//     case 'THOR':
+//       return new asset('THOR.RUNE');
+
+//     default:
+//       return null;
+//   }
+// }
+
+
+
+// const assetIsChainAsset = (asset)=> {
+//   return assetFromString(getChainAsset(asset))===assetFromString(asset);
+// }
+// console.log("==================>>>>>>>>",assetIsChainAsset('ETH'));
      };
   
   //Submit button to trigger the things 
