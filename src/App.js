@@ -10,10 +10,11 @@ import { Client as ethereumClient } from '@xchainjs/xchain-ethereum/lib';
 import { Client as litecoinClient } from '@xchainjs/xchain-litecoin';
 import { Client as bitcoinCashClient } from '@xchainjs/xchain-bitcoincash';
 import { AssetRuneNative, BaseAmount, assetAmount, assetToBase, baseAmount, AssetETH, AssetBNB ,assetFromString} from '@xchainjs/xchain-util'
-import * as types from '@xchainjs/xchain-util'
+import * as types from '@xchainjs/xchain-util';
+import * as asset from '@xchainjs/xchain-util';
+
 import {environment} from './environments';
 import {Client as PolkadotClient} from '@xchainjs/xchain-polkadot';
-import * as asset  from '@xchainjs/xchain-util';
 import BigNumber from 'bignumber.js';
 
 function App() {
@@ -21,9 +22,23 @@ function App() {
   const [input, setInput] = React.useState("")
   const [fileKeyStore , setfileKeyStore] = React.useState("")
 
+
+
+  // Types modeule coming from here 
 let test = types;
-console.log("HLLLLLLOOOOOO", test.AssetETH);
-  let key
+console.log("HLLLLLLOOOOOO", test.run);
+
+
+
+// Asset modueles coming from here 
+let ass = asset;
+console.log("Assets Moduele I am here ============>", ass);
+console.log(ass.assetAmount)
+
+
+
+
+let key
   let fileReader
   let res
   let phrase
@@ -185,6 +200,8 @@ console.log("HLLLLLLOOOOOO", test.AssetETH);
       console.log("Ethereum Address: ---------------> ", addressEth)
       //Ethereum Client Balance is getting from here 
       const balance1eth = await userEthereumClient.getBalance(addressEth);
+      const assetofeth = await ass.AssetETH;
+      console.log("Ethereum Assets is coming here ========>", assetofeth);
       console.log("Ethereum Client Balance: ---------------> ",balance1eth);
       //Transactions import { Amount, Asset, AssetAmount, Denomination } from '@xchainjs/xchain-util/lib/types';
 
