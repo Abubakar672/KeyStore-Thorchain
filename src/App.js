@@ -140,6 +140,12 @@ let key
       let BinanceClientAddress= userBinanceClient.getAddress();
       console.log("User Binance Client address: ---------------> ",BinanceClientAddress);
       //Transactions history of Binance Client getting here 
+      
+      const BinanceBalance = await userBinanceClient.getBalance(BinanceClientAddress);
+
+      for(let i = 0; i< BinanceBalance.length ; i++){
+        console.log('Binance Balance: ---------------> ', BinanceBalance[i].amount.amount());
+      }
       const transationResultOfBinanceClient= await userBinanceClient.getTransactions({address: BinanceClientAddress})
       console.log("Transaction Data of Binance CLient", transationResultOfBinanceClient);
       
@@ -158,7 +164,7 @@ let key
       console.log("BTC Address: ---------------> ",addressBtc);
       //Balance of Bitcoin is getting from here
       const balanceBtc = await userBtcClient.getBalance(addressBtc);
-      console.log("balance: ---------------> ", balanceBtc);
+      console.log("balance: ---------------> ", balanceBtc[0].amount.amount());
       //Transactions history of BTC Client getting here 
       const transationResultOfBTCClient= await userBtcClient.getTransactions({address: addressBtc})
       console.log("Transaction Data of BTC CLient", transationResultOfBTCClient);
@@ -166,15 +172,39 @@ let key
 
 
 
+
+      // const balances = bncBalances.map((balance) => {
+      //   const asset = assetFromString(`BNB.${balance.symbol}`);
+
+      //   return {
+      //     asset,
+      //     amount: assetToBase(assetAmount(balance.free, 8)),
+      //     frozenAmount: assetToBase(assetAmount(balance.frozen, 8)),
+      //   };
+      // });
+
+
+
+
       //Thorchain Client is set here 
       const userThorchainClient = new thorchainClient({ network, phrase :res });
       console.log("User Thorchain Client: ---------------> ",userThorchainClient);
+  
+
       //Thorchain Address is generation from here 
       const thorAddress = await userThorchainClient.getAddress();
-      console.log("THORChain Address: ---------------> ", thorAddress);      
+      console.log("THORChain Address: ---------------> ", thorAddress);
+      
+      
+      // const Thorprovider = userThorchainClient.getProvider();
+      // const thoorbalance = await provider.getBalance(thorAddress);
+      // console.log("//////////////////////,,,,,,,,,,,,,,,,,,,,",thoorbalance);
+
       //Balance of THORChain is getting from here "transfer"
       const balanceThor = await userThorchainClient.getBalance(thorAddress);
-      console.log('THORChain Balance: ---------------> ', balanceThor);
+      for(let i = 0; i< balanceThor.length ; i++){
+        console.log('THORChain Balance: ---------------> ', balanceThor[i].amount.amount());
+      }
       //Transactions history of Thorchain Client getting here 
       const transationResultOfTHORChain= await userThorchainClient.getTransactions({address: thorAddress})
       console.log("Transaction Data of THORChain CLient", transationResultOfTHORChain);
@@ -194,15 +224,24 @@ let key
       const provider = userEthereumClient.getProvider();
       console.log("Ethereum Provider: ---------------> ",provider);
       // //Ethereum Balance is getting from here
-      // const ethBalance = await provider.getBalance(addressEth);
-      // console.log("Ethereum Balance: ---------------> ", ethBalance.toString());
+
       let addressEth = userEthereumClient.getAddress();
+      
+      const ethBalance = await provider.getBalance(addressEth);
+      console.log("Ethereum Balance: ---------------> ", ethBalance.toString());
+     
       console.log("Ethereum Address: ---------------> ", addressEth)
       //Ethereum Client Balance is getting from here 
+      
+      
       const balance1eth = await userEthereumClient.getBalance(addressEth);
       const assetofeth = await ass.AssetETH;
+      for(let i = 0; i< balance1eth.length ; i++){
+        console.log("Ethereum Client Balance: ---------------> ",balance1eth[i].amount.amount());
+      }
+
       console.log("Ethereum Assets is coming here ========>", assetofeth);
-      console.log("Ethereum Client Balance: ---------------> ",balance1eth);
+
       //Transactions import { Amount, Asset, AssetAmount, Denomination } from '@xchainjs/xchain-util/lib/types';
 
 
