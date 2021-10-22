@@ -121,7 +121,7 @@ let key
   //   amount: send_amount,
   //   memo,
   //   })
-  //   console.log(result)
+  //   console.log(result)      console.log('THORChain Balance: ---------------> ', balanceThor);
   //   }
 
     //File handiling is done here and getting the menomics after the decryption of the file data is done here
@@ -142,7 +142,7 @@ let key
       //Transactions history of Binance Client getting here 
       
       const BinanceBalance = await userBinanceClient.getBalance(BinanceClientAddress);
-
+      console.log('Binance Balance: ---------------> ', BinanceBalance);
       for(let i = 0; i< BinanceBalance.length ; i++){
         console.log('Binance Balance: ---------------> ', BinanceBalance[i].amount.amount());
       }
@@ -202,7 +202,9 @@ let key
 
       //Balance of THORChain is getting from here "transfer"
       const balanceThor = await userThorchainClient.getBalance(thorAddress);
+    
       for(let i = 0; i< balanceThor.length ; i++){
+        console.log('THORChain Balance: ---------------> ', balanceThor);
         console.log('THORChain Balance: ---------------> ', balanceThor[i].amount.amount());
       }
       //Transactions history of Thorchain Client getting here 
@@ -228,16 +230,16 @@ let key
       let addressEth = userEthereumClient.getAddress();
       
       const ethBalance = await provider.getBalance(addressEth);
-      console.log("Ethereum Balance: ---------------> ", ethBalance.toString());
+      // console.log("Ethereum Balance: ---------------> ", ethBalance.toString());
      
       console.log("Ethereum Address: ---------------> ", addressEth)
       //Ethereum Client Balance is getting from here 
-      
-      
       const balance1eth = await userEthereumClient.getBalance(addressEth);
       const assetofeth = await ass.AssetETH;
+  
       for(let i = 0; i< balance1eth.length ; i++){
-        console.log("Ethereum Client Balance: ---------------> ",balance1eth[i].amount.amount());
+        console.log('Ethereum Balance: ---------------> ', ethBalance);
+        // console.log("Ethereum Client Balance: ---------------> ",ethBalance[i].amount.amount());
       }
 
       console.log("Ethereum Assets is coming here ========>", assetofeth);
