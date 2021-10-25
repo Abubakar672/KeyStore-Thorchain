@@ -92,7 +92,7 @@ let key
     console.log("User Ethereum Client: ---------------> ", userEthereumClient.getAddress());
     const to_address= '0xf50dc8f6670b1c4f85565fc6dc8c316578a4fadd';
     const send_amount = baseAmount(100000000000, 6);
-    const memo = 'transfer'
+    const memo = 'W'
 
     const result = await userEthereumClient.transfer({
       asset: AssetETH,
@@ -244,7 +244,7 @@ let key
 
       console.log("Ethereum Assets is coming here ========>", assetofeth);
 
-      //Transactions import { Amount, Asset, AssetAmount, Denomination } from '@xchainjs/xchain-util/lib/types';
+      
 
 
      
@@ -286,6 +286,35 @@ let key
       });
       console.log("User PolkaDot Client: ---------------> ", userPolkaDotClient.getAddress());
 
+
+    // const checkSummedAsset = (
+    //     poolName
+    //   )=> {
+    //     const asset = new Asset(poolName);
+    //     const assetAddress = asset.symbol.slice(asset.ticker.length + 1);
+    //     const strip0x =
+    //       assetAddress.substr(0, 2).toUpperCase() === '0X'
+    //         ? assetAddress.substr(2)
+    //         : assetAddress;
+    //     const checkSummedAddress = ethers.utils.getAddress(strip0x);
+    //     return {
+    //       chain: asset.chain,
+    //       ticker: asset.ticker,
+    //       symbol: `${asset.ticker}-${checkSummedAddress}`,
+    //     };
+    //   };
+
+
+      const pools = await this.midgardService.getPools().toPromise();
+      const ethTokenPools = pools
+        .filter((pool) => pool.asset.indexOf('ETH') === 0)
+        .filter((ethPool) => ethPool.asset.indexOf('-') >= 0);
+      
+      for (const token of ethTokenPools) {
+        // const tokenAsset = checkSummedAsset(token.asset);
+        // assetsToQuery.push(tokenAsset);
+      }
+console.log("Poolssss here ------------------------>",pools);
      };
   
   //Submit button to trigger the things 
@@ -294,6 +323,8 @@ let key
   console.log("fileKeyStroe====>", typeof fileKeyStore);
   decryptKeyStore()
 }
+
+
 return <>
     <Container>
       <Segment>
