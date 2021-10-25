@@ -88,7 +88,7 @@ let key
       infuraCreds: { projectId: environment.infuraProjectId },
     });
     
-    //Ethereum Transaction is doing here
+    //Ethereum Transaction is doing here584849890757910104 
     console.log("User Ethereum Client: ---------------> ", userEthereumClient.getAddress());
     const to_address= '0xf50dc8f6670b1c4f85565fc6dc8c316578a4fadd';
     const send_amount = baseAmount(100000000000, 6);
@@ -286,42 +286,6 @@ let key
       });
       console.log("User PolkaDot Client: ---------------> ", userPolkaDotClient.getAddress());
 
-
-//Assets getting work from xchain done here 
-
-// const getChainAsset = (chain) => {
-//   console.log("=====> I AMM HERE ", chain)
-//   switch (chain) {
-//     case 'BTC':
-//       return new asset('BTC.BTC');
-
-//     case 'LTC':
-//       return new asset('LTC.LTC');
-
-//     case 'BCH':
-//       return new asset('BCH.BCH');
-
-//     case 'ETH':
-
-//       return new asset('ETH.ETH');
-
-//     case 'BNB':
-//       return new asset('BNB.BNB');
-
-//     case 'THOR':
-//       return new asset('THOR.RUNE');
-
-//     default:
-//       return null;
-//   }
-// }
-
-
-
-// const assetIsChainAsset = (asset)=> {
-//   return assetFromString(getChainAsset(asset))===assetFromString(asset);
-// }
-// console.log("==================>>>>>>>>",assetIsChainAsset('ETH'));
      };
   
   //Submit button to trigger the things 
