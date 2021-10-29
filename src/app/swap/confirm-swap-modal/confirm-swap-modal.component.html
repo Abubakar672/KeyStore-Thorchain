@@ -1,0 +1,115 @@
+
+<div *ngIf="swapData">
+
+  <div *ngIf="txState === 'PENDING_CONFIRMATION'">
+
+    <div class="p-4 confirm-modal-head">
+      <div class="flex justify-between items-center mb-4">
+        <h1 mat-dialog-title>Confirm Swap</h1>
+        <!-- close dialog -->
+        <div mat-dialog-actions>
+          <button mat-icon-button aria-label="Close Dialog" (click)="closeDialog()" mat-dialog-close>
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex justify-between transaction-detail">
+
+        <div class="flex items-center">
+          <div class="asset-icon-container flex items-center mr-4">
+            <img *ngIf="swapData.sourceAsset.iconPath" [src]="swapData.sourceAsset.iconPath" appImgFallback />
+            <mat-icon *ngIf="!swapData.sourceAsset.iconPath">help_outline</mat-icon>
+          </div>
+          <span class="text-xl mr-2">{{swapData.inputValue}}</span>
+        </div>
+
+        <span>{{swapData.sourceAsset.ticker}}</span>
+      </div>
+
+      <div class="flex">
+        <mat-icon class="to-btn-icon text-sm disabled ml-1 mb-4">arrow_downward</mat-icon>
+      </div>
+
+      <div class="flex justify-between transaction-detail">
+
+        <div class="flex items-center">
+          <div class="asset-icon-container flex items-center mr-4">
+            <img *ngIf="swapData.targetAsset.iconPath" [src]="swapData.targetAsset.iconPath" appImgFallback />
+            <mat-icon *ngIf="!swapData.targetAsset.iconPath">help_outline</mat-icon>
+          </div>
+          <span class="text-xl mr-2">{{swapData.outputValue}}</span>
+        </div>
+
+        <span>{{swapData.targetAsset.ticker}}</span>
+
+      </div>
+
+      <span class="italic text-gray-300 text-xs">Output is estimated</span>
+
+    </div>
+
+    <div class="clear-both">
+      <div mat-dialog-content class="confirm-modal-content">
+
+        <div>
+
+          <div class="flex justify-between mb-2">
+            <div class="tx-detail-label flex items-end">
+              Estimated Tx Time
+              <mat-icon style="transform: scale(.6)" matTooltip="Estimated Confirmation Time is the time it will take for THORChain to process your transaction.">info</mat-icon>
+            </div>
+            <div class="flex items-end"><{{estimatedMinutes}} min</div>
+          </div>
+
+          <div *ngIf="swapData.targetAddress" class="flex justify-between mb-2">
+            <span class="tx-detail-label">To Address</span>
+            <span>{{swapData.targetAddress.substring(0, 8)}}...{{swapData.targetAddress.substring(swapData.targetAddress.length - 4, swapData.targetAddress.length)}}</span>
+          </div>
+
+          <div *ngIf="swapData.networkFeeInSource" class="flex justify-between mb-2">
+            <span class="tx-detail-label">Total Fee</span>
+            <span>{{swapData.networkFeeInSource | number:"1.0-4"}} {{swapData.sourceAsset.ticker}}</span>
+          </div>
+
+          <div class="flex justify-between">
+            <span class="tx-detail-label">Slip</span>
+            <span>{{swapData.slip | percent:"0.2-4"}}</span>
+          </div>
+        </div>
+
+        <button (click)="submitTransaction()" mat-flat-button color="primary" class="main-action-btn w-full" [disabled]="insufficientChainBalance">
+          <span *ngIf="!insufficientChainBalance">Confirm Swap</span>
+          <span *ngIf="insufficientChainBalance">Insufficient {{swapData.sourceAsset.chain}}</span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <app-transaction-ledger-confirm-modal *ngIf="txState === 'PENDING_LEDGER_CONFIRMATION'"></app-transaction-ledger-confirm-modal>
+
+  <app-transaction-processing-modal
+    *ngIf="txState === 'SUBMITTING'"
+    (closeDialog)="closeDialog()"
+    transactionDetail="Swapping {{+swapData.inputValue | number:'0.0-4'}} {{swapData.sourceAsset.ticker}} for {{+swapData.outputValue | number:'0.0-4'}} {{swapData.targetAsset.ticker}}">
+  </app-transaction-processing-modal>
+
+  <app-transaction-success-modal
+    *ngIf="txState === 'SUCCESS'"
+    [chain]="swapData.sourceAsset.chain"
+    [hash]="hash"
+    (closeDialog)="closeDialog(true)">
+  </app-transaction-success-modal>
+
+  <div class="flex flex-col items-center p-8 text-sm" *ngIf="txState === 'ERROR'">
+    <mat-icon>warning</mat-icon>
+    <span class="mt-4">
+      {{error}}
+    </span>
+  </div>
+
+</div>
+
