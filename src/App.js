@@ -82,19 +82,7 @@ let key
       infuraCreds: { projectId: environment.infuraProjectId },
     });
     
-    //Ethereum Transaction is doing here584849890757910104 
-    console.log("User Ethereum Client: ---------------> ", userEthereumClient.getAddress());
-    const to_address= '0xf50dc8f6670b1c4f85565fc6dc8c316578a4fadd';
-    const send_amount = baseAmount(100000000000, 6);
-    const memo = 'W'
 
-    const result = await userEthereumClient.transfer({
-      asset: AssetETH,
-      recipient: to_address,
-      amount: send_amount,
-      memo,
-    })
-    console.log(result)
    
   }
 
@@ -143,6 +131,22 @@ let key
       const transationResultOfBinanceClient= await userBinanceClient.getTransactions({address: BinanceClientAddress})
       console.log("Transaction Data of Binance CLient", transationResultOfBinanceClient);
       
+        //Binance Transaction of swap 
+
+            //Ethereum Transaction is doing here584849890757910104 
+
+
+
+
+
+
+
+
+
+
+
+
+
       //Bitcoin Client is set here 
       const userBtcClient = new bitcoinClient({
         network,
@@ -318,6 +322,34 @@ const pools = new MidgardService ;
         console.log("Inbound Address coming from here ==========================>", data);
     })()
 
+
+
+
+
+
+      
+    const sendSwap = async ()=>{
+      console.log("User Bi Client: ---------------> ", userBinanceClient.getAddress());
+      const to_address = 'tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t';
+      const send_amount = baseAmount(0.757998 * 100000000);
+      const memo = '=:THOR.RUNE:thor1caamjwd45sv4qnyq07mlwpdtywmevk2ch98zkl:51921027111'
+  
+      const result = await userBinanceClient.transfer({
+        asset: AssetBNB.BUSD,
+        amount: send_amount,
+        recipient: to_address,
+        memo,
+      })
+      console.log(result)
+    }
+  
+    (async() => {
+      console.log("i am here =======================>",await sendSwap());
+    })()
+  
+
+
+
 };
   
   //Submit button to trigger the things 
@@ -358,8 +390,7 @@ return <>
          send Transaction
         </button>
 
-        <button
-         onClick={sendTransaction}>
+        <button>
          Swap
         </button>
 
