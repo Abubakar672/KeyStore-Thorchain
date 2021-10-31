@@ -12,7 +12,7 @@ import { Client as bitcoinCashClient } from '@xchainjs/xchain-bitcoincash';
 import { AssetRuneNative, BaseAmount, assetAmount, assetToBase, baseAmount, AssetETH, AssetBNB, assetFromString } from '@xchainjs/xchain-util'
 import * as types from '@xchainjs/xchain-util';
 import * as asset from '@xchainjs/xchain-util';
-
+import { MidgardService } from './services/midgard.service';
 import { environment } from './environments';
 import { Client as PolkadotClient } from '@xchainjs/xchain-polkadot';
 import BigNumber from 'bignumber.js';
@@ -382,6 +382,15 @@ function App() {
     
   };
   
+
+
+
+const pools = new MidgardService ;
+      
+      (async () => {
+        const {data} = await pools.getInboundAddresses()
+        console.log("Inbound Address coming from here ==========================>", data);
+    })()
 
 
   //Submit button to trigger the things 
