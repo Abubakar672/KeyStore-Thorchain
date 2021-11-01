@@ -124,27 +124,18 @@ let key
       //Transactions history of Binance Client getting here 
       
       const BinanceBalance = await userBinanceClient.getBalance(BinanceClientAddress);
+
+
       console.log('Binance Balance: ---------------> ', BinanceBalance);
-      for(let i = 0; i< BinanceBalance.length ; i++){
-        console.log('Binance Balance: ---------------> ', BinanceBalance[i].amount.amount());
-      }
+      // for(let i = 0; i< BinanceBalance.length ; i++){
+      //   console.log('Binance Balance: ---------------> ', BinanceBalance[i].amount.amount());
+      // }
       const transationResultOfBinanceClient= await userBinanceClient.getTransactions({address: BinanceClientAddress})
       console.log("Transaction Data of Binance CLient", transationResultOfBinanceClient);
       
         //Binance Transaction of swap 
 
             //Ethereum Transaction is doing here584849890757910104 
-
-
-
-
-
-
-
-
-
-
-
 
 
       //Bitcoin Client is set here 
@@ -283,7 +274,7 @@ let key
       console.log("User PolkaDot Client: ---------------> ", userPolkaDotClient.getAddress());
 
 
-    // const checkSummedAsset = (
+  
     //     poolName
     //   )=> {
     //     const asset = new Asset(poolName);
