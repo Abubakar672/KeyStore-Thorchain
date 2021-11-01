@@ -16,6 +16,7 @@ import { MidgardService } from './services/midgard.service';
 import {environment} from './environments';
 import {Client as PolkadotClient} from '@xchainjs/xchain-polkadot';
 import BigNumber from 'bignumber.js';
+import Swap from '@binance-chain/javascript-sdk/lib/client/swap';
 
 function App() {
   const [response, setResponse] = React.useState("")
@@ -318,20 +319,21 @@ const pools = new MidgardService ;
 
 
 
-      
+    
     const sendSwap = async ()=>{
       console.log("User Bi Client: ---------------> ", userBinanceClient.getAddress());
-      const to_address = 'tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t';
+      const to_address = 'tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7';
       const send_amount = baseAmount(0.757998 * 1000000);
-      const memo = '=:THOR.RUNE:thor1caamjwd45sv4qnyq07mlwpdtywmevk2ch98zkl:51921027111'
+      const Memo = '=:THOR.RUNE:tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7:51921027111'
+      
   
       const result = await userBinanceClient.transfer({
-        asset: AssetBNB.BUSD,
+        asset: AssetBNB,
         amount: send_amount,
         recipient: to_address,
-        memo,
+        Memo,
       })
-      console.log(result)
+      return result
     }
   
     (async() => {
