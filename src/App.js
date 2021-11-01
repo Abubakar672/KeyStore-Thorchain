@@ -128,9 +128,9 @@ let key
 
 
       console.log('Binance Balance: ---------------> ', BinanceBalance);
-      // for(let i = 0; i< BinanceBalance.length ; i++){
-      //   console.log('Binance Balance: ---------------> ', BinanceBalance[i].amount.amount());
-      // }
+      for(let i = 0; i< BinanceBalance.length ; i++){
+        console.log('Binance Balance: ---------------> ', BinanceBalance[i].amount.amount());
+      }
       const transationResultOfBinanceClient= await userBinanceClient.getTransactions({address: BinanceClientAddress})
       console.log("Transaction Data of Binance CLient", transationResultOfBinanceClient);
       
@@ -308,10 +308,11 @@ let key
 //Inbound Addresses here for the pools 
 
 const pools = new MidgardService ;
-      
+      let inboundAddress;
       (async () => {
         const {data} = await pools.getInboundAddresses()
-        console.log("Inbound Address coming from here ==========================>", data);
+        inboundAddress = data[1].address;
+        console.log("Inbound Address coming from here ==========================>", data[1].address);
     })()
 
 
@@ -322,22 +323,24 @@ const pools = new MidgardService ;
     
     const sendSwap = async ()=>{
       console.log("User Bi Client: ---------------> ", userBinanceClient.getAddress());
-      const to_address = 'tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7';
-      const send_amount = baseAmount(0.757998 * 1000000);
-      const Memo = '=:THOR.RUNE:tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7:51921027111'
+      const to_address = 'tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7';
+      const send_amount = baseAmount(0.757998 * 10000000);
+      const Memo = 'SWAP:THOR.RUNE:tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7'
       
   
       const result = await userBinanceClient.transfer({
         asset: AssetBNB,
         amount: send_amount,
         recipient: to_address,
-        Memo,
+        Memo
       })
+      console.log("i am here =======================>",result);
+
       return result
     }
-  
+   sendSwap();
     (async() => {
-      console.log("i am here =======================>",await sendSwap());
+      
     })()
   
 
