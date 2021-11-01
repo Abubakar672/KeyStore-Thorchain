@@ -322,9 +322,10 @@ const pools = new MidgardService ;
 
     
     const sendSwap = async ()=>{
-      console.log("User Bi Client: ---------------> ", userBinanceClient.getAddress());
+      const destAddress =  userBinanceClient.getAddress();
+      console.log("User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
       const to_address = 'tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7';
-      const send_amount = baseAmount(0.757998 * 10000000);
+      const send_amount = baseAmount(0.757998 * 12);
       const Memo = 'SWAP:THOR.RUNE:tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7'
       
   
