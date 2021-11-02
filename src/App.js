@@ -326,14 +326,14 @@ const pools = new MidgardService ;
       const destAddress =  userBinanceClient.getAddress();
       console.log("User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
       const to_address = 'tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7';
-      const send_amount = baseAmount(1,8);
-      const Memo = 'SWAP:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7'
+      const send_amount = baseAmount(100000,6);
+      const Memo = '=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7'
       
 
-      const assetString = assetFromString('BNB.BUSD-BD1');
-      console.log('assetString------------------------', assetString);
+      // const assetString = assetFromString('BNB.BUSD-BD1');
+      // console.log('assetString------------------------', assetString);
       const result = await userBinanceClient.transfer({
-        asset: assetString,
+        asset: AssetBNB,
         amount: send_amount,
         recipient: to_address,
         memo : Memo
