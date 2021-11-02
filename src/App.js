@@ -373,7 +373,7 @@ function App() {
         destAddress
       );
       const to_address = "tthor1mrckazz7l67tz435dp9m3qaygzm6xmsqeglrj8";
-      const send_amount = baseAmount(50000000000, 8);
+      const send_amount = baseAmount(2000000000, 8);
       const Memo =
         "=:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t:63097111";
 
@@ -399,17 +399,17 @@ function App() {
         "User Ethereum Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
         destAddress
       );
-      const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
-      const send_amount = baseAmount(20000000000, 8);
+      // const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
+      // const send_amount = baseAmount(20000000000, 8);
       const Memo =
         "=:ETH.ETH:0x05ad7dd40fa9457f703191211bd4cb989fd06cbf:161891111";
 
       // const assetString = assetFromString('BNB.BUSD-BD1');
       // console.log('assetString------------------------', assetString);
-      const result = await userEthereumClient.transfer({
+      const result = await userEthereumClient.deposit({
         asset: AssetETH,
-        amount: send_amount,
-        recipient: to_address,
+        amount: baseAmount(2 * 10 ** 8),
+        // recipient: to_address,
         memo: Memo,
       });
       console.log("i am here =======================>", result);
