@@ -321,63 +321,58 @@ const pools = new MidgardService ;
 
 
 
-    
-    // const swapBNBToRuneNative = async ()=>{
-    //   const destAddress =  userBinanceClient.getAddress();
-    //   console.log("User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
-    //   const to_address = 'tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7';
-    //   const send_amount = baseAmount(100000,6);
-    //   const Memo = '=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7'
+      //SWAP BNB TO RUNE   
+    const swapBNBToRuneNative = async ()=>{
+      const destAddress =  userBinanceClient.getAddress();
+      console.log("User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
+      const to_address = 'tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7';
+      const send_amount = baseAmount(100000,6);
+      const Memo = '=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7'
 
 
-    //   // const assetString = assetFromString('BNB.BUSD-BD1');
-    //   // console.log('assetString------------------------', assetString);
-    //   const result = await userBinanceClient.transfer({
-    //     asset: AssetBNB,
-    //     amount: send_amount,
-    //     recipient: to_address,
-    //     memo : Memo
-    //   })
-    //   console.log("i am here =======================>",result);
+      // const assetString = assetFromString('BNB.BUSD-BD1');
+      // console.log('assetString------------------------', assetString);
+      const result = await userBinanceClient.transfer({
+        asset: AssetBNB,
+        amount: send_amount,
+        recipient: to_address,
+        memo : Memo
+      })
+      console.log("i am here =======================>",result);
 
-    //   return result
-    // }
-    // // swapBNBToRuneNative();
-    // (async() => {
+      return result
+    }
+    // swapBNBToRuneNative();
+    (async() => {
       
-    // })()
+    })()
 
 
-  // //Swap Rune to BNB
-  // const swapRuneToBNB = async ()=>{
-  //   const destAddress =  userThorchainClient.getAddress();
-  //   console.log("User Thorchain Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
-  //   const to_address = 'tthor1mrckazz7l67tz435dp9m3qaygzm6xmsqeglrj8';
-  //   const send_amount = baseAmount(50000000000,8);
-  //   const Memo = '=:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t:63097111'
+  //Swap Rune to BNB
+  const swapRuneToBNB = async ()=>{
+    const destAddress =  userThorchainClient.getAddress();
+    console.log("User Thorchain Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
+    const to_address = 'tthor1mrckazz7l67tz435dp9m3qaygzm6xmsqeglrj8';
+    const send_amount = baseAmount(50000000000,8);
+    const Memo = '=:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t:63097111'
     
 
-  //   // const assetString = assetFromString('BNB.BUSD-BD1');
-  //   // console.log('assetString------------------------', assetString);
-  //   const result = await userThorchainClient.transfer({
-  //     asset: AssetRuneNative,
-  //     amount: send_amount,
-  //     recipient: to_address,
-  //     memo : Memo
-  //   })
-  //   console.log("i am here =======================>",result);
+    // const assetString = assetFromString('BNB.BUSD-BD1');
+    // console.log('assetString------------------------', assetString);
+    const result = await userThorchainClient.transfer({
+      asset: AssetRuneNative,
+      amount: send_amount,
+      recipient: to_address,
+      memo : Memo
+    })
+    console.log("i am here =======================>",result);
 
-  //   return result
-  // }
+    return result
+  }
   // swapRuneToBNB();
-  // (async() => {
+  (async() => {
     
-  // })()
-
-
-
-
-
+  })()
 
 
     //Swap Rune to ETH
@@ -401,11 +396,36 @@ const pools = new MidgardService ;
   
       return result
     }
-    swapRuneToETH();
+    //swapRuneToETH();
     (async() => {
       
     })()
   
+        //Swap Rune to Litecoin
+        const swapRuneToLTC = async ()=>{
+          const destAddress =  userThorchainClient.getAddress();
+          console.log("User LTC Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
+          const to_address = 'tthor1mrckazz7l67tz435dp9m3qaygzm6xmsqeglrj8';
+          const send_amount = baseAmount(20000000000,8);
+          const Memo = '=:LTC.LTC:tltc1q4tstrayfalyyy33jeyeata93552cstul7uzdpu:80964111'
+          
+      
+          // const assetString = assetFromString('BNB.BUSD-BD1');
+          // console.log('assetString------------------------', assetString);
+          const result = await userThorchainClient.transfer({
+            asset: AssetRuneNative,
+            amount: send_amount,
+            recipient: to_address,
+            memo : Memo
+          })
+          console.log("i am here =======================>",result);
+      
+          return result
+        }
+        swapRuneToLTC();
+        (async() => {
+          
+        })()
 
 };
   
