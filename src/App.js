@@ -350,78 +350,12 @@ function App() {
       const send_amount = baseAmount(100000, 6);
       const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
 
-<<<<<<< HEAD
-//Inbound Addresses here for the pools 
-
-const pools = new MidgardService ;
-      let inboundAddress;
-      (async () => {
-        const {data} = await pools.getInboundAddresses()
-        inboundAddress = data[1].address;
-        console.log("Inbound Address coming from here ==========================>", data[1].address);
-    })()
-
-
-
-
-
-
-      //SWAP BNB TO RUNE   
-    const swapBNBToRuneNative = async ()=>{
-      const destAddress =  userBinanceClient.getAddress();
-      console.log("User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
-      const to_address = 'tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7';
-      const send_amount = baseAmount(100000,6);
-      const Memo = '=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7'
-
-
-=======
->>>>>>> caa688a1f2616a17008b5cf4c7dc70a58541d323
       // const assetString = assetFromString('BNB.BUSD-BD1');
       // console.log('assetString------------------------', assetString);
       const result = await userBinanceClient.transfer({
         asset: AssetBNB,
         amount: send_amount,
         recipient: to_address,
-<<<<<<< HEAD
-        memo : Memo
-      })
-      console.log("i am here =======================>",result);
-
-      return result
-    }
-    // swapBNBToRuneNative();
-    (async() => {
-      
-    })()
-
-
-  //Swap Rune to BNB
-  const swapRuneToBNB = async ()=>{
-    const destAddress =  userThorchainClient.getAddress();
-    console.log("User Thorchain Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
-    const to_address = 'tthor1mrckazz7l67tz435dp9m3qaygzm6xmsqeglrj8';
-    const send_amount = baseAmount(50000000000,8);
-    const Memo = '=:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t:63097111'
-    
-
-    // const assetString = assetFromString('BNB.BUSD-BD1');
-    // console.log('assetString------------------------', assetString);
-    const result = await userThorchainClient.transfer({
-      asset: AssetRuneNative,
-      amount: send_amount,
-      recipient: to_address,
-      memo : Memo
-    })
-    console.log("i am here =======================>",result);
-
-    return result
-  }
-  // swapRuneToBNB();
-  (async() => {
-    
-  })()
-=======
         memo: Memo,
       });
       console.log("i am here =======================>", result);
@@ -452,7 +386,6 @@ const pools = new MidgardService ;
         memo: Memo,
       });
       console.log("i am here =======================>", result);
->>>>>>> caa688a1f2616a17008b5cf4c7dc70a58541d323
 
       return result;
     };
@@ -477,58 +410,9 @@ const pools = new MidgardService ;
         asset: AssetETH,
         amount: send_amount,
         recipient: to_address,
-<<<<<<< HEAD
-        memo : Memo
-      })
-      console.log("i am here =======================>",result);
-  
-      return result
-    }
-    //swapRuneToETH();
-    (async() => {
-      
-    })()
-  
-        //Swap Rune to Litecoin
-        const swapRuneToLTC = async ()=>{
-          const destAddress =  userThorchainClient.getAddress();
-          console.log("User LTC Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
-          const to_address = 'tthor1mrckazz7l67tz435dp9m3qaygzm6xmsqeglrj8';
-          const send_amount = baseAmount(20000000000,8);
-          const Memo = '=:LTC.LTC:tltc1q4tstrayfalyyy33jeyeata93552cstul7uzdpu:80964111'
-          
-      
-          // const assetString = assetFromString('BNB.BUSD-BD1');
-          // console.log('assetString------------------------', assetString);
-          const result = await userThorchainClient.transfer({
-            asset: AssetRuneNative,
-            amount: send_amount,
-            recipient: to_address,
-            memo : Memo
-          })
-          console.log("i am here =======================>",result);
-      
-          return result
-        }
-        swapRuneToLTC();
-        (async() => {
-          
-        })()
-
-};
-  
-  //Submit button to trigger the things 
-  const SubmitAll=async()=>{
-  console.log("password====>", typeof input);
-  console.log("fileKeyStroe====>", typeof fileKeyStore);
-  decryptKeyStore()
-}
-
-=======
         memo: Memo,
       });
       console.log("i am here =======================>", result);
->>>>>>> caa688a1f2616a17008b5cf4c7dc70a58541d323
 
       return result;
     };
