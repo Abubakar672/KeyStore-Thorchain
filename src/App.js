@@ -322,7 +322,7 @@ const pools = new MidgardService ;
 
 
     
-    const sendSwap = async ()=>{
+    const swapBNBToRuneNative = async ()=>{
       const destAddress =  userBinanceClient.getAddress();
       console.log("User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
       const to_address = 'tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7';
@@ -342,11 +342,35 @@ const pools = new MidgardService ;
 
       return result
     }
-   sendSwap();
+    // swapBNBToRuneNative();
     (async() => {
       
     })()
-  
+  //Swap Rune to BNB
+  const swapRuneToBNB = async ()=>{
+    const destAddress =  userThorchainClient.getAddress();
+    console.log("User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ", destAddress);
+    const to_address = 'tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7';
+    const send_amount = baseAmount(5);
+    const Memo = '=:BNB.BNB:destAddress'
+    
+
+    // const assetString = assetFromString('BNB.BUSD-BD1');
+    // console.log('assetString------------------------', assetString);
+    const result = await userThorchainClient.transfer({
+      asset: AssetRuneNative,
+      amount: send_amount,
+      recipient: to_address,
+      memo : Memo
+    })
+    console.log("i am here =======================>",result);
+
+    return result
+  }
+  swapRuneToBNB();
+  (async() => {
+    
+  })()
 
 
 
