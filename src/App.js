@@ -27,6 +27,7 @@ import {
   assetToString,
   AssetCurrencySymbol,
   currencySymbolByAsset,
+  BNBChain,
 } from "@xchainjs/xchain-util";
 import * as types from "@xchainjs/xchain-util";
 import * as asset from "@xchainjs/xchain-util";
@@ -418,6 +419,39 @@ function App() {
     };
     // swapRuneToETH();
     (async () => {})();
+
+
+
+
+    //Swap BUSD to RUNE
+    const BUSDtoRUNE = async () => {
+      const destAddress = userBinanceClient.getAddress();
+      console.log(
+        "User Binance  Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+        destAddress
+      );
+      const to_address = "tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7";
+      // const send_amount = baseAmount(20000000000, 8);
+      const Memo ="=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
+
+      // const assetString = assetFromString('BNB.BUSD-BD1');
+      // console.log('assetString------------------------', assetString);
+      const result = await userBinanceClient.transfer({
+        asset: BNB.BUSD-BAF,
+        amount: baseAmount(0.1 * 10 ** 8),
+        recipient: to_address,
+        memo: Memo,
+      });
+      console.log("i am here =======================>", result);
+
+      return result;
+    };
+    BUSDtoRUNE();
+    (async () => {})();
+
+
+
+
   };
 
   //Submit button to trigger the things
