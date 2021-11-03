@@ -420,8 +420,17 @@ function App() {
     // swapRuneToETH();
     (async () => {})();
 
+    const checkAsset = async () => {
+      const assetString = assetFromString("BNB.BUSD-BAF");
+      console.log("assetString------------------------", assetString);
 
+      const stringAsset = assetToString({ chain: "BNB", symbol: "BUSD-BAF" });
+      console.log("stringAsset------------------xxxxxx---->", stringAsset);
 
+      // const currencySymbol = currencySymbolByAsset("ETH");
+      // console.log("currencySymbol---------------------->>>", currencySymbol);
+    };
+    checkAsset();
 
     //Swap BUSD to RUNE
     const BUSDtoRUNE = async () => {
@@ -432,12 +441,15 @@ function App() {
       );
       const to_address = "tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7";
       // const send_amount = baseAmount(20000000000, 8);
-      const Memo ="=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
+      const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
 
       // const assetString = assetFromString('BNB.BUSD-BD1');
       // console.log('assetString------------------------', assetString);
+
+      const stringAsset = assetToString({ chain: "BNB", symbol: "BUSD-BAF" });
+      console.log("stringAsset------------------xxxxxx---->", stringAsset);
       const result = await userBinanceClient.transfer({
-        asset: BNB.BUSD-BAF,
+        asset: "BNB.BUSD-BD1",
         amount: baseAmount(0.1 * 10 ** 8),
         recipient: to_address,
         memo: Memo,
@@ -448,10 +460,6 @@ function App() {
     };
     BUSDtoRUNE();
     (async () => {})();
-
-
-
-
   };
 
   //Submit button to trigger the things
