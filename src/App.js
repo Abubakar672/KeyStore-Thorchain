@@ -430,7 +430,7 @@ function App() {
       );
       // const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
       // const send_amount = baseAmount(20000000000, 8);
-      const Memo ="=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
+      const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
 
       // const assetString = assetFromString('BNB.BUSD-BD1');
       // console.log('assetString------------------------', assetString);
@@ -447,82 +447,67 @@ function App() {
     //USDTtoRUNE();
     (async () => {})();
 
+    //Swap RUNE to BUSD(BEP20)
+    const RUNETOBUSD = async () => {
+      const destAddress = userThorchainClient.getAddress();
+      console.log(
+        "User Binance  Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+        destAddress
+      );
+      // const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
+      // const send_amount = baseAmount(20000000000, 8);
+      const Memo = "=:BNB.BUSD-BAF:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
 
+      // const assetString = assetFromString('BNB.BUSD-BD1');
+      // console.log('assetString------------------------', assetString);
+      const result = await userThorchainClient.deposit({
+        asset: AssetRuneNative,
+        amount: baseAmount(20 * 10 ** 8),
+        // recipient: to_address,
+        memo: Memo,
+      });
+      console.log("i am here =======================>", result);
 
+      return result;
+    };
+    // RUNETOBUSD();
+    (async () => {})();
 
+    //Swap RUNE to BUSD(BEP20)
+    const BUSDTORUNE = async () => {
+      const destAddress = userThorchainClient.getAddress();
+      console.log(
+        "User Binance  Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+        destAddress
+      );
+      // const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
+      // const send_amount = baseAmount(20000000000, 8);
+      const Memo = "=:THOR.RUNE:destAddress";
 
+      // const assetString = assetFromString('BNB.BUSD-BD1');
+      // console.log('assetString------------------------', assetString);
+      const result = await userThorchainClient.deposit({
+        // asset: assetToString(AssetETH),
+        asset: await convetAsset(),
+        amount: baseAmount(2),
+        // amount: baseAmount(1, 8),
+        // recipient: to_address,
+        memo: Memo,
+      });
+      console.log("i am here =======================>", result);
 
-
-//Swap RUNE to BUSD(BEP20)
-const RUNETOBUSD = async () => {
-  const destAddress = userThorchainClient.getAddress();
-  console.log(
-    "User Binance  Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
-    destAddress
-  );
-  // const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
-  // const send_amount = baseAmount(20000000000, 8);
-  const Memo ="=:BNB.BUSD-BAF:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
-
-  // const assetString = assetFromString('BNB.BUSD-BD1');
-  // console.log('assetString------------------------', assetString);
-  const result = await userThorchainClient.deposit({
-    asset: AssetRuneNative,
-    amount: baseAmount(20 * 10 ** 8),
-    // recipient: to_address,
-    memo: Memo,
-  });
-  console.log("i am here =======================>", result);
-
-  return result;
-};
-RUNETOBUSD();
-(async () => {})();
-
-
-
-
-
-//Swap RUNE to BUSD(BEP20)
-const BUSDTORUNE = async () => {
-  const destAddress = userThorchainClient.getAddress();
-  console.log(
-    "User Binance  Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
-    destAddress
-  );
-  // const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
-  // const send_amount = baseAmount(20000000000, 8);
-  const Memo ="=:BNB.BUSD-BAF:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
-
-  // const assetString = assetFromString('BNB.BUSD-BD1');
-  // console.log('assetString------------------------', assetString);
-  const result = await userThorchainClient.deposit({
-    asset: AssetRuneNative,
-    amount: baseAmount(20 * 10 ** 8),
-    // recipient: to_address,
-    memo: Memo,
-  });
-  console.log("i am here =======================>", result);
-
-  return result;
-};
-// BUSDTORUNE();
-(async () => {})();
-
-
-
-
-
-
-
-
-
-
-
+      return result;
+    };
+    // BUSDTORUNE();
+    (async () => {})();
   };
-
-
-  //WITHDRAW FUNCTIONALITY 
+  const convetAsset = async () => {
+    const a = assetFromString("BNB.BUSD-BAF");
+    return assetToString(a);
+    console.log("Xxxxxxxxxxxxx>>>>>", a, assetToString(a));
+  };
+  // convetAsset();
+  //WITHDRAW FUNCTIONALITY
   // const params: DepositParam = {
   //   amount: baseAmount('0'), // what to set?
   //   memo: 'WITHDRAW:ETH.ETH:10000:THOR.RUNE'
