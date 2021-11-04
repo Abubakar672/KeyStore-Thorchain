@@ -506,7 +506,7 @@ function App() {
     return assetToString(a);
     console.log("Xxxxxxxxxxxxx>>>>>", a, assetToString(a));
   };
-  // convetAsset();
+  convetAsset();
   //WITHDRAW FUNCTIONALITY
   // const params: DepositParam = {
   //   amount: baseAmount('0'), // what to set?
