@@ -421,39 +421,84 @@ function App() {
     // swapRuneToETH();
     (async () => {})();
 
-
-
-
-    //Swap BUSD to RUNE
-    const BUSDtoRUNE = async () => {
+    //Swap USDT to RUNE
+    const USDTtoRUNE = async () => {
       const destAddress = userEthereumClient.getAddress();
       console.log(
         "User Binance  Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
         destAddress
       );
-      const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
+      // const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
       // const send_amount = baseAmount(20000000000, 8);
       const Memo ="=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
 
       // const assetString = assetFromString('BNB.BUSD-BD1');
       // console.log('assetString------------------------', assetString);
       const result = await userEthereumClient.transfer({
-        asset: AssetRuneERC20,
-        amount: baseAmount(0.01 * 10 ** 18),
-        recipient: to_address,
+        asset: AssetETH,
+        amount: baseAmount(0.0001 * 10 ** 18),
+        // recipient: to_address,
         memo: Memo,
       });
       console.log("i am here =======================>", result);
 
       return result;
     };
-    BUSDtoRUNE();
+    //USDTtoRUNE();
     (async () => {})();
 
 
 
 
+
+
+
+//Swap RUNE to BUSD(BEP20)
+const RUNETOBUSD = async () => {
+  const destAddress = userThorchainClient.getAddress();
+  console.log(
+    "User Binance  Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+    destAddress
+  );
+  // const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
+  // const send_amount = baseAmount(20000000000, 8);
+  const Memo ="=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
+
+  // const assetString = assetFromString('BNB.BUSD-BD1');
+  // console.log('assetString------------------------', assetString);
+  const result = await userThorchainClient.deposit({
+    asset:assetToString("BNB.BUSD-BAF"),
+    amount: baseAmount(0.002 * 10 ** 8),
+    // recipient: to_address,
+    memo: Memo,
+  });
+  console.log("i am here =======================>", result);
+
+  return result;
+};
+RUNETOBUSD();
+(async () => {})();
+
+
+
+
+
+
+
+
+
+
+
+
   };
+
+
+  //WITHDRAW FUNCTIONALITY 
+  // const params: DepositParam = {
+  //   amount: baseAmount('0'), // what to set?
+  //   memo: 'WITHDRAW:ETH.ETH:10000:THOR.RUNE'
+  // }
+  // await thorchainClient!.deposit(params)
 
   //Submit button to trigger the things
   const SubmitAll = async () => {
