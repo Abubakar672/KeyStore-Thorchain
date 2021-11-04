@@ -421,23 +421,51 @@ function App() {
     // swapRuneToETH();
     (async () => {})();
 
+<<<<<<< HEAD
     //Swap USDT to RUNE
     const USDTtoRUNE = async () => {
       const destAddress = userEthereumClient.getAddress();
+=======
+    const checkAsset = async () => {
+      const assetString = assetFromString("BNB.BUSD-BAF");
+      console.log("assetString------------------------", assetString);
+
+      const stringAsset = assetToString({ chain: "BNB", symbol: "BUSD-BAF" });
+      console.log("stringAsset------------------xxxxxx---->", stringAsset);
+
+      // const currencySymbol = currencySymbolByAsset("ETH");
+      // console.log("currencySymbol---------------------->>>", currencySymbol);
+    };
+    checkAsset();
+
+    //Swap BUSD to RUNE
+    const BUSDtoRUNE = async () => {
+      const destAddress = userBinanceClient.getAddress();
+>>>>>>> 6d8f172192813ccffa0508923c05187eb254c316
       console.log(
         "User Binance  Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
         destAddress
       );
       // const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
       // const send_amount = baseAmount(20000000000, 8);
-      const Memo ="=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
+      const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
 
       // const assetString = assetFromString('BNB.BUSD-BD1');
       // console.log('assetString------------------------', assetString);
+<<<<<<< HEAD
       const result = await userEthereumClient.transfer({
         asset: AssetETH,
         amount: baseAmount(0.0001 * 10 ** 18),
         // recipient: to_address,
+=======
+
+      const stringAsset = assetToString({ chain: "BNB", symbol: "BUSD-BAF" });
+      console.log("stringAsset------------------xxxxxx---->", stringAsset);
+      const result = await userBinanceClient.transfer({
+        asset: "BNB.BUSD-BD1",
+        amount: baseAmount(0.1 * 10 ** 8),
+        recipient: to_address,
+>>>>>>> 6d8f172192813ccffa0508923c05187eb254c316
         memo: Memo,
       });
       console.log("i am here =======================>", result);
@@ -446,6 +474,7 @@ function App() {
     };
     //USDTtoRUNE();
     (async () => {})();
+<<<<<<< HEAD
 
 
 
@@ -490,6 +519,8 @@ RUNETOBUSD();
 
 
 
+=======
+>>>>>>> 6d8f172192813ccffa0508923c05187eb254c316
   };
 
 
