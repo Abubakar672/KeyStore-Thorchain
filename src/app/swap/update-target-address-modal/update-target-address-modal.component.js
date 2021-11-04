@@ -1,9 +1,11 @@
-import { Component, EventEmitter } from '@angular/core';
+/** @format */
+
+import { Component, EventEmitter } from "@angular/core";
 
 @Component({
-  selector: 'app-update-target-address-modal',
-  templateUrl: './update-target-address-modal.component.html',
-  styleUrls: ['./update-target-address-modal.component.scss'],
+  selector: "app-update-target-address-modal",
+  templateUrl: "./update-target-address-modal.component.html",
+  styleUrls: ["./update-target-address-modal.component.scss"],
 })
 export class UpdateTargetAddressModalComponent {
   targetAddress;
@@ -11,22 +13,23 @@ export class UpdateTargetAddressModalComponent {
   chain;
 
   constructor(
-     userService,
-     mockClientService,
-    data =  {
+    userService,
+    mockClientService,
+    data = {
       chain,
       targetAddress,
-      user
+      user,
     },
-    dialogRef,
+    dialogRef
   ) {
     this.user = data?.user ?? null;
     this.chain = data?.chain ?? null;
     this.back = new EventEmitter();
-    this.targetAddress = data?.targetAddress ?? '';
+    this.targetAddress = data?.targetAddress ?? "";
   }
 
-  updateAddress() {//====
+  updateAddress() {
+    //====
     if (
       !this.mockClientService
         .getMockClientByChain(this.chain)
@@ -38,7 +41,8 @@ export class UpdateTargetAddressModalComponent {
     this.dialogRef.close(this.targetAddress);
   }
 
-  formDisabled() {//====
+  formDisabled() {
+    //====
     if (!this.user) {
       return true;
     }
@@ -54,9 +58,10 @@ export class UpdateTargetAddressModalComponent {
     return false;
   }
 
-  updateAddressBtnText() {//====
+  updateAddressBtnText() {
+    //====
     if (!this.user) {
-      return 'No User found';
+      return "No User found";
     }
 
     if (
@@ -67,10 +72,11 @@ export class UpdateTargetAddressModalComponent {
       return `Invalid ${this.chain} Address`;
     }
 
-    return 'Set Address';
+    return "Set Address";
   }
 
-  close() {//====
+  close() {
+    //====
     this.dialogRef.close();
   }
 }
