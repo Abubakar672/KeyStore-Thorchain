@@ -473,7 +473,7 @@ function App() {
     // RUNETOBUSD();
     (async () => {})();
 
-    //Swap RUNE to BUSD(BEP20)
+    //Swap BUSD(BEP20) to RUNE
     const BUSDTORUNE = async () => {
       const destAddress = userThorchainClient.getAddress();
       console.log(
@@ -486,11 +486,12 @@ function App() {
 
       // const assetString = assetFromString('BNB.BUSD-BD1');
       // console.log('assetString------------------------', assetString);
+
       const result = await userThorchainClient.deposit({
         // asset: assetToString(AssetETH),
-        asset: await convetAsset(),
-        amount: baseAmount(2),
-        // amount: baseAmount(1, 8),
+        asset: assetFromString("BNB.BUSD-BAF"),
+        // amount: baseAmount(1),
+        amount: baseAmount(1),
         // recipient: to_address,
         memo: Memo,
       });
@@ -498,15 +499,38 @@ function App() {
 
       return result;
     };
-    // BUSDTORUNE();
+    BUSDTORUNE();
     (async () => {})();
+
+    const checkBalanceOfCli = async () => {
+      const destAddress = userBinanceClient.getAddress();
+      console.log(
+        "User Binance  Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+        destAddress
+      );
+      const balanceCLI = await userBinanceClient.getBalance(destAddress);
+      console.log("XXXXXXXX>>>><<<>>>", balanceCLI);
+      console.log("hey balance ===>>", balanceCLI[1].amount.amount());
+      for (let i = 0; i < balanceCLI.length; i++) {
+        console.log(
+          balanceCLI[i].asset,
+          Number(balanceCLI[i].amount.amount().c[0]) /
+            Number(Math.pow(10, balanceCLI[i].amount.decimal))
+        );
+      }
+      const assetofetch = await ass.assetFromString("BNB.BUSD-BAF");
+
+      console.log("<><><><><><><><><><><><><><><><><><>", assetofetch);
+    };
+    // checkBalanceOfCli();
   };
-  const convetAsset = async () => {
+  const convertAsset = async () => {
     const a = assetFromString("BNB.BUSD-BAF");
     return assetToString(a);
+
     console.log("Xxxxxxxxxxxxx>>>>>", a, assetToString(a));
   };
-  convetAsset();
+  convertAsset();
   //WITHDRAW FUNCTIONALITY
   // const params: DepositParam = {
   //   amount: baseAmount('0'), // what to set?
