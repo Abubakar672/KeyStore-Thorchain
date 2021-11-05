@@ -38,8 +38,10 @@ import { Client as PolkadotClient } from "@xchainjs/xchain-polkadot";
 import BigNumber from "bignumber.js";
 import Swap from "@binance-chain/javascript-sdk/lib/client/swap";
 import { ClaimMsg } from "@binance-chain/javascript-sdk/lib/types";
-
+import {MetamaskService} from "./services/metamask.service"
 function App() {
+  
+
   const [response, setResponse] = React.useState("");
   const [input, setInput] = React.useState("");
   const [fileKeyStore, setfileKeyStore] = React.useState("");
@@ -65,6 +67,14 @@ function App() {
 
       /*File Downloading function is called here to download the Text File*/
       downloadTextFile();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const Metamask_Connection = async () => {
+    try {
+      const metamaskService = new MetamaskService();
+      metamaskService.connect()
     } catch (error) {
       console.log(error);
     }
@@ -540,6 +550,12 @@ const BUSDTORUNE = async () => {
     <>
       <Container>
         <Segment>
+        <div>
+        <Button primary onClick={Metamask_Connection}>
+              Connect Metamask
+            </Button>
+            {/* // <input id="password" value={input} onchange ={e=> setInput(e.target.value)}/> */}
+          </div>
           <div>
             <h1>Thorchain Custom Keystore Maker</h1>
             <h4>Enter your Password</h4>
