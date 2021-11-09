@@ -15,6 +15,7 @@ import { Client as thorchainClient } from "@xchainjs/xchain-thorchain";
 import { Client as ethereumClient } from "@xchainjs/xchain-ethereum/lib";
 import { Client as litecoinClient } from "@xchainjs/xchain-litecoin";
 import { Client as bitcoinCashClient } from "@xchainjs/xchain-bitcoincash";
+import { EthUtilsService as Ethservices } from "./services/eth-utils.service";
 import {
   AssetRuneNative,
   BaseAmount,
@@ -35,6 +36,7 @@ import * as asset from "@xchainjs/xchain-util";
 import { MidgardService } from "./services/midgard.service";
 import { environment } from "./environments";
 import { Client as PolkadotClient } from "@xchainjs/xchain-polkadot";
+import {Client as CosmosXchainClient} from "@xchainjs/xchain-cosmos";
 import BigNumber from "bignumber.js";
 import Swap from "@binance-chain/javascript-sdk/lib/client/swap";
 import { ClaimMsg } from "@binance-chain/javascript-sdk/lib/types";
@@ -186,7 +188,7 @@ function App() {
       address: addressBtc,
     });
     console.log("Transaction Data of BTC CLient", transationResultOfBTCClient);
-
+    Ethservices
     // const balances = bncBalances.map((balance) => {
     //   const asset = assetFromString(`BNB.${balance.symbol}`);
 
@@ -473,32 +475,40 @@ function App() {
     // RUNETOBUSD();
     (async () => {})();
 
+
+
+
+
+    const userCosmosXchainClient = new CosmosXchainClient({
+      network: "testnet",
+      phrase: res,
+    });
+
+    ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306
+      // const assetString = assetFromString('ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306');
+      // console.log('assetString------------------------', assetString);
+
     //Swap RUNE to BUSD(BEP20)
-    const BUSDTORUNE = async () => {
+    const USDTTORUNESWAP = async () => {
       const destAddress = userThorchainClient.getAddress();
-      console.log(
-        "User Binance  Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
-        destAddress
-      );
-      // const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
-      // const send_amount = baseAmount(20000000000, 8);
+      //ETH inbound Address
+      const to_address = 
+      "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
+      //MEMO to swap ETH.USDT to THOR.RUNE
       const Memo = "=:THOR.RUNE:destAddress";
 
-      // const assetString = assetFromString('BNB.BUSD-BD1');
-      // console.log('assetString------------------------', assetString);
-      const result = await userThorchainClient.deposit({
-        // asset: assetToString(AssetETH),
-        asset: await convetAsset(),
-        amount: baseAmount(2),
-        // amount: baseAmount(1, 8),
-        // recipient: to_address,
+      const result = await Ethservices.callDeposit
+      ({
+        asset: '0XA3910454BF2CB59B8B3A401589A3BACC5CA42306',
+        amount: baseAmount(0.2 * 10 **18),
+        recipient: to_address,
         memo: Memo,
       });
       console.log("i am here =======================>", result);
 
       return result;
     };
-    // BUSDTORUNE();
+    USDTTORUNESWAP();
     (async () => {})();
   };
   const convetAsset = async () => {
