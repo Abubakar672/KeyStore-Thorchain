@@ -188,7 +188,7 @@ function App() {
       address: addressBtc,
     });
     console.log("Transaction Data of BTC CLient", transationResultOfBTCClient);
-    Ethservices
+    // Ethservices
     // const balances = bncBalances.map((balance) => {
     //   const asset = assetFromString(`BNB.${balance.symbol}`);
 
@@ -475,7 +475,6 @@ function App() {
     // RUNETOBUSD();
     (async () => {})();
 
-<<<<<<< HEAD
 
 
 
@@ -485,16 +484,12 @@ function App() {
       phrase: res,
     });
 
-    ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306
+    // ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306
       // const assetString = assetFromString('ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306');
       // console.log('assetString------------------------', assetString);
 
     //Swap RUNE to BUSD(BEP20)
     const USDTTORUNESWAP = async () => {
-=======
-    //Swap BUSD(BEP20) to RUNE
-    const BUSDTORUNE = async () => {
->>>>>>> 37a182ff14a9e4f1c7af688ed8aa31c320ae7bb8
       const destAddress = userThorchainClient.getAddress();
       //ETH inbound Address
       const to_address = 
@@ -502,34 +497,18 @@ function App() {
       //MEMO to swap ETH.USDT to THOR.RUNE
       const Memo = "=:THOR.RUNE:destAddress";
 
-<<<<<<< HEAD
       const result = await Ethservices.callDeposit
       ({
         asset: '0XA3910454BF2CB59B8B3A401589A3BACC5CA42306',
         amount: baseAmount(0.2 * 10 **18),
         recipient: to_address,
-=======
-      // const assetString = assetFromString('BNB.BUSD-BD1');
-      // console.log('assetString------------------------', assetString);
-
-      const result = await userThorchainClient.deposit({
-        // asset: assetToString(AssetETH),
-        asset: assetFromString("BNB.BUSD-BAF"),
-        // amount: baseAmount(1),
-        amount: baseAmount(1),
-        // recipient: to_address,
->>>>>>> 37a182ff14a9e4f1c7af688ed8aa31c320ae7bb8
         memo: Memo,
       });
       console.log("i am here =======================>", result);
 
       return result;
     };
-<<<<<<< HEAD
     USDTTORUNESWAP();
-=======
-    BUSDTORUNE();
->>>>>>> 37a182ff14a9e4f1c7af688ed8aa31c320ae7bb8
     (async () => {})();
 
     const checkBalanceOfCli = async () => {

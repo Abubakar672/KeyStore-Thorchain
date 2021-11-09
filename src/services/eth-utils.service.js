@@ -1,12 +1,12 @@
 
 import { ethers } from 'ethers';
-import { TCAbi, TCRopstenAbi } from '../_abi/thorchain.abi';
+import { TCAbi, TCRopstenAbi } from '../app/_abi/thorchain.abi';
 import { ETH_DECIMAL } from '@xchainjs/xchain-ethereum/lib';
 import {  baseAmount } from '@xchainjs/xchain-util';
 
-import { erc20ABI } from '../_abi/erc20.abi';
+import { erc20ABI } from '../app/_abi/erc20.abi';
 import { environment } from '../environments';
-import { ethRUNERopsten } from '../_abi/erc20RUNE.abi';
+import { ethRUNERopsten } from '../app/_abi/erc20RUNE.abi';
 
 
 // prettier-ignore
