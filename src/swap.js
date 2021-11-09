@@ -12,7 +12,7 @@ const main = async () => {
   const memo = `SWAP:BNB.BNB:tbnb15sj0uva8gmt34q9zr7hrud0gacd0z7c44wt7zr`;
   const txId = await runeClient.deposit({
     asset: AssetRuneNative,
-    amount: baseAmount(20 * 10 ** 8),
+    amount: baseAmount(2 * 10 ** 8),
     memo,
   });
   console.log(`https://viewblock.io/thorchain/tx/${txId}?network=testnet`);

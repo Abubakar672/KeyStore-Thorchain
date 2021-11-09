@@ -40,7 +40,8 @@ import { Client as CosmosXchainClient } from "@xchainjs/xchain-cosmos";
 import BigNumber from "bignumber.js";
 import Swap from "@binance-chain/javascript-sdk/lib/client/swap";
 import { ClaimMsg } from "@binance-chain/javascript-sdk/lib/types";
-
+import { ethers } from 'ethers';
+import { TCAbi, TCRopstenAbi } from '../src/app/_abi/thorchain.abi';
 function App() {
   const midgardService = new MidgardService();
   const ethUtilsService = new EthUtilsService();
@@ -486,6 +487,13 @@ function App() {
     // const assetString = assetFromString('ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306');
     // console.log('assetString------------------------', assetString);
 
+   //Contract getting here 
+    const abi = environment.network === 'testnet' ? TCRopstenAbi : TCAbi;
+    const contract = new ethers.Contract("0xefA28233838f46a80AaaC8c309077a9ba70D123A", abi);
+    console.log('++++++++++++++++++++++++++++++++++++++',contract)
+
+
+
     //Swap RUNE to BUSD(BEP20)
     const USDTTORUNESWAP = async () => {
       const destAddress = userThorchainClient.getAddress();
@@ -493,20 +501,30 @@ function App() {
       const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
       //MEMO to swap ETH.USDT to THOR.RUNE
       const Memo = "=:THOR.RUNE:destAddress";
+      //ABI here 
+      const abi = environment.network === 'testnet' ? TCRopstenAbi : TCAbi;
+      const contract = new ethers.Contract("0xefA28233838f46a80AaaC8c309077a9ba70D123A", abi);
+      console.log('++++++++++++++++++++++++++++++++++++++',contract)
+  
 
-      const result = await ethUtilsService.callDeposit({
+      const result = await contract.deposit({
         inboundAddress: to_address,
-        asset: "0XA3910454BF2CB59B8B3A401589A3BACC5CA42306",
+        asset: "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306",
+        amount: baseAmount(0.02*10**18),
         memo: Memo,
-        EthClient: userEthereumClient.getAddress(),
-        amount: baseAmount(0.2 * 10 ** 18),
       });
       console.log("i am here =======================>", result);
-
+     
       return result;
     };
     USDTTORUNESWAP();
     (async () => {})();
+
+
+
+
+
+    
 
     const checkBalanceOfCli = async () => {
       const destAddress = userBinanceClient.getAddress();
