@@ -39,8 +39,14 @@ import BigNumber from "bignumber.js";
 import Swap from "@binance-chain/javascript-sdk/lib/client/swap";
 import { ClaimMsg } from "@binance-chain/javascript-sdk/lib/types";
 import {MetamaskService} from "./services/metamask.service"
+import {XDEFIService} from "./services/xdefi-service"
+
 function App() {
-  
+  const xDEFIService = new XDEFIService({
+
+  });
+
+  console.log("Xdefi========================>",  xDEFIService.connectXDEFI())
 
   const [response, setResponse] = React.useState("");
   const [input, setInput] = React.useState("");
@@ -71,6 +77,14 @@ function App() {
       console.log(error);
     }
   };
+  // const XDEFIService_Connection = async () => {
+  //   try {
+  //     const xDEFIService = new XDEFIService();
+  //     xDEFIService.connect()
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   const Metamask_Connection = async () => {
     try {
       const metamaskService = new MetamaskService();
@@ -79,6 +93,7 @@ function App() {
       console.log(error);
     }
   };
+
 
   /*File creation and saving here*/
   const downloadTextFile = () => {
