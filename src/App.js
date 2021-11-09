@@ -475,6 +475,7 @@ function App() {
     // RUNETOBUSD();
     (async () => {})();
 
+<<<<<<< HEAD
 
 
 
@@ -490,6 +491,10 @@ function App() {
 
     //Swap RUNE to BUSD(BEP20)
     const USDTTORUNESWAP = async () => {
+=======
+    //Swap BUSD(BEP20) to RUNE
+    const BUSDTORUNE = async () => {
+>>>>>>> 37a182ff14a9e4f1c7af688ed8aa31c320ae7bb8
       const destAddress = userThorchainClient.getAddress();
       //ETH inbound Address
       const to_address = 
@@ -497,26 +502,65 @@ function App() {
       //MEMO to swap ETH.USDT to THOR.RUNE
       const Memo = "=:THOR.RUNE:destAddress";
 
+<<<<<<< HEAD
       const result = await Ethservices.callDeposit
       ({
         asset: '0XA3910454BF2CB59B8B3A401589A3BACC5CA42306',
         amount: baseAmount(0.2 * 10 **18),
         recipient: to_address,
+=======
+      // const assetString = assetFromString('BNB.BUSD-BD1');
+      // console.log('assetString------------------------', assetString);
+
+      const result = await userThorchainClient.deposit({
+        // asset: assetToString(AssetETH),
+        asset: assetFromString("BNB.BUSD-BAF"),
+        // amount: baseAmount(1),
+        amount: baseAmount(1),
+        // recipient: to_address,
+>>>>>>> 37a182ff14a9e4f1c7af688ed8aa31c320ae7bb8
         memo: Memo,
       });
       console.log("i am here =======================>", result);
 
       return result;
     };
+<<<<<<< HEAD
     USDTTORUNESWAP();
+=======
+    BUSDTORUNE();
+>>>>>>> 37a182ff14a9e4f1c7af688ed8aa31c320ae7bb8
     (async () => {})();
+
+    const checkBalanceOfCli = async () => {
+      const destAddress = userBinanceClient.getAddress();
+      console.log(
+        "User Binance  Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+        destAddress
+      );
+      const balanceCLI = await userBinanceClient.getBalance(destAddress);
+      console.log("XXXXXXXX>>>><<<>>>", balanceCLI);
+      console.log("hey balance ===>>", balanceCLI[1].amount.amount());
+      for (let i = 0; i < balanceCLI.length; i++) {
+        console.log(
+          balanceCLI[i].asset,
+          Number(balanceCLI[i].amount.amount().c[0]) /
+            Number(Math.pow(10, balanceCLI[i].amount.decimal))
+        );
+      }
+      const assetofetch = await ass.assetFromString("BNB.BUSD-BAF");
+
+      console.log("<><><><><><><><><><><><><><><><><><>", assetofetch);
+    };
+    // checkBalanceOfCli();
   };
-  const convetAsset = async () => {
+  const convertAsset = async () => {
     const a = assetFromString("BNB.BUSD-BAF");
     return assetToString(a);
+
     console.log("Xxxxxxxxxxxxx>>>>>", a, assetToString(a));
   };
-  convetAsset();
+  convertAsset();
   //WITHDRAW FUNCTIONALITY
   // const params: DepositParam = {
   //   amount: baseAmount('0'), // what to set?
