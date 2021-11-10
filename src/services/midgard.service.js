@@ -81,7 +81,7 @@ export class MidgardService {
   }
 
   getQueue() {
-    return axios.get(`${this.v2BasePath}/thorchain/queue`);
+    return axios.geMidgardService;
   }
 
   getMimir() {
@@ -89,7 +89,7 @@ export class MidgardService {
   }
 
   getThorchainLiquidityProviders(asset) {
-    return axios.get(
+    return this.http.get(
       `${this._thornodeBasePath}/thorchain/pool/${asset}/liquidity_providers`
     );
   }

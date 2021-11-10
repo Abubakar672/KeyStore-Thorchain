@@ -1,13 +1,13 @@
+/** @format */
 
-import { ethers } from 'ethers';
-import { TCAbi, TCRopstenAbi } from '../_abi/thorchain.abi';
-import { ETH_DECIMAL } from '@xchainjs/xchain-ethereum/lib';
-import {  baseAmount } from '@xchainjs/xchain-util';
+import { ethers } from "ethers";
+import { TCAbi, TCRopstenAbi } from "../app/_abi/thorchain.abi";
+import { ETH_DECIMAL } from "@xchainjs/xchain-ethereum/lib";
+import { baseAmount } from "@xchainjs/xchain-util";
 
-import { erc20ABI } from '../_abi/erc20.abi';
-import { environment } from '../environments';
-import { ethRUNERopsten } from '../_abi/erc20RUNE.abi';
-
+import { erc20ABI } from "../app/_abi/erc20.abi";
+import { environment } from "../environments";
+import { ethRUNERopsten } from "../app/_abi/erc20RUNE.abi";
 
 // prettier-ignore
 const testnetBasketABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"coin","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"addCoin","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"coins","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"giveMeCoins","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isAdded","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"}];
@@ -16,9 +16,8 @@ export class EthUtilsService {
   MAX_UINT256 = ethers.constants.MaxUint256;
 
   async getAssetDecimal(asset, client) {
-    
-    if (asset.chain === 'ETH') {
-      if (asset.symbol === 'ETH') {
+    if (asset.chain === "ETH") {
+      if (asset.symbol === "ETH") {
         return ETH_DECIMAL;
       } else {
         const wallet = client.getWallet();
@@ -34,33 +33,26 @@ export class EthUtilsService {
         return tokenDecimals;
       }
     } else {
-      throw new Error('asset chain not ETH');
+      throw new Error("asset chain not ETH");
     }
-    
   }
 
-  async callDeposit({
-    inboundAddress,
-    asset,
-    memo,
-    ethClient,
-    amount,
-  }) {
+  async callDeposit({ inboundAddress, asset, memo, ethClient, amount }) {
     let hash;
-    const abi = environment.network === 'testnet' ? TCRopstenAbi : TCAbi;
+    const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
     const ethAddress = await ethClient.getAddress();
     const gasPrice = baseAmount(
-      ethers.utils.parseUnits(inboundAddress.gas_rate, 'gwei').toString(),
+      ethers.utils.parseUnits(inboundAddress.gas_rate, "gwei").toString(),
       ETH_DECIMAL
     )
       .amount()
       .toFixed(0);
 
-    if (asset.ticker === 'ETH') {
+    if (asset.ticker === "ETH") {
       const contract = new ethers.Contract(inboundAddress.router, abi);
       const unsignedTx = await contract.populateTransaction.deposit(
         inboundAddress.address,
-        '0x0000000000000000000000000000000000000000',
+        "0x0000000000000000000000000000000000000000",
         amount.toFixed(),
         memo,
         { from: ethAddress, value: amount.toFixed(), gasPrice }
@@ -102,7 +94,7 @@ export class EthUtilsService {
     userAddress,
   }) {
     const gasPrice = baseAmount(
-      ethers.utils.parseUnits(ethInbound.gas_rate, 'gwei').toString(),
+      ethers.utils.parseUnits(ethInbound.gas_rate, "gwei").toString(),
       ETH_DECIMAL
     )
       .amount()
@@ -116,15 +108,11 @@ export class EthUtilsService {
     return await contract.approve(routerContractAddress, this.MAX_UINT256, {
       from: userAddress,
       gasPrice,
-      gasLimit: '65000',
+      gasLimit: "65000",
     });
   }
 
-  async approveXDEFI({
-    ethClient,
-    contractAddress,
-    spenderAddress,
-  }){
+  async approveXDEFI({ ethClient, contractAddress, spenderAddress }) {
     return await ethClient.approve({
       contractAddress,
       amount: baseAmount(this.MAX_UINT256.toString()),
@@ -132,11 +120,7 @@ export class EthUtilsService {
     });
   }
 
-  async approveMetaMask({
-    contractAddress,
-    provider,
-    routerContractAddress,
-  }){
+  async approveMetaMask({ contractAddress, provider, routerContractAddress }) {
     const contract = new ethers.Contract(
       contractAddress,
       erc20ABI,
@@ -145,12 +129,7 @@ export class EthUtilsService {
     return await contract.approve(routerContractAddress, this.MAX_UINT256);
   }
 
-  async isApproved(
-    provider,
-    contractAddress,
-    routerContract,
-    userAddress
-  ){
+  async isApproved(provider, contractAddress, routerContract, userAddress) {
     const contract = new ethers.Contract(contractAddress, erc20ABI, provider);
     const owner = userAddress;
     const spender = routerContract;
@@ -163,27 +142,27 @@ export class EthUtilsService {
       const wallet = await ethClient.getWallet();
 
       const basketERC20Contract = new ethers.Contract(
-        '0xEF7a88873190098F0EA2CFB7C68AF9526AD79aad',
+        "0xEF7a88873190098F0EA2CFB7C68AF9526AD79aad",
         testnetBasketABI,
         wallet
       );
       await basketERC20Contract.giveMeCoins();
 
       const testnetRuneContract = new ethers.Contract(
-        '0xd601c6A3a36721320573885A8d8420746dA3d7A0',
+        "0xd601c6A3a36721320573885A8d8420746dA3d7A0",
         ethRUNERopsten,
         wallet
       );
       await testnetRuneContract.functions.giveMeRUNE();
     } catch (error) {
-      console.log('error getting testnet RUNE');
+      console.log("error getting testnet RUNE");
       console.log(error);
     }
   }
 
-  async estimateERC20Time(token, tokenAmount){
+  async estimateERC20Time(token, tokenAmount) {
     const tokenPool = await this.midgardService.getPool(token).toPromise();
-    const ethPool = await this.midgardService.getPool('ETH.ETH').toPromise();
+    const ethPool = await this.midgardService.getPool("ETH.ETH").toPromise();
     // prettier-ignore
     const assetUnitsPerEth = (+tokenPool.assetPriceUSD) / (+ethPool.assetPriceUSD);
     const totalInEth = tokenAmount * assetUnitsPerEth;
@@ -200,6 +179,6 @@ export class EthUtilsService {
   }
 
   strip0x(hash) {
-    return hash.toUpperCase().indexOf('0X') === 0 ? hash.substr(2) : hash;
+    return hash.toUpperCase().indexOf("0X") === 0 ? hash.substr(2) : hash;
   }
 }

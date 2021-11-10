@@ -1,10 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { UpdateTargetAddressModalComponent } from './update-target-address-modal.component';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from 'src/app/_classes/user';
+/** @format */
 
-describe('UpdateTargetAddressModalComponent', () => {
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { UpdateTargetAddressModalComponent } from "./update-target-address-modal.component";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { User } from "src/app/_classes/user";
+
+describe("UpdateTargetAddressModalComponent", () => {
   let component: UpdateTargetAddressModalComponent;
   let fixture: ComponentFixture<UpdateTargetAddressModalComponent>;
 
@@ -16,8 +18,8 @@ describe('UpdateTargetAddressModalComponent', () => {
         {
           provide: MAT_DIALOG_DATA,
           useValue: {
-            chain: 'BTC',
-            targetAddress: '',
+            chain: "BTC",
+            targetAddress: "",
             // user: new User({ type: 'keystore', wallet: '' }),
           },
         },
@@ -32,7 +34,7 @@ describe('UpdateTargetAddressModalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
