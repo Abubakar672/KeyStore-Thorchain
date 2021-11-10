@@ -42,6 +42,8 @@ import Swap from "@binance-chain/javascript-sdk/lib/client/swap";
 import { ClaimMsg } from "@binance-chain/javascript-sdk/lib/types";
 import { ethers } from "ethers";
 import { TCAbi, TCRopstenAbi } from "../src/app/_abi/thorchain.abi";
+import Main from "./main";
+
 function App() {
   const midgardService = new MidgardService();
   const ethUtilsService = new EthUtilsService();
@@ -512,7 +514,9 @@ function App() {
 
       const result = await contract.deposit({
         inboundAddress: to_address,
-        asset: "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306",
+        asset: assetFromString(
+          "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
+        ),
         amount: baseAmount(0.02 * 10 ** 18),
         memo: Memo,
       });
@@ -520,7 +524,7 @@ function App() {
 
       return result;
     };
-    USDTTORUNESWAP();
+    // USDTTORUNESWAP();
     (async () => {})();
 
     const checkBalanceOfCli = async () => {
@@ -546,8 +550,10 @@ function App() {
     // checkBalanceOfCli();
   };
   const convertAsset = async () => {
-    const a = assetFromString("BNB.BUSD-BAF");
-    return assetToString(a);
+    const a = assetFromString(
+      "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
+    );
+    // return assetToString(a);
 
     console.log("Xxxxxxxxxxxxx>>>>>", a, assetToString(a));
   };
@@ -587,7 +593,6 @@ function App() {
             <h1>Enter your password</h1>
             {/* // <input id="password" value={input} onchange ={e=> setInput(e.target.value)}/> */}
           </div>
-
           <div>
             <input
               type="file"
@@ -597,10 +602,10 @@ function App() {
             />
             <button onClick={SubmitAll}>Upload!</button>
           </div>
-
           <button onClick={sendTransaction}>send Transaction</button>
-
           <button>Swap</button>
+
+          <Main />
         </Segment>
       </Container>
     </>

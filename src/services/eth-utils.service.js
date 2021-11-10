@@ -16,6 +16,7 @@ export class EthUtilsService {
   MAX_UINT256 = ethers.constants.MaxUint256;
 
   async getAssetDecimal(asset, client) {
+    console.log("usman don", asset, client);
     if (asset.chain === "ETH") {
       if (asset.symbol === "ETH") {
         return ETH_DECIMAL;
