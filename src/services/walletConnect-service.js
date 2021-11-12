@@ -10,9 +10,11 @@ import { ETH_DECIMAL, getTokenAddress } from '@xchainjs/xchain-ethereum';
 import { TCAbi } from './thorchain.abi';
 
 
-window.ethereum = window.ethereum || {};
+const walletConnectprovider = new WalletConnectProvider({
+    infuraId: "ece2a3079cb54d0883716a41e515eb44",})
+    // walletConnectprovider = walletConnectprovider || {};
 
-export class MetamaskService {
+export class WalletConnectService {
     _provider = new BehaviorSubject(null);
     provider$ = this._provider.asObservable();
 
@@ -20,29 +22,29 @@ export class MetamaskService {
     metaMaskNetwork$ = this._metaMaskNetwork.asObservable();
 
     constructor(userService) {
-        if (window.ethereum && window.ethereum.on) {
-            window.ethereum.on('accountsChanged', (a) =>
+        if (walletConnectprovider && walletConnectprovider) {
+            walletConnectprovider.on('accountsChanged', (a) =>
                 this.handleAccountsChanged(a, this._provider)
             );
 
-            window.ethereum.on('chainChanged', (_chainId) => {
-                switch (+_chainId) {
-                    case 1:
-                        window.location.href = 'https://app.asgard.exchange';
-                        this._metaMaskNetwork.next('mainnet');
-                        break;
+            // provider.on('chainChanged', (_chainId) => {
+            //     switch (+_chainId) {
+            //         case 1:
+            //             window.location.href = 'https://app.asgard.exchange';
+            //             this._metaMaskNetwork.next('mainnet');
+            //             break;
 
-                    case 3:
-                        window.location.href = 'https://testnet.asgard.exchange';
-                        this._metaMaskNetwork.next('testnet');
-                        break;
+            //         case 3:
+            //             window.location.href = 'https://testnet.asgard.exchange';
+            //             this._metaMaskNetwork.next('testnet');
+            //             break;
 
-                    default:
-                        this._metaMaskNetwork.next(null);
-                        window.location.reload();
-                        break;
-                }
-            });
+            //         default:
+            //             this._metaMaskNetwork.next(null);
+            //             window.location.reload();
+            //             break;
+            //     }
+            // });
             this.init();
         }
     }
@@ -51,7 +53,7 @@ export class MetamaskService {
         accounts,
         provider,
     ) {
-        const ethProvider = new ethers.providers.Web3Provider(window.ethereum);
+        const ethProvider = new ethers.providers.Web3Provider(walletConnectprovider);
         if (provider && accounts.length > 0) {
             provider.next(ethProvider);
             this.setMetaMaskNetwork(ethProvider);
@@ -123,7 +125,7 @@ export class MetamaskService {
     }
 
     async init() {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new ethers.providers.Web3Provider(walletConnectprovider);
         const lastLoginType = localStorage.getItem('lastLoginType');
         if (provider && lastLoginType === 'metamask') {
             this.setProvider(provider);
@@ -155,7 +157,7 @@ export class MetamaskService {
     }
 
     async connect() {
-        const enable = await window.ethereum.enable();
+        const enable = await walletConnectprovider.enable();
         if (enable instanceof Array && enable.length > 0) {
             this.handleAccountsChanged(enable, this._provider);
         }

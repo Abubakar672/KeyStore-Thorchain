@@ -25,6 +25,8 @@ import { Client as bitcoinCashClient } from '@xchainjs/xchain-bitcoincash';
 import { Client as ethereumClient } from '@xchainjs/xchain-ethereum/lib';
 import { Chain } from '@xchainjs/xchain-util';
 import { Network } from '@xchainjs/xchain-client';
+import {Web3} from "web3";
+
 
 
 export class XDEFIService {
@@ -186,10 +188,10 @@ mockBchClient;
   }
 
   async getEthAddress() {
-    if (!window?.ethereum) {
+    if (!window.xfi.ethereum) {
       return;
     }
-    return window?.ethereum.request({
+    return window.xfi.ethereum.request({
       method: 'eth_requestAccounts',
       params: [],
     });
@@ -216,12 +218,12 @@ mockBchClient;
   }
 
   async getLtcAddress() {
-    if (!window?.xfi?.litecoin) {
+    if (!window.xfi.litecoin) {
       console.log("xfi not defined")
       return ;
     }
     return new Promise((resolve, reject) => {
-      window?.xfi?.litecoin.request(
+      window.xfi.litecoin.request(
         {
           method: 'request_accounts',
           params: [],
@@ -252,7 +254,7 @@ mockBchClient;
         this.getBnbAddress(),
         this.getBtcAddress(),
         this.getBchAddress(),
-        // this.getEthAddress(),
+        this.getEthAddress(),
         this.getLtcAddress(),
       ]);
 
@@ -266,19 +268,20 @@ mockBchClient;
     userLtcClient.getAddress = () => ltcAddress;
 
     // Binance
-    userBinanceClient.transfer = async (transferParams) => {
-      console.log('userBinanceClient.transfer', transferParams);
+    userBinanceClient.transfer = async (
+      transferParams) => {
       return new Promise((resolve, reject) => {
         window.xfi.binance.request(
           {
             method: 'transfer',
             params: [
               {
+            
                 ...transferParams,
                 from: bnbAddress,
                 amount: {
-                  amount: transferParams.amount.amount().toString(),
-                  decimals: transferParams.amount.decimal,
+                  amount: 500,
+                  decimals: 8
                 },
               },
             ],
@@ -305,8 +308,8 @@ mockBchClient;
                 ...transferParams,
                 from: btcAddress,
                 amount: {
-                  amount: transferParams.amount.amount().toString(),
-                  decimals: transferParams.amount.decimal,
+                  amount: 500,
+                  decimals: 8
                 },
               },
             ],

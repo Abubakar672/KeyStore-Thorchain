@@ -39,14 +39,78 @@ import BigNumber from "bignumber.js";
 import Swap from "@binance-chain/javascript-sdk/lib/client/swap";
 import { ClaimMsg } from "@binance-chain/javascript-sdk/lib/types";
 import {MetamaskService} from "./services/metamask.service"
+import {WalletConnectService} from "./services/walletConnect-service"
+
 import {XDEFIService} from "./services/xdefi-service"
+import {ReconnectXDEFIDialogComponent} from "./services/reconnect-xdefi-dialog.component"
+
 
 function App() {
   const xDEFIService = new XDEFIService({
-
+    
   });
+  const reconnectXDEFIDialogComponent = new ReconnectXDEFIDialogComponent();
+  const walletConnectService = new WalletConnectService();
 
-  console.log("Xdefi========================>",  xDEFIService.connectXDEFI())
+// (async() => {
+
+//   console.log("ReconnectXDEFIDialogComponent", await (await reconnectXDEFIDialogComponent.initConnect()))
+
+  
+//   const feeRate =20
+//  const  recipient = 'tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7'
+// //  const amount =  baseAmount(100000, 6);
+// const memo = `SWAP:BNB.BNB:tbnb15sj0uva8gmt34q9zr7hrud0gacd0z7c44wt7zr`;// const to_address = "tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7";
+
+// // const send_amount = baseAmount(100000, 6);
+
+// // const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
+// //  const asset = AssetBNB
+
+// //     const recipient = 'tthor1px5nmvpg7wsz46t72rk3vz2sw5v4na09wzjc8p'
+    
+// //     const amount = baseAmount(100000, 6);
+
+
+    
+  
+// //   console.log("Validation===============sss=========>", await xDEFIService.isValidNetwork())
+// //   console.log("enabling===============sss=========>", await xDEFIService.listEnabledXDFIProviders())
+// //   // const connectxDefi = 
+//   // const xDefiTransaction =  await  xDEFIService.connectXDEFI().clients.binance.transfer({feeRate,recipient,amount,memo})
+//   console.log("connectxDefi start===============sss=========>" )
+
+//   const connectXDEFI =  await xDEFIService.connectXDEFI();
+//   console.log("connectxDefi===============sss=========>",connectXDEFI )
+//   console.log("connectxDefi===============sss=========>",Object.keys(connectXDEFI.clients) )
+//   console.log("connectxDefi===============sss=========>" )
+//   //   await connectXDEFI.clients.bitcoin.transfer({feeRate,recipient,memo,
+//   // }).then(res => console.log("response=============", res))
+//   //   .catch(err => console.log("ërror===================", err))
+
+//   await connectXDEFI.clients.bitcoin.transfer({recipient,memo,    asset: {
+//     chain: "BNB",
+//     symbol: "BNB",
+//     ticker: "BNB",
+//   }}).then(res => console.log("response=============", res))
+//     .catch(err => console.log("ërror===================", err))
+  
+//   // console.log("xDefiTransaction===============sss=========>", xDefiTransaction)
+//   // console.log("connectxDefi===============sss=========>", )
+//   // console.log("xDefiTransaction===============sss=========>", await (await  xDEFIService.connectXDEFI()).clients.binance.transfer({recipient,memo,    asset: {
+//   //   chain: "BNB",
+//   //   symbol: "BNB",
+//   //   ticker: "BNB",
+//   // }})) 
+
+
+// })()
+(async() => {
+
+  console.log("ReconnectXDEFIDialogComponent", await (await walletConnectService.connect()))
+
+
+})()
 
   const [response, setResponse] = React.useState("");
   const [input, setInput] = React.useState("");
