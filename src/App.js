@@ -554,7 +554,7 @@ function App() {
       const assetString = assetFromString('BNB.BUSD-BD1');
       console.log('assetString------------------------', assetString);
       const result = await userBinanceClient.transfer({
-        asset: assetFromString("BUSD-74E"),
+        asset: assetFromString("BNB.BUSD-74E"),
         amount: send_amount,
         recipient: to_address,
         memo: Memo,
