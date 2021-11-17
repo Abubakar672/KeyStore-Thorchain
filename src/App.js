@@ -495,55 +495,95 @@ function App() {
 
 
     //Swap RUNE to BUSD(BEP20)
-    const USDTTORUNESWAP = async () => {
-      const CLI = new ethereumClient.Client({
-        network: "testnet",
-        phrase:
-          "expose blush snake marriage lock crop group define today such indoor school",
-      });
-      console.log("here");
-      //ETH inbound Address
-      const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
-      //MEMO to swap ETH.USDT to THOR.RUNE
-      const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
-      //ABI here
-      const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
-      console.log("here");
-      const contract = new ethers.Contract(
-        "0xefA28233838f46a80AaaC8c309077a9ba70D123A",
-        abi
-      );
-      console.log("++++++++++++++++++++++++++++++++++++++", contract);
-      console.log("here");
-      // const decimals = ethUtilsService.getAssetDecimal(
-      //   assetFromString("ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"),
-      //   CLI
-      // );
-      // console.log("decimals<><><><><><><>", decimals);
-      // let amount = assetToBase(assetAmount(1, 18)).amount();
-      // console.log("amount<><><><><><><><><><><><><>", amount);
-      const txId = await ethUtilsService.callDeposit({
-        inboundAddress: "0x424d3444067bd08421fa4ad1c026f697ab2cd979",
-        asset: assetFromString(
-          "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
-        ),
-        amount: 1,
-        memo: Memo,
-        ethClient: CLI,
-      });
+    // const USDTTORUNESWAP = async () => {
+    //   const CLI = new ethereumClient.Client({
+    //     network: "testnet",
+    //     phrase:
+    //       "expose blush snake marriage lock crop group define today such indoor school",
+    //   });
+    //   console.log("here");
+    //   //ETH inbound Address
+    //   const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
+    //   //MEMO to swap ETH.USDT to THOR.RUNE
+    //   const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
+    //   //ABI here
+    //   const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
+    //   console.log("here");
+    //   const contract = new ethers.Contract(
+    //     "0xefA28233838f46a80AaaC8c309077a9ba70D123A",
+    //     abi
+    //   );
+    //   console.log("++++++++++++++++++++++++++++++++++++++", contract);
+    //   console.log("here");
+    //   // const decimals = ethUtilsService.getAssetDecimal(
+    //   //   assetFromString("ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"),
+    //   //   CLI
+    //   // );
+    //   // console.log("decimals<><><><><><><>", decimals);
+    //   // let amount = assetToBase(assetAmount(1, 18)).amount();
+    //   // console.log("amount<><><><><><><><><><><><><>", amount);
+    //   const txId = await ethUtilsService.callDeposit({
+    //     inboundAddress: "0x424d3444067bd08421fa4ad1c026f697ab2cd979",
+    //     asset: assetFromString(
+    //       "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
+    //     ),
+    //     amount: 1,
+    //     memo: Memo,
+    //     ethClient: CLI,
+    //   });
+    //   console.log(
+    //     `https://viewblock.io/thorchain/tx/${txId}?network=testnet`,
+    //     txId
+    //   );
+  
+    //   return txId;
+    // };
+  
+
+
+    const swapBUSDToETH = async () => {
+      const destAddress = userBinanceClient.getAddress();
       console.log(
-        `https://viewblock.io/thorchain/tx/${txId}?network=testnet`,
-        txId
+        "User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+        destAddress
       );
-  
-      return txId;
+      const to_address = "tbnb1084kutndafee0uswh0hcrepmtz3e8a7cmlw39g";
+      const send_amount = baseAmount(100000, 6);
+      const Memo = "=:ETH.ETH:0x05ad7dd40fa9457f703191211bd4cb989fd06cbf";
+
+      const assetString = assetFromString('BNB.BUSD-BD1');
+      console.log('assetString------------------------', assetString);
+      const result = await userBinanceClient.transfer({
+        asset: assetFromString("BUSD-74E"),
+        amount: send_amount,
+        recipient: to_address,
+        memo: Memo,
+      });
+      console.log("i am here =======================>HELLLLOOOO BNBB", result);
+
+      return result;
     };
-  
-
-
-
-
+    swapBUSDToETH();
+    // (async () => {})();
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const checkBalanceOfCli = async () => {
       const destAddress = userBinanceClient.getAddress();
