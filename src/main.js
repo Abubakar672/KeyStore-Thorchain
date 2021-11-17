@@ -103,6 +103,55 @@ const Main = () => {
     return txId;
   };
 
+
+  const USDTTOXRUNEWAP = async () => {
+    const CLI = new ethereumClient.Client({
+      network: "testnet",
+      phrase:
+        "expose blush snake marriage lock crop group define today such indoor school",
+    });
+    console.log("here");
+    //ETH inbound Address
+    const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
+    //MEMO to swap ETH.USDT to ETH.XRUNE
+    const Memo = "=:ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23:0x05ad7dd40fa9457f703191211bd4cb989fd06cbf";
+    //ABI here
+    const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
+    console.log("here");
+    const contract = new ethers.Contract(
+      "0xefA28233838f46a80AaaC8c309077a9ba70D123A",
+      abi
+    );
+    console.log("++++++++++++++++++++++++++++++++++++++", contract);
+    console.log("here");
+    // const decimals = ethUtilsService.getAssetDecimal(
+    //   assetFromString("ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"),
+    //   CLI
+    // );
+    // console.log("decimals<><><><><><><>", decimals);
+    // let amount = assetToBase(assetAmount(1, 18)).amount();
+    // console.log("amount<><><><><><><><><><><><><>", amount);
+    const txId = await ethUtilsService.callDeposit({
+      inboundAddress: eth,
+      asset: assetFromString(
+        "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
+      ),
+      amount: 100000,
+      memo: Memo,
+      ethClient: CLI,
+    });
+    console.log(
+      `https://viewblock.io/thorchain/tx/${txId}?network=testnet`,
+      txId
+    );
+
+    return txId;
+  };
+
+
+
+
+
   let inboundAddress;
   // (async () => {
   //   const { data } = await midgardService.getInboundAddresses();
@@ -122,9 +171,11 @@ const Main = () => {
     console.log(callGetInboundAddresses.data[3]);
   };
 
+
+
   return (
     <div>
-      <button onClick={USDTTORUNESWAP}>SwapFromMain.js</button>
+      <button onClick={USDTTOXRUNEWAP}>SwapFromMain.js</button>
       <button onClick={getAllPools}>getAllPools</button>
     </div>
   );
