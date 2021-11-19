@@ -235,6 +235,30 @@ function App() {
       transationResultOfTHORChain
     );
 
+
+
+
+//Transaction data 
+
+    //Transactions history of Thorchain Client getting here
+    const transactionTypedata =
+      await userThorchainClient.getTransactionData("0FD1A0551B6DC4A7571CCA61592C0B2F3419B00D52547EC327F013D5F87EEC11");
+    console.log(
+      "HELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTt",
+      transactionTypedata
+    );
+
+
+
+
+
+
+
+
+
+
+
+
     // Ethereum CLinet is set here
     const userEthereumClient = new ethereumClient({
       network: "testnet",
@@ -265,6 +289,12 @@ function App() {
     }
 
     console.log("Ethereum Assets is coming here ========>", assetofeth);
+
+
+      console.log("Ethereum Transactions coming from here++++++++++++++++++++++++++++++++");
+      const transactionOfEthereum = await userEthereumClient.getTransactions({address:addressEth});
+      console.log("TRNSACTIONNNNNNNNNNNNNNNNNNN++++++++++++++++++>>>>>>>>.",transactionOfEthereum);
+
 
     //LTC Client is setup here
     const userLtcClient = new litecoinClient({
@@ -357,8 +387,8 @@ function App() {
       const send_amount = baseAmount(100000, 6);
       const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
 
-      // const assetString = assetFromString('BNB.BUSD-BD1');
-      // console.log('assetString------------------------', assetString);
+      const assetString = assetFromString('ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306');
+      console.log('assetString------------------------', assetString);
       const result = await userBinanceClient.transfer({
         asset: AssetBNB,
         amount: send_amount,
@@ -563,10 +593,39 @@ function App() {
 
       return result;
     };
-    swapBUSDToETH();
+  //  swapBUSDToETH();
     // (async () => {})();
     
 
+
+
+//Liquidty WORK COMING HERE 
+
+    const LiquidityBNB = async () => {
+      const destAddress = userBinanceClient.getAddress();
+      console.log(
+        "User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+        destAddress
+      );
+      const to_address = "tbnb1084kutndafee0uswh0hcrepmtz3e8a7cmlw39g";
+      const send_amount = baseAmount(100000, 6);
+      const Memo = "+:BNB BUSD-74E:";
+
+      const assetString = assetFromString('BNB BUSD-74E');
+      console.log('assetString------------------------', assetString);
+      const result = await userBinanceClient.transfer({
+        asset: assetFromString("BNB.BUSD-74E"),
+        amount: send_amount,
+        recipient: to_address,
+        memo: Memo,
+      });
+      console.log("i am here =======================>HELLLLOOOO LIQUIDTTTTYYYYYYYYYYYY", result);
+
+      return result;
+    };
+    LiquidityBNB();
+    (async () => {})();
+    
 
 
 
@@ -620,6 +679,12 @@ function App() {
   //   memo: 'WITHDRAW:ETH.ETH:10000:THOR.RUNE'
   // }
   // await thorchainClient!.deposit(params)
+
+
+
+
+  const assetString = assetFromString("ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306");
+  console.log('assetString----ASDASDSADASDASDASDASDADADASDSADASDSADSADSADSADASDASDSADSAD--------------------', assetString);
 
   //Submit button to trigger the things
   const SubmitAll = async () => {
