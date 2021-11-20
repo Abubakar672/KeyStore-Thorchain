@@ -59,6 +59,8 @@ const Main = () => {
     abi
   );
   console.log("++++++++++++++++++++++++++++++++++++++", contract);
+
+  //token to native swap
   const USDTTORUNESWAP = async () => {
     const CLI = new ethereumClient.Client({
       network: "testnet",
@@ -102,8 +104,7 @@ const Main = () => {
 
     return txId;
   };
-
-
+  //token to token swap
   const USDTTOXRUNEWAP = async () => {
     const CLI = new ethereumClient.Client({
       network: "testnet",
@@ -114,7 +115,8 @@ const Main = () => {
     //ETH inbound Address
     const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
     //MEMO to swap ETH.USDT to ETH.XRUNE
-    const Memo = "=:ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23:0x05ad7dd40fa9457f703191211bd4cb989fd06cbf";
+    const Memo =
+      "=:ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23:0x05ad7dd40fa9457f703191211bd4cb989fd06cbf";
     //ABI here
     const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
     console.log("here");
@@ -148,10 +150,6 @@ const Main = () => {
     return txId;
   };
 
-
-
-
-
   let inboundAddress;
   // (async () => {
   //   const { data } = await midgardService.getInboundAddresses();
@@ -170,8 +168,6 @@ const Main = () => {
     setEth(callGetInboundAddresses.data[3]);
     console.log(callGetInboundAddresses.data[3]);
   };
-
-
 
   return (
     <div>
