@@ -590,21 +590,23 @@ function App() {
     // (async () => {})();
 
     //Liquidty WORK COMING HERE
-
+    console.log("usman my love<><><><><><><><><><><><><><><><><><>");
     const LiquidityBNB = async () => {
       const destAddress = userBinanceClient.getAddress();
       console.log(
         "User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
         destAddress
       );
-      const to_address = "tbnb1084kutndafee0uswh0hcrepmtz3e8a7cmlw39g";
-      const send_amount = baseAmount(100000, 6);
-      const Memo = "+:BNB BUSD-74E:";
+      const to_address = "tbnb1gnhm7rp8cx5txje4wqnmk3pqc7e3a8tpz6c8cc";
+      const send_amount = baseAmount(0.7, 6);
+      // const Memo = "+:BNB BUSD-74E:";
 
-      const assetString = assetFromString("BNB BUSD-74E");
+      const Memo = "+:BNB.BNB:";
+
+      const assetString = assetFromString("BNB.BNB");
       console.log("assetString------------------------", assetString);
       const result = await userBinanceClient.transfer({
-        asset: assetFromString("BNB.BUSD-74E"),
+        asset: assetFromString("BNB.BNB"),
         amount: send_amount,
         recipient: to_address,
         memo: Memo,
