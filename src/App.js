@@ -607,14 +607,14 @@ function App() {
         "User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
         destAddress
       );
-      const to_address = "tbnb1084kutndafee0uswh0hcrepmtz3e8a7cmlw39g";
+      const to_address = "tbnb1gnhm7rp8cx5txje4wqnmk3pqc7e3a8tpz6c8cc";
       const send_amount = baseAmount(100000, 6);
-      const Memo = "+:BNB BUSD-74E:";
+      const Memo = "+:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
 
       const assetString = assetFromString('BNB BUSD-74E');
       console.log('assetString------------------------', assetString);
       const result = await userBinanceClient.transfer({
-        asset: assetFromString("BNB.BUSD-74E"),
+        asset: assetFromString("BNB.BNB"),
         amount: send_amount,
         recipient: to_address,
         memo: Memo,
@@ -628,6 +628,32 @@ function App() {
     
 
 
+
+// const LiquidityXRUNE = async () => {
+//   const destAddress = userEthereumClient.getAddress();
+//   console.log(
+//     "User Ethereum Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+//     destAddress
+//   );
+//   const vaultAddress = "tbnb1gnhm7rp8cx5txje4wqnmk3pqc7e3a8tpz6c8cc";
+//   const assetAddress= "0X69FA0FEE221AD11012BAB0FDB45D444D3D2CE71C";
+//   const send_amount = baseAmount(100000, 6);
+//   const Memo = "+:ETH.XRUNE-0X69FA0FEE221AD11012BAB0FDB45D444D3D2CE71C:";
+
+//   const assetString = assetFromString('BNB BUSD-74E');
+//   console.log('assetString------------------------', assetString);
+//   const result = await EthUtilsService.callDeposit({
+//     asset: assetFromString("BNB.BUSD-74E"),
+//     amount: send_amount,
+//     recipient: to_address,
+//     memo: Memo,
+//   });
+//   console.log("i am here =======================>HELLLLOOOO LIQUIDTTTTYYYYYYYYYYYY", result);
+
+//   return result;
+// };
+// LiquidityBNB();
+(async () => {})();
 
 
 
