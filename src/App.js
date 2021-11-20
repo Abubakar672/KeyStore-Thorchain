@@ -40,8 +40,8 @@ import { Client as CosmosXchainClient } from "@xchainjs/xchain-cosmos";
 import BigNumber from "bignumber.js";
 import Swap from "@binance-chain/javascript-sdk/lib/client/swap";
 import { ClaimMsg } from "@binance-chain/javascript-sdk/lib/types";
-import { ethers } from 'ethers';
-import { TCAbi, TCRopstenAbi } from '../src/app/_abi/thorchain.abi';
+import { ethers } from "ethers";
+import { TCAbi, TCRopstenAbi } from "../src/app/_abi/thorchain.abi";
 function App() {
   const midgardService = new MidgardService();
   const ethUtilsService = new EthUtilsService();
@@ -235,29 +235,16 @@ function App() {
       transationResultOfTHORChain
     );
 
-
-
-
-//Transaction data 
+    //Transaction data
 
     //Transactions history of Thorchain Client getting here
-    const transactionTypedata =
-      await userThorchainClient.getTransactionData("0FD1A0551B6DC4A7571CCA61592C0B2F3419B00D52547EC327F013D5F87EEC11");
+    const transactionTypedata = await userThorchainClient.getTransactionData(
+      "0FD1A0551B6DC4A7571CCA61592C0B2F3419B00D52547EC327F013D5F87EEC11"
+    );
     console.log(
       "HELLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTt",
       transactionTypedata
     );
-
-
-
-
-
-
-
-
-
-
-
 
     // Ethereum CLinet is set here
     const userEthereumClient = new ethereumClient({
@@ -290,11 +277,16 @@ function App() {
 
     console.log("Ethereum Assets is coming here ========>", assetofeth);
 
-
-      console.log("Ethereum Transactions coming from here++++++++++++++++++++++++++++++++");
-      const transactionOfEthereum = await userEthereumClient.getTransactions({address:addressEth});
-      console.log("TRNSACTIONNNNNNNNNNNNNNNNNNN++++++++++++++++++>>>>>>>>.",transactionOfEthereum);
-
+    console.log(
+      "Ethereum Transactions coming from here++++++++++++++++++++++++++++++++"
+    );
+    const transactionOfEthereum = await userEthereumClient.getTransactions({
+      address: addressEth,
+    });
+    console.log(
+      "TRNSACTIONNNNNNNNNNNNNNNNNNN++++++++++++++++++>>>>>>>>.",
+      transactionOfEthereum
+    );
 
     //LTC Client is setup here
     const userLtcClient = new litecoinClient({
@@ -387,8 +379,10 @@ function App() {
       const send_amount = baseAmount(100000, 6);
       const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
 
-      const assetString = assetFromString('ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306');
-      console.log('assetString------------------------', assetString);
+      const assetString = assetFromString(
+        "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
+      );
+      console.log("assetString------------------------", assetString);
       const result = await userBinanceClient.transfer({
         asset: AssetBNB,
         amount: send_amount,
@@ -517,12 +511,13 @@ function App() {
     // const assetString = assetFromString('ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306');
     // console.log('assetString------------------------', assetString);
 
-   //Contract getting here 
-    const abi = environment.network === 'testnet' ? TCRopstenAbi : TCAbi;
-    const contract = new ethers.Contract("0xefA28233838f46a80AaaC8c309077a9ba70D123A", abi);
-    console.log('++++++++++++++++++++++++++++++++++++++',contract)
-
-
+    //Contract getting here
+    const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
+    const contract = new ethers.Contract(
+      "0xefA28233838f46a80AaaC8c309077a9ba70D123A",
+      abi
+    );
+    console.log("++++++++++++++++++++++++++++++++++++++", contract);
 
     //Swap RUNE to BUSD(BEP20)
     // const USDTTORUNESWAP = async () => {
@@ -565,11 +560,9 @@ function App() {
     //     `https://viewblock.io/thorchain/tx/${txId}?network=testnet`,
     //     txId
     //   );
-  
+
     //   return txId;
     // };
-  
-
 
     const swapBUSDToETH = async () => {
       const destAddress = userBinanceClient.getAddress();
@@ -581,8 +574,8 @@ function App() {
       const send_amount = baseAmount(100000, 6);
       const Memo = "=:ETH.ETH:0x05ad7dd40fa9457f703191211bd4cb989fd06cbf";
 
-      const assetString = assetFromString('BNB.BUSD-BD1');
-      console.log('assetString------------------------', assetString);
+      const assetString = assetFromString("BNB.BUSD-BD1");
+      console.log("assetString------------------------", assetString);
       const result = await userBinanceClient.transfer({
         asset: assetFromString("BNB.BUSD-74E"),
         amount: send_amount,
@@ -593,13 +586,10 @@ function App() {
 
       return result;
     };
-  //  swapBUSDToETH();
+    //  swapBUSDToETH();
     // (async () => {})();
-    
 
-
-
-//Liquidty WORK COMING HERE 
+    //Liquidty WORK COMING HERE
 
     const LiquidityBNB = async () => {
       const destAddress = userBinanceClient.getAddress();
@@ -611,20 +601,24 @@ function App() {
       const send_amount = baseAmount(100000, 6);
       const Memo = "+:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
 
-      const assetString = assetFromString('BNB BUSD-74E');
-      console.log('assetString------------------------', assetString);
+      const assetString = assetFromString("BNB BUSD-74E");
+      console.log("assetString------------------------", assetString);
       const result = await userBinanceClient.transfer({
         asset: assetFromString("BNB.BNB"),
         amount: send_amount,
         recipient: to_address,
         memo: Memo,
       });
-      console.log("i am here =======================>HELLLLOOOO LIQUIDTTTTYYYYYYYYYYYY", result);
+      console.log(
+        "i am here =======================>HELLLLOOOO LIQUIDTTTTYYYYYYYYYYYY",
+        result
+      );
 
       return result;
     };
     LiquidityBNB();
     (async () => {})();
+<<<<<<< HEAD
     
 
 
@@ -669,6 +663,8 @@ function App() {
 
 
 
+=======
+>>>>>>> 6020965e7c5cf8419cba7c3ccf60f4401f9cf1bd
 
     const checkBalanceOfCli = async () => {
       const destAddress = userBinanceClient.getAddress();
@@ -706,11 +702,13 @@ function App() {
   // }
   // await thorchainClient!.deposit(params)
 
-
-
-
-  const assetString = assetFromString("ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306");
-  console.log('assetString----ASDASDSADASDASDASDASDADADASDSADASDSADSADSADSADASDASDSADSAD--------------------', assetString);
+  const assetString = assetFromString(
+    "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
+  );
+  console.log(
+    "assetString----ASDASDSADASDASDASDASDADADASDSADASDSADSADSADSADASDASDSADSAD--------------------",
+    assetString
+  );
 
   //Submit button to trigger the things
   const SubmitAll = async () => {
