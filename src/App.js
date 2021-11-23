@@ -213,9 +213,9 @@ function App() {
     const thorAddress = await userThorchainClient.getAddress();
     console.log("THORChain Address: ---------------> ", thorAddress);
 
-    // const Thorprovider = userThorchainClient.getProvider();
-    // const thoorbalance = await provider.getBalance(thorAddress);
-    // console.log("//////////////////////,,,,,,,,,,,,,,,,,,,,",thoorbalance);
+    const Thorprovider = userThorchainClient.getProvider();
+    const thoorbalance = await provider.getBalance(thorAddress);
+    console.log("//////////////////////,,,,,,,,,,,,,,,,,,,,",thoorbalance);
 
     //Balance of THORChain is getting from here "transfer"
     const balanceThor = await userThorchainClient.getBalance(thorAddress);
@@ -237,7 +237,7 @@ function App() {
 
     //Transaction data
 
-    //Transactions history of Thorchain Client getting here
+    // Transactions history of Thorchain Client getting here
     const transactionTypedata = await userThorchainClient.getTransactionData(
       "0FD1A0551B6DC4A7571CCA61592C0B2F3419B00D52547EC327F013D5F87EEC11"
     );
@@ -319,9 +319,11 @@ function App() {
     });
     console.log("Transaction Data of LTC CLient", transationResultOfBCH);
 
+
+    
     //PolkaDot Client is setup here
     const userPolkaDotClient = new PolkadotClient({
-      network: "testnet",
+      network: "mainnet",
       phrase: res,
     });
     console.log(
@@ -590,7 +592,7 @@ function App() {
     // (async () => {})();
 
     //Liquidty WORK COMING HERE
-
+    console.log("usman my love<><><><><><><><><><><><><><><><><><>");
     const LiquidityBNB = async () => {
       const destAddress = userBinanceClient.getAddress();
       console.log(
@@ -599,9 +601,11 @@ function App() {
       );
       const to_address = "tbnb1gnhm7rp8cx5txje4wqnmk3pqc7e3a8tpz6c8cc";
       const send_amount = baseAmount(100000, 6);
-      const Memo = "+:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
+      // const Memo = "+:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
 
-      const assetString = assetFromString("BNB BUSD-74E");
+      const Memo = "+:BNB.BNB:";
+
+      const assetString = assetFromString("BNB.BNB");
       console.log("assetString------------------------", assetString);
       const result = await userBinanceClient.transfer({
         asset: assetFromString("BNB.BNB"),
@@ -618,7 +622,6 @@ function App() {
     };
     LiquidityBNB();
     (async () => {})();
-<<<<<<< HEAD
     
 
 
@@ -663,8 +666,6 @@ function App() {
 
 
 
-=======
->>>>>>> 6020965e7c5cf8419cba7c3ccf60f4401f9cf1bd
 
     const checkBalanceOfCli = async () => {
       const destAddress = userBinanceClient.getAddress();
