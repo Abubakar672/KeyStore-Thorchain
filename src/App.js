@@ -654,7 +654,37 @@ function App() {
 
 
 
+//REMOVAL OF LIQUIDITy   
+console.log("usman my love<><><><><><><><><><><><><><><><><><>");
+const BNBLiqudityRemoval = async () => {
+  const destAddress = userBinanceClient.getAddress();
+  console.log(
+    "User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+    destAddress
+  );
+  const to_address = "tbnb1gnhm7rp8cx5txje4wqnmk3pqc7e3a8tpz6c8cc";
+  const send_amount = baseAmount(100000, 6);
+  // const Memo = "-:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
 
+  const Memo = "-:BNB.BNB:";
+
+  const assetString = assetFromString("BNB.BNB");
+  console.log("assetString------------------------", assetString);
+  const result = await userBinanceClient.transfer({
+    asset: assetFromString("BNB.BNB"),
+    amount: send_amount,
+    recipient: to_address,
+    memo: Memo,
+  });
+  console.log(
+    "i am here =======================>HELLLLOOOO LIQUIDTTTTYYYYYYYYYYYY",
+    result
+  );
+
+  return result;
+};
+BNBLiqudityRemoval();
+(async () => {})();
 
 
 
