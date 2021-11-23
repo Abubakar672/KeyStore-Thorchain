@@ -2,7 +2,7 @@
 
 import { MidgardService } from "./services/midgard.service";
 import { EthUtilsService } from "./services/eth-utils.service";
-import { ethers } from "ethers";
+import { ethers, BigNumber } from "ethers";
 import { environment } from "./environments";
 import { TCAbi, TCRopstenAbi } from "./app/_abi/thorchain.abi";
 import React, { useState, useEffect } from "react";
@@ -133,12 +133,16 @@ const Withdraw = () => {
     // console.log("decimals<><><><><><><>", decimals);
     // let amount = assetToBase(assetAmount(1, 18)).amount();
     // console.log("amount<><><><><><><><><><><><><>", amount);
+    // let a = BigNumber.from(1000000000000000000);
+    // // let b = BigNumber.from("91");
+    // let b = a.toNumber();
+    // console.log("bigNumber", a.toNumber((1 * 10) ^ 18));
     const txId = await ethUtilsService.callDeposit({
       inboundAddress: eth,
       asset: assetFromString(
         "ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23"
       ),
-      amount: 11111111111111000,
+      amount: 100000000000,
       memo: Memo,
       ethClient: CLI,
     });
