@@ -38,11 +38,12 @@ import { environment } from "./environments";
 import { Client as PolkadotClient } from "@xchainjs/xchain-polkadot";
 import { Client as CosmosXchainClient } from "@xchainjs/xchain-cosmos";
 import BigNumber from "bignumber.js";
-import Swap from "@binance-chain/javascript-sdk/lib/client/swap";
+// import Swap from "@binance-chain/javascript-sdk/lib/client/swap";
 import { ClaimMsg } from "@binance-chain/javascript-sdk/lib/types";
 import { ethers } from "ethers";
 import { TCAbi, TCRopstenAbi } from "../src/app/_abi/thorchain.abi";
-import Main from "./main";
+import Swap from "./swap";
+import Withdraw from "./withdraw";
 
 function App() {
   const midgardService = new MidgardService();
@@ -605,7 +606,8 @@ function App() {
           <button onClick={sendTransaction}>send Transaction</button>
           <button>Swap</button>
 
-          <Main />
+          <Swap />
+          <Withdraw />
         </Segment>
       </Container>
     </>

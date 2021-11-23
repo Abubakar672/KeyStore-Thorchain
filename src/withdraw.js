@@ -1,10 +1,10 @@
 /** @format */
 
 import { MidgardService } from "./services/midgard.service";
-import { EthUtilsService } from "../src/services/eth-utils.service";
+import { EthUtilsService } from "./services/eth-utils.service";
 import { ethers } from "ethers";
 import { environment } from "./environments";
-import { TCAbi, TCRopstenAbi } from "../src/app/_abi/thorchain.abi";
+import { TCAbi, TCRopstenAbi } from "./app/_abi/thorchain.abi";
 import React, { useState, useEffect } from "react";
 const thorchainClient = require("@xchainjs/xchain-thorchain");
 const binanceClient = require("@xchainjs/xchain-binance");
@@ -44,7 +44,7 @@ const {
 //     txId
 //   );
 // };
-const Main = () => {
+const Withdraw = () => {
   useEffect(() => {
     getAllPools();
   }, []);
@@ -104,8 +104,8 @@ const Main = () => {
 
     return txId;
   };
-  //token to token swap
-  const USDTTOXRUNEWAP = async () => {
+  //WITHDRAW:ETH.XRUNE
+  const WITHDRAW_ETH_XRUNE = async () => {
     const CLI = new ethereumClient.Client({
       network: "testnet",
       phrase:
@@ -116,7 +116,7 @@ const Main = () => {
     const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
     //MEMO to swap ETH.USDT to ETH.XRUNE
     const Memo =
-      "=:ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23:0x05ad7dd40fa9457f703191211bd4cb989fd06cbf";
+      "WITHDRAW:ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23:1500";
     //ABI here
     const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
     console.log("here");
@@ -136,9 +136,9 @@ const Main = () => {
     const txId = await ethUtilsService.callDeposit({
       inboundAddress: eth,
       asset: assetFromString(
-        "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
+        "ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23"
       ),
-      amount: 100000,
+      amount: 11111111111111000,
       memo: Memo,
       ethClient: CLI,
     });
@@ -171,10 +171,10 @@ const Main = () => {
 
   return (
     <div>
-      <button onClick={USDTTOXRUNEWAP}>SwapFromMain.js</button>
+      <button onClick={WITHDRAW_ETH_XRUNE}>WITHDRAW_ETH_XRUNE.js</button>
       <button onClick={getAllPools}>getAllPools</button>
     </div>
   );
 };
 
-export default Main;
+export default Withdraw;
