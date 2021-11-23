@@ -213,8 +213,8 @@ function App() {
     const thorAddress = await userThorchainClient.getAddress();
     console.log("THORChain Address: ---------------> ", thorAddress);
 
-    const Thorprovider = userThorchainClient.getProvider();
-    const thoorbalance = await provider.getBalance(thorAddress);
+    // const Thorprovider = userThorchainClient.getProvider();
+    const thoorbalance = await userThorchainClient.getBalance(thorAddress);
     console.log("//////////////////////,,,,,,,,,,,,,,,,,,,,",thoorbalance);
 
     //Balance of THORChain is getting from here "transfer"
