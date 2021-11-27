@@ -31,6 +31,25 @@ import {
   BNBChain,
   AssetRuneERC20,
 } from "@xchainjs/xchain-util";
+
+import {
+  PoolData,
+  getSwapOutput,
+  getSwapOutputWithFee,
+  getSwapInput,
+  getSwapSlip,
+  getSwapFee,
+  getValueOfAssetInRune,
+  getValueOfRuneInAsset,
+  getDoubleSwapOutput,
+  getDoubleSwapOutputWithFee,
+  getDoubleSwapInput,
+  getDoubleSwapSlip,
+  getDoubleSwapFee,
+  getValueOfAsset1InAsset2,
+} from "@thorchain/asgardex-util";
+
+
 import * as types from "@xchainjs/xchain-util";
 import * as asset from "@xchainjs/xchain-util";
 import { MidgardService } from "./services/midgard.service";
@@ -42,6 +61,15 @@ import Swap from "@binance-chain/javascript-sdk/lib/client/swap";
 import { ClaimMsg } from "@binance-chain/javascript-sdk/lib/types";
 import { ethers } from "ethers";
 import { TCAbi, TCRopstenAbi } from "../src/app/_abi/thorchain.abi";
+// import {PoolData} from "@thorchain/asgardex-util/lib/calc/swap"
+
+
+const assetPool= { assetBalance: assetToBase(assetAmount(110)), runeBalance: assetToBase(assetAmount(100)) }
+const usdPool = { assetBalance: assetToBase(assetAmount(10)), runeBalance: assetToBase(assetAmount(100)) }
+const assetInput = assetToBase(assetAmount(1))
+const runeInput = assetToBase(assetAmount(1))
+const assetOutput = assetToBase(assetAmount(0.89278468))
+const usdOutput = assetToBase(assetAmount(0.08770544))
 function App() {
   const midgardService = new MidgardService();
   const ethUtilsService = new EthUtilsService();
@@ -776,6 +804,17 @@ XRUNELiqudityRemoval();
     "assetString----ASDASDSADASDASDASDASDADADASDSADASDSADSADSADSADASDASDSADSAD--------------------",
     assetString
   );
+  
+
+
+const output = getSwapOutput(assetPool, true)
+expect(output.amount()).toEqual(amount())
+
+
+  console.log("=======================>", output);
+
+
+
 
   //Submit button to trigger the things
   const SubmitAll = async () => {
