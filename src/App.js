@@ -64,12 +64,6 @@ import { TCAbi, TCRopstenAbi } from "../src/app/_abi/thorchain.abi";
 // import {PoolData} from "@thorchain/asgardex-util/lib/calc/swap"
 
 
-const assetPool= { assetBalance: assetToBase(assetAmount(110)), runeBalance: assetToBase(assetAmount(100)) }
-const usdPool = { assetBalance: assetToBase(assetAmount(10)), runeBalance: assetToBase(assetAmount(100)) }
-const assetInput = assetToBase(assetAmount(1))
-const runeInput = assetToBase(assetAmount(1))
-const assetOutput = assetToBase(assetAmount(0.89278468))
-const usdOutput = assetToBase(assetAmount(0.08770544))
 function App() {
   const midgardService = new MidgardService();
   const ethUtilsService = new EthUtilsService();
@@ -407,7 +401,7 @@ function App() {
       );
       const to_address = "tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7";
       const send_amount = baseAmount(100000, 6);
-      const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
+      const Memo = "=:THOR.RUNE.RUNER.RUNER.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
 
       const assetString = assetFromString(
         "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
@@ -807,8 +801,8 @@ XRUNELiqudityRemoval();
   
 
 
-const output = getSwapOutput(assetPool, true)
-expect(output.amount()).toEqual(amount())
+const output = getSwapFee(();
+
 
 
   console.log("=======================>", output);
