@@ -6,6 +6,7 @@ import { ethers } from "ethers";
 import { environment } from "./environments";
 import { TCAbi, TCRopstenAbi } from "./app/_abi/thorchain.abi";
 import React, { useState, useEffect } from "react";
+import * as all from "@thorchain/asgardex-util";
 const thorchainClient = require("@xchainjs/xchain-thorchain");
 const binanceClient = require("@xchainjs/xchain-binance");
 const bitcoinClient = require("@xchainjs/xchain-bitcoin");
@@ -15,7 +16,7 @@ const bitcoinCashClient = require("@xchainjs/xchain-bitcoincash");
 const polkadotClient = require("@xchainjs/xchain-polkadot");
 // import { polkadotClient } from "@xchainjs/xchain-polkadot";
 const cosmosXchainClient = require("@xchainjs/xchain-cosmos");
-
+console.log("alllllll<><><><><><><><><><><><<><><><>", all);
 const {
   AssetRuneNative,
   AssetBNB,
@@ -24,6 +25,8 @@ const {
   assetToBase,
   assetAmount,
   assetFromString,
+  baseToAsset,
+  formatAssetAmount,
 } = require("@xchainjs/xchain-util");
 
 // const blockchainClient = async () => {
@@ -68,6 +71,24 @@ const Swap = () => {
         "expose blush snake marriage lock crop group define today such indoor school",
     });
     console.log("here");
+
+    const CLITHOR = new thorchainClient.Client({
+      network: "testnet",
+      phrase:
+        "expose blush snake marriage lock crop group define today such indoor school",
+    });
+    console.log(
+      "baseAmount(1000000, 8),<><><><><><><><><><<><><><><><><><><",
+      baseAmount(1000000, 8),
+      baseAmount(1000000, 8).amount()
+    );
+    const thorAddress = CLITHOR.getAddress();
+
+    // const swapSlip = all.getSwapSlip(
+    //   "BASE",
+    //   { assetBalance: "BASE", runeBalance: "BASE" },
+    //   true
+    // );
     //ETH inbound Address
     const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
     //MEMO to swap ETH.USDT to THOR.RUNE
@@ -171,6 +192,7 @@ const Swap = () => {
 
   return (
     <div>
+      <button onClick={USDTTORUNESWAP}>USDTTORUNESWAP</button>
       <button onClick={USDTTOXRUNEWAP}>SwapFromMain.js</button>
       <button onClick={getAllPools}>getAllPools</button>
     </div>
