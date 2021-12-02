@@ -7,6 +7,15 @@ import { environment } from "./environments";
 import { TCAbi, TCRopstenAbi } from "./app/_abi/thorchain.abi";
 import React, { useState, useEffect } from "react";
 import * as all from "@thorchain/asgardex-util";
+import {
+  getDoubleSwapOutput,
+  getSwapSlip,
+  getDoubleSwapSlip,
+  PoolData,
+  getValueOfAssetInRune,
+  getValueOfRuneInAsset,
+  getSwapOutput,
+} from "@thorchain/asgardex-util";
 const thorchainClient = require("@xchainjs/xchain-thorchain");
 const binanceClient = require("@xchainjs/xchain-binance");
 const bitcoinClient = require("@xchainjs/xchain-bitcoin");
@@ -16,6 +25,7 @@ const bitcoinCashClient = require("@xchainjs/xchain-bitcoincash");
 const polkadotClient = require("@xchainjs/xchain-polkadot");
 // import { polkadotClient } from "@xchainjs/xchain-polkadot";
 const cosmosXchainClient = require("@xchainjs/xchain-cosmos");
+
 console.log("alllllll<><><><><><><><><><><><<><><><>", all);
 const {
   AssetRuneNative,
@@ -27,6 +37,7 @@ const {
   assetFromString,
   baseToAsset,
   formatAssetAmount,
+  assetToString,
 } = require("@xchainjs/xchain-util");
 
 // const blockchainClient = async () => {
@@ -53,7 +64,7 @@ const Swap = () => {
   }, []);
   const [eth, setEth] = useState(null);
   const [PoolsMidgard, setPoolsMidgard] = useState(null);
-
+  const [availablePools, setAvailablePools] = useState(null);
   const midgardService = new MidgardService();
   const ethUtilsService = new EthUtilsService();
 
@@ -84,10 +95,35 @@ const Swap = () => {
       baseAmount(1000000, 8),
       baseAmount(1000000, 8).amount()
     );
+    const selectedTargetAsset = "THOR.RUNE";
+
+    function isRune(asset) {
+      return asset && asset.ticker === "RUNE"; // covers BNB and native
+    }
+    const toRune = isRune(selectedTargetAsset) ? true : false;
+    console.log("to rune>>>>>>", toRune);
+    console.log("availablePools", availablePools);
+    const poolDetail = toRune
+      ? availablePools.find(
+          (pool) => pool.asset === assetToString(selectedTargetAsset)
+        )
+      : availablePools.find(
+          (pool) => pool.asset === assetToString(selectedTargetAsset)
+        );
+    const pool = {
+      assetBalance: baseAmount(poolDetail.assetDepth),
+      runeBalance: baseAmount(poolDetail.runeDepth),
+    };
     const thorAddress = CLITHOR.getAddress();
 
+    /**
+     * Slip percentage using original input
+     */
+    const slip = getSwapSlip(baseAmount(10000), pool, toRune);
+    this.slip = slip.toNumber();
+
     // const swapSlip = all.getSwapSlip(
-    //   "BASE",
+    //   "1000000",
     //   { assetBalance: "BASE", runeBalance: "BASE" },
     //   true
     // );
@@ -187,14 +223,19 @@ const Swap = () => {
     const callGetInboundAddresses = await midgardService.getInboundAddresses();
     const callGetPools = await midgardService.getPools();
     const callNetwork = await midgardService.getNetwork();
+    setAvailablePools(callGetPools);
     const callConstants = await midgardService.getConstants();
     setEth(callGetInboundAddresses.data[3]);
     setPoolsMidgard(callGetPools.data[3]);
-   console.log(callGetInboundAddresses.data[3]);
+    console.log(
+      "callGetInboundAddresses.data[3]",
+      callGetInboundAddresses.data[3]
+    );
     setPoolsMidgard(callGetPools.data[5]);
+    return callGetPools;
   };
-  
-console.log("Midgard Pools ------------------------------>",setPoolsMidgard);
+
+  console.log("Midgard Pools <><>", setPoolsMidgard);
 
   // const swapSlip = all.getSwapSlip(assetToBase(assetAmount(1,18)),{assetDepths,runeDepths},false);
   // console.log("Swapppp sliiiipppp---------------------->",swapSlip);
