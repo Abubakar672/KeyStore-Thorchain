@@ -52,7 +52,7 @@ function App() {
   const [input, setInput] = React.useState("");
   const [fileKeyStore, setfileKeyStore] = React.useState("");
 
-  // Asset modueles coming from here
+  // Asset modueles coming f rom here
   let ass = asset;
   console.log("Assets Moduele I am here ============>", ass);
   console.log(ass.assetAmount);

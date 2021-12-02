@@ -104,23 +104,24 @@ const Swap = () => {
     console.log("to rune>>>>>>", toRune);
     console.log("availablePools", availablePools);
     const poolDetail = toRune
-      ? availablePools.find(
+      ? availablePools.data.find(
           (pool) => pool.asset === assetToString(selectedTargetAsset)
         )
-      : availablePools.find(
+      : availablePools.data.find(
           (pool) => pool.asset === assetToString(selectedTargetAsset)
         );
     const pool = {
-      assetBalance: baseAmount(poolDetail.assetDepth),
-      runeBalance: baseAmount(poolDetail.runeDepth),
+      assetBalance: baseAmount(availablePools.data[1].assetDepth),
+      runeBalance: baseAmount(availablePools.data[1].assetDepth),
     };
     const thorAddress = CLITHOR.getAddress();
 
     /**
      * Slip percentage using original input
      */
-    const slip = getSwapSlip(baseAmount(10000), pool, toRune);
-    this.slip = slip.toNumber();
+    let slips = getSwapSlip(baseAmount(10000), pool, toRune);
+    slips = slips.toNumber();
+    console.log("000000000000000000000000000000->>>>>>>>>>>",slips);
 
     // const swapSlip = all.getSwapSlip(
     //   "1000000",
