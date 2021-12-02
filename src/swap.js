@@ -95,7 +95,7 @@ const Swap = () => {
       baseAmount(1000000, 8),
       baseAmount(1000000, 8).amount()
     );
-    const selectedTargetAsset = "THOR.RUNE";
+    const selectedTargetAsset = "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306";
 
     function isRune(asset) {
       return asset && asset.ticker === "RUNE"; // covers BNB and native
@@ -119,8 +119,9 @@ const Swap = () => {
     /**
      * Slip percentage using original input
      */
-    let slips = getSwapSlip(baseAmount(10000), pool, toRune);
+    let slips = getSwapSlip(baseAmount(1000000000000000000000), pool, toRune);
     slips = slips.toNumber();
+    
     console.log("000000000000000000000000000000->>>>>>>>>>>",slips);
 
     // const swapSlip = all.getSwapSlip(
@@ -131,7 +132,7 @@ const Swap = () => {
     //ETH inbound Address
     const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
     //MEMO to swap ETH.USDT to THOR.RUNE
-    const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
+    const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7:slips";
     //ABI here
     const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
     console.log("here");
