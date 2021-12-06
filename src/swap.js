@@ -2,6 +2,7 @@
 
 import { MidgardService } from "./services/midgard.service";
 import { EthUtilsService } from "./services/eth-utils.service";
+import { TransactionUtilsService } from "./services/transaction-utils.service";
 import { ethers } from "ethers";
 import { environment } from "./environments";
 import { TCAbi, TCRopstenAbi } from "./app/_abi/thorchain.abi";
@@ -67,6 +68,7 @@ const Swap = () => {
   const [availablePools, setAvailablePools] = useState(null);
   const midgardService = new MidgardService();
   const ethUtilsService = new EthUtilsService();
+  const transactionUtilsService = new TransactionUtilsService();
 
   //Contract getting here
   const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
@@ -95,7 +97,8 @@ const Swap = () => {
       baseAmount(1000000, 8),
       baseAmount(1000000, 8).amount()
     );
-    const selectedTargetAsset = "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306";
+    const selectedTargetAsset =
+      "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306";
 
     function isRune(asset) {
       return asset && asset.ticker === "RUNE"; // covers BNB and native
@@ -119,20 +122,78 @@ const Swap = () => {
     /**
      * Slip percentage using original input
      */
-    let slips = getSwapSlip(baseAmount(1000000000000000000000), pool, toRune);
+    let slips = getSwapSlip(
+      baseAmount(1000000000000000000000000),
+      pool,
+      toRune
+    );
     slips = slips.toNumber();
-    
-    console.log("000000000000000000000000000000->>>>>>>>>>>",slips);
 
-    // const swapSlip = all.getSwapSlip(
-    //   "1000000",
-    //   { assetBalance: "BASE", runeBalance: "BASE" },
-    //   true
-    // );
+    console.log("slip---000000000000000000000000000000->>>>>>>>>>>", slips);
+    /**
+     * TO SHOW BASE PRICE
+     */
+    const valueOfRuneInAsset = getValueOfRuneInAsset(
+      assetToBase(assetAmount(1)),
+      pool
+    );
+    const valueOfAssetInRune = getValueOfAssetInRune(
+      assetToBase(assetAmount(1)),
+      pool
+    );
+
+    const basePrice = toRune ? valueOfRuneInAsset : valueOfAssetInRune;
+    this.basePrice = basePrice
+      .amount()
+      .div(10 ** 8)
+      .toNumber();
+    let inboundFees;
+    let outboundFees;
+    const asset = pool.asset;
+
+    const assetOutboundFee = transactionUtilsService.calculateNetworkFee(
+      asset,
+      this.inboundAddresses,
+      "OUTBOUND",
+      pool
+    );
+    //working on trx utils . servie
+    const assetInboundFee = ethUtilsService.txUtilsService.calculateNetworkFee(
+      asset,
+      this.inboundAddresses,
+      "INBOUND",
+      pool
+    );
+    const inboundFee = inboundFees[assetToString(selectedTargetAsset)];
+    const outboundFee = outboundFees[assetToString(selectedTargetAsset)];
+    const outboundFeeInSourceVal = basePrice * outboundFee;
+
+    this.networkFeeInSource = inboundFee + outboundFeeInSourceVal;
+
+    /**
+     * Total output amount in target units minus 1 RUNE
+     */
+    const swapOutput = getSwapOutput(
+      baseAmount(
+        this._sourceAssetTokenValue
+          .amount()
+          .minus(assetToBase(assetAmount(inboundFee)).amount())
+      ),
+      pool,
+      toRune
+    );
+    console.log("swapOutput<<<>>><<<<>>><<<<>>><<<>>>", swapOutput);
+
+    // sub
+    const totalAmount = baseAmount(
+      swapOutput.amount().minus(assetToBase(assetAmount(outboundFee)).amount())
+    );
+    console.log("totalAmount<<>>>><<<<<>>>><<<>>", totalAmount);
     //ETH inbound Address
     const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
     //MEMO to swap ETH.USDT to THOR.RUNE
-    const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7:slips";
+    const Memo =
+      "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7:slips";
     //ABI here
     const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
     console.log("here");
