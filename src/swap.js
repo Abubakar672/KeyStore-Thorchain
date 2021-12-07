@@ -15,6 +15,7 @@ import {
   getValueOfAssetInRune,
   getValueOfRuneInAsset,
   getSwapOutput,
+  getSwapFee
 } from "@thorchain/asgardex-util";
 const thorchainClient = require("@xchainjs/xchain-thorchain");
 const binanceClient = require("@xchainjs/xchain-binance");
@@ -112,7 +113,16 @@ const Swap = () => {
         );
     const pool = {
       assetBalance: baseAmount(availablePools.data[1].assetDepth),
-      runeBalance: baseAmount(availablePools.data[1].assetDepth),
+      runeBalance: baseAmount(availablePools.data[1].runeBalance),
+    };
+console.log("pool 0 is here ------------->",pool);
+    const pool1 = {
+      assetBalance: baseAmount(availablePools.data[2].assetDepth),
+      runeBalance: baseAmount(availablePools.data[2].assetDepth),
+    };
+    const pool2 = {
+      assetBalance: baseAmount(availablePools.data[3].assetDepth),
+      runeBalance: baseAmount(availablePools.data[3].assetDepth),
     };
     const thorAddress = CLITHOR.getAddress();
 
@@ -120,10 +130,18 @@ const Swap = () => {
      * Slip percentage using original input
      */
     let slips = getSwapSlip(baseAmount(1000000000000000000000), pool, toRune);
+    console.log("Poolllll is coming here --------->",pool);
     slips = slips.toNumber();
+    let finalSlip = slips*0.95;
+    console.log("000000000000000000000000000000->>>>>>>>>>>",finalSlip);
     
-    console.log("000000000000000000000000000000->>>>>>>>>>>",slips);
-
+    console.log("HELLLLOoo----------->",pool1);
+    console.log("Hellllooo11111 -------->",pool2);
+    //getting the double swapping here 
+    let getDoubleSwap = getSwapFee(baseAmount(10000000000000),pool1,toRune);
+    console.log("HEEEEEEEEEEEEELLLLLLLLLLLLLLLLOOOOOOOOOOO ======================>",pool1)
+    console.log("Double SWAP FEEE ->>>>>>>>>>>",getDoubleSwap.amount());
+    
     // const swapSlip = all.getSwapSlip(
     //   "1000000",
     //   { assetBalance: "BASE", runeBalance: "BASE" },
@@ -233,11 +251,12 @@ const Swap = () => {
       "callGetInboundAddresses.data[3]",
       callGetInboundAddresses.data[3]
     );
-    setPoolsMidgard(callGetPools.data[5]);
+    setPoolsMidgard(callGetPools.data[1]);
     return callGetPools;
   };
 
   console.log("Midgard Pools <><>", setPoolsMidgard);
+  console.log("HHHHHHHHHHHHHHHH---------------------------->",midgardService)
 
   // const swapSlip = all.getSwapSlip(assetToBase(assetAmount(1,18)),{assetDepths,runeDepths},false);
   // console.log("Swapppp sliiiipppp---------------------->",swapSlip);
