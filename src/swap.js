@@ -15,7 +15,8 @@ import {
   getValueOfAssetInRune,
   getValueOfRuneInAsset,
   getSwapOutput,
-  getSwapFee
+  getSwapFee,
+  getSwapOutputWithFee
 } from "@thorchain/asgardex-util";
 const thorchainClient = require("@xchainjs/xchain-thorchain");
 const binanceClient = require("@xchainjs/xchain-binance");
@@ -112,76 +113,114 @@ const Swap = () => {
           (pool) => pool.asset === assetToString(selectedTargetAsset)
         );
     const pool = {
-      assetBalance: baseAmount(availablePools.data[1].assetDepth),
-      runeBalance: baseAmount(availablePools.data[1].runeBalance),
+      assetBalance: baseAmount(availablePools.data[6].assetDepth),
+      runeBalance: baseAmount(availablePools.data[6].runeDepth),
+ 
     };
-console.log("pool 0 is here ------------->",pool);
+    
+    //ETH Pool DATA 
+    console.log("Pool Asset Depth coming here +++++++++++++ ",pool.assetBalance.amount());
+    console.log("Pool Rune Depth coming here ++++++++++++++ ",pool.runeBalance.amount());
+
     const pool1 = {
-      assetBalance: baseAmount(availablePools.data[2].assetDepth),
-      runeBalance: baseAmount(availablePools.data[2].assetDepth),
+      assetBalance: baseAmount(availablePools.data[0].assetDepth),
+      runeBalance: baseAmount(availablePools.data[0].runeDepth),
     };
     const pool2 = {
       assetBalance: baseAmount(availablePools.data[3].assetDepth),
-      runeBalance: baseAmount(availablePools.data[3].assetDepth),
+      runeBalance: baseAmount(availablePools.data[3].runeDepth),
     };
-    const thorAddress = CLITHOR.getAddress();
+    // const thorAddress = CLITHOR.getAddress();
 
-    /**
-     * Slip percentage using original input
-     */
-    let slips = getSwapSlip(baseAmount(1000000000000000000000), pool, toRune);
-    console.log("Poolllll is coming here --------->",pool);
-    slips = slips.toNumber();
-    let finalSlip = slips*0.95;
-    console.log("000000000000000000000000000000->>>>>>>>>>>",finalSlip);
-    
-    console.log("HELLLLOoo----------->",pool1);
-    console.log("Hellllooo11111 -------->",pool2);
-    //getting the double swapping here 
-    let getDoubleSwap = getSwapFee(baseAmount(10000000000000),pool1,toRune);
-    console.log("HEEEEEEEEEEEEELLLLLLLLLLLLLLLLOOOOOOOOOOO ======================>",pool1)
-    console.log("Double SWAP FEEE ->>>>>>>>>>>",getDoubleSwap.amount());
-    
-    // const swapSlip = all.getSwapSlip(
-    //   "1000000",
-    //   { assetBalance: "BASE", runeBalance: "BASE" },
-    //   true
-    // );
-    //ETH inbound Address
-    const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
-    //MEMO to swap ETH.USDT to THOR.RUNE
-    const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7:slips";
-    //ABI here
-    const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
-    console.log("here");
-    const contract = new ethers.Contract(
-      "0xefA28233838f46a80AaaC8c309077a9ba70D123A",
-      abi
-    );
-    console.log("++++++++++++++++++++++++++++++++++++++", contract);
-    console.log("here");
-    // const decimals = ethUtilsService.getAssetDecimal(
-    //   assetFromString("ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"),
-    //   CLI
-    // );
-    // console.log("decimals<><><><><><><>", decimals);
-    // let amount = assetToBase(assetAmount(1, 18)).amount();
-    // console.log("amount<><><><><><><><><><><><><>", amount);
-    const txId = await ethUtilsService.callDeposit({
-      inboundAddress: eth,
-      asset: assetFromString(
-        "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
-      ),
-      amount: 1,
-      memo: Memo,
-      ethClient: CLI,
-    });
-    console.log(
-      `https://viewblock.io/thorchain/tx/${txId}?network=testnet`,
-      txId
-    );
+    //BCH.BCH pool data is coming here 
+    console.log("Pool 1 rune depth is coming here +++++++", pool1.runeBalance.amount() );
+    console.log("Pool 1 Asset Depth coming here  +++++++",pool1.assetBalance.amount());
 
-    return txId;
+    //BNB.BNB pool data is coming here 
+    console.log("Pool 2 rune depth is coming here +++++++", pool2.runeBalance.amount() );
+    console.log("Pool 2 Asset Depth coming here  +++++++",pool2.assetBalance.amount());
+    
+
+    //SLIPPAGE FINALLY DONE  HERE
+    let sliiping = getSwapOutput(baseAmount(0.1 * 10 ** 8), pool, isRune);
+    // sliiping = sliiping *0.97;
+    // sliiping = sliiping.toNumber();
+    console.log("HELLLOO final SLIIPING HERE ----------->",(0.97*(sliiping.amount())));
+
+    let swapwithFee = getSwapOutputWithFee(baseAmount(0.1 *10 **8),pool,isRune,baseAmount(1,18));
+    console.log("Swapout with Fee ----->",swapwithFee.amount());
+
+
+    let finalizingSlip = 0.97 * (0.1* 3446744687 * 4684912878878) /(0.1 + 3446744687)**2;
+    console.log("FINALIZING SLIPPAGE IS HERRR ------->",finalizingSlip );
+
+
+
+    let DifferentPool = getDoubleSwapOutput(baseAmount(0.1 * 10 ** 8), pool2, pool1 );
+    console.log("Finale slippage of 2 diffferent pools ++++++", (DifferentPool.amount()));
+
+    let gettingSwapSlip = getSwapSlip(baseAmount(0.721929 * 10 ** 8),pool2,isRune)
+
+    console.log("Slippppp ---------->",(gettingSwapSlip/1000000000000))
+
+    // console.log("Swap Slip %%%%%%%%%", ((gettingSwapSlip.c[1]-gettingSwapSlip.c[0])/gettingSwapSlip.c[0])*100);
+
+    
+    // let slips = getSwapSlip(baseAmount(1* 10 ** 8), pool, toRune);
+    // // console.log("Poolllll is comingcoming here --------->",pool);
+    // slips = slips*0.95;
+    // // slips = slips.toNumber();
+    // console.log("Get Swap Slip  ------------->",slips);
+    // let finalSlip = slips*0.95;
+    // console.log("Final Slippage is coming here ------->",finalSlip);
+    
+    // console.log("HELLLLOoo----------->",pool1);
+    // console.log("Hellllooo11111 -------->",pool2);
+    // //getting the double swapping here 
+    // let getDoubleSwap = getSwapFee(baseAmount(1 * 10 ** 18),pool,toRune);
+    // // console.log("HEEEEEEEEEEEEELLLLLLLLLLLLLLLLOOOOOOOOOOO ======================>",pool1)
+    // console.log("Double SWAP FEEE ->>>>>>>>>>>",getDoubleSwap.amount());
+    
+    // // const swapSlip = all.getSwapSlip(
+    // //   "1000000",
+    // //   { assetBalance: "BASE", runeBalance: "BASE" },
+    // //   true
+    // // );
+    // //ETH inbound Address
+    // const to_address = "0x62a180a09386a07235b9482f2f2c30279c6cc0f7";
+    // //MEMO to swap ETH.USDT to THOR.RUNE
+    // const Memo = "=:THOR.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7:slips";
+    // //ABI here
+    // const abi = environment.network === "testnet" ? TCRopstenAbi : TCAbi;
+    // console.log("here");
+    // const contract = new ethers.Contract(
+    //   "0xefA28233838f46a80AaaC8c309077a9ba70D123A",
+    //   abi
+    // );
+    // console.log("++++++++++++++++++++++++++++++++++++++", contract);
+    // console.log("here");
+    // // const decimals = ethUtilsService.getAssetDecimal(
+    // //   assetFromString("ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"),
+    // //   CLI
+    // // );
+    // // console.log("decimals<><><><><><><>", decimals);
+    // // let amount = assetToBase(assetAmount(1, 18)).amount();
+    // // console.log("amount<><><><><><><><><><><><><>", amount);
+    // const txId = await ethUtilsService.callDeposit({
+    //   inboundAddress: eth,
+    //   asset: assetFromString(
+    //     "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
+    //   ),
+    //   amount: 1,
+    //   memo: Memo,
+    //   ethClient: CLI,
+    // });
+    // console.log(
+    //   `https://viewblock.io/thorchain/tx/${txId}?network=testnet`,
+    //   txId
+    // );
+
+    // return txId;
   };
   //token to token swap
   const USDTTOXRUNEWAP = async () => {
