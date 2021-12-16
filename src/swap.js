@@ -16,7 +16,8 @@ import {
   getValueOfRuneInAsset,
   getSwapOutput,
   getSwapFee,
-  getSwapOutputWithFee
+  getSwapOutputWithFee,
+  getDoubleSwapOutputWithFee
 } from "@thorchain/asgardex-util";
 const thorchainClient = require("@xchainjs/xchain-thorchain");
 const binanceClient = require("@xchainjs/xchain-binance");
@@ -133,7 +134,7 @@ const Swap = () => {
     // const thorAddress = CLITHOR.getAddress();
 
     //BCH.BCH pool data is coming here 
-    console.log("Pool 1 rune depth is coming here +++++++", pool1.runeBalance.amount() );
+    console.log("Pool 1 rune depth is coming here +++++++", pool1.runeBalance.amount());
     console.log("Pool 1 Asset Depth coming here  +++++++",pool1.assetBalance.amount());
 
     //BNB.BNB pool data is coming here 
@@ -147,7 +148,10 @@ const Swap = () => {
     // sliiping = sliiping.toNumber();
     console.log("HELLLOO final SLIIPING HERE ----------->",(0.97*(sliiping.amount())));
 
-    let swapwithFee = getSwapOutputWithFee(baseAmount(0.1 *10 **8),pool,isRune,baseAmount(1,18));
+    let testingFee = getSwapFee(baseAmount(0.1 *10 **8),pool,isRune);
+    console.log("Fee -------------------->",testingFee.amount());
+
+    let swapwithFee = getSwapOutputWithFee(baseAmount(0.1 *10 **8),pool,isRune,baseAmount(1));
     console.log("Swapout with Fee ----->",swapwithFee.amount());
 
 
@@ -155,14 +159,21 @@ const Swap = () => {
     console.log("FINALIZING SLIPPAGE IS HERRR ------->",finalizingSlip );
 
 
+    let doubleSlipping = getDoubleSwapSlip(baseAmount(0.1 *10 **8),pool,pool1);
+    console.log("Getting double swap slip --------------->", doubleSlipping);
 
-    let DifferentPool = getDoubleSwapOutput(baseAmount(0.1 * 10 ** 8), pool2, pool1 );
+    let DifferentPools = getDoubleSwapOutput(baseAmount(0.1 * 10 ** 8), pool, pool1);
+    console.log("Finale slippage of 2 diffferent pools without fee ++++++", ((DifferentPools.amount())));
+
+
+    let DifferentPool = getDoubleSwapOutputWithFee(baseAmount(0.01 * 10 ** 8), pool2, pool1 ,baseAmount());
     console.log("Finale slippage of 2 diffferent pools ++++++", (DifferentPool.amount()));
 
-    let gettingSwapSlip = getSwapSlip(baseAmount(0.721929 * 10 ** 8),pool2,isRune)
+    let gettingSwapSlip = getSwapSlip(baseAmount(72.1221 * 10 ** 8),pool1,false)
+   
 
-    console.log("Slippppp ---------->",(gettingSwapSlip/1000000000000))
-
+    console.log("Slippppp ()()()()()()()()()()()(()) ---------->",(gettingSwapSlip));
+    console.log("Polll data here  ---------------->",pool);
     // console.log("Swap Slip %%%%%%%%%", ((gettingSwapSlip.c[1]-gettingSwapSlip.c[0])/gettingSwapSlip.c[0])*100);
 
     
