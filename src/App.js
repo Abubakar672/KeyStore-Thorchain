@@ -62,6 +62,16 @@ import { ClaimMsg } from "@binance-chain/javascript-sdk/lib/types";
 import { ethers } from "ethers";
 import { TCAbi, TCRopstenAbi } from "../src/app/_abi/thorchain.abi";
 // import {PoolData} from "@thorchain/asgardex-util/lib/calc/swap"
+import * as all from "@xchainjs/xchain-ethereum";
+import * as asgardall from "@thorchain/asgardex-util";
+
+
+// console.log("Hello Asgard Util Lib Data coming here +++++++++++++++++++++++++",asgardall)
+
+// let getStakeUnit= asgardall.getStakeUnits();
+// console.log("Hello --------------------------------->",getStakeUnit);
+// // let getShare = asgardall.getPoolShare();
+// // console.log("Liquidity getting here -------------------->",getShare);
 
 
 function App() {
@@ -76,6 +86,7 @@ function App() {
   console.log("Assets Moduele I am here ============>", ass);
   console.log(ass.assetAmount);
 
+  // console.log("All is coming here ----------------->",all.TokenBalance());
   let key;
   let fileReader;
   let res;
@@ -165,8 +176,7 @@ function App() {
       "User Binance Client address: ---------------> ",
       BinanceClientAddress
     );
-    //Transactions history of Binance Client getting here
-
+    
     const BinanceBalance = await userBinanceClient.getBalance(
       BinanceClientAddress
     );
@@ -587,31 +597,32 @@ function App() {
 
     //   return txId;
     // };
-
+//Affilate fee here 
     const swapBUSDToETH = async () => {
-      const destAddress = userBinanceClient.getAddress();
+      const destAddress = userThorchainClient.getAddress();
       console.log(
         "User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
         destAddress
       );
-      const to_address = "tbnb1084kutndafee0uswh0hcrepmtz3e8a7cmlw39g";
-      const send_amount = baseAmount(100000, 6);
-      const Memo = "=:ETH.ETH:0x05ad7dd40fa9457f703191211bd4cb989fd06cbf";
+      const to_address = "tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
+      const send_amount = baseAmount(10000000000, 6);
+      const Memo = "=:ETH.ETH:0x05ad7dd40fa9457f703191211bd4cb989fd06cbf:1094111:tthor12ctu8edzmpkcww68hu5dh4p8a9gsqc3wmw7ztz:100";
 
-      const assetString = assetFromString("BNB.BUSD-BD1");
+
+      const assetString = assetFromString("THOR.RUNE");
       console.log("assetString------------------------", assetString);
-      const result = await userBinanceClient.transfer({
-        asset: assetFromString("BNB.BUSD-74E"),
+      const result = await userThorchainClient.deposit({
+        asset: assetFromString("THOR.RUNE"),
         amount: send_amount,
-        recipient: to_address,
+        // recipient: to_address,
         memo: Memo,
       });
-      console.log("i am here =======================>HELLLLOOOO BNBB", result);
+      console.log("i am here =======================>HELLLLOOOO BNBBSwapping", result);
 
       return result;
     };
-    //  swapBUSDToETH();
-    // (async () => {})();
+     swapBUSDToETH();
+    (async () => {})();
 
     //Liquidty WORK COMING HERE
     console.log("usman my love<><><><><><><><><><><><><><><><><><>");
@@ -642,7 +653,7 @@ function App() {
 
       return result;
     };
-    LiquidityBNB();
+    // LiquidityBNB();
     (async () => {})();
     
 
@@ -741,17 +752,8 @@ const XRUNELiqudityRemoval = async () => {
 
   return result;
 };
-XRUNELiqudityRemoval();
+// XRUNELiqudityRemoval();
 (async () => {})();
-
-
-
-
-
-
-
-
-
 
 
 
@@ -801,11 +803,11 @@ XRUNELiqudityRemoval();
   
 
 
-const output = getSwapFee(();
+// const output = getSwapFee(();
 
 
 
-  console.log("=======================>", output);
+  // console.log("=======================>", output);
 
 
 
