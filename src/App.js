@@ -49,7 +49,6 @@ import {
   getValueOfAsset1InAsset2,
 } from "@thorchain/asgardex-util";
 
-
 import * as types from "@xchainjs/xchain-util";
 import * as asset from "@xchainjs/xchain-util";
 import { MidgardService } from "./services/midgard.service";
@@ -65,14 +64,12 @@ import { TCAbi, TCRopstenAbi } from "../src/app/_abi/thorchain.abi";
 import * as all from "@xchainjs/xchain-ethereum";
 import * as asgardall from "@thorchain/asgardex-util";
 
-
 // console.log("Hello Asgard Util Lib Data coming here +++++++++++++++++++++++++",asgardall)
 
 // let getStakeUnit= asgardall.getStakeUnits();
 // console.log("Hello --------------------------------->",getStakeUnit);
 // // let getShare = asgardall.getPoolShare();
 // // console.log("Liquidity getting here -------------------->",getShare);
-
 
 function App() {
   const midgardService = new MidgardService();
@@ -176,7 +173,7 @@ function App() {
       "User Binance Client address: ---------------> ",
       BinanceClientAddress
     );
-    
+
     const BinanceBalance = await userBinanceClient.getBalance(
       BinanceClientAddress
     );
@@ -247,7 +244,7 @@ function App() {
 
     // const Thorprovider = userThorchainClient.getProvider();
     const thoorbalance = await userThorchainClient.getBalance(thorAddress);
-    console.log("//////////////////////,,,,,,,,,,,,,,,,,,,,",thoorbalance);
+    console.log("//////////////////////,,,,,,,,,,,,,,,,,,,,", thoorbalance);
 
     //Balance of THORChain is getting from here "transfer"
     const balanceThor = await userThorchainClient.getBalance(thorAddress);
@@ -351,8 +348,6 @@ function App() {
     });
     console.log("Transaction Data of LTC CLient", transationResultOfBCH);
 
-
-    
     //PolkaDot Client is setup here
     const userPolkaDotClient = new PolkadotClient({
       network: "mainnet",
@@ -411,7 +406,8 @@ function App() {
       );
       const to_address = "tbnb1gr3zze7zkz2x6p08qnl88rhd22vpypmafeplr7";
       const send_amount = baseAmount(100000, 6);
-      const Memo = "=:THOR.RUNE.RUNER.RUNER.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
+      const Memo =
+        "=:THOR.RUNE.RUNER.RUNER.RUNE:tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
 
       const assetString = assetFromString(
         "ETH.USDT-0XA3910454BF2CB59B8B3A401589A3BACC5CA42306"
@@ -597,7 +593,7 @@ function App() {
 
     //   return txId;
     // };
-//Affilate fee here 
+    //Affilate fee here
     const swapBUSDToETH = async () => {
       const destAddress = userThorchainClient.getAddress();
       console.log(
@@ -606,8 +602,8 @@ function App() {
       );
       const to_address = "tthor1fcaf3n4h34ls3cu4euwl6f7kex0kpctkf5p8d7";
       const send_amount = baseAmount(10000000000, 6);
-      const Memo = "=:ETH.ETH:0x05ad7dd40fa9457f703191211bd4cb989fd06cbf:1094111:tthor12ctu8edzmpkcww68hu5dh4p8a9gsqc3wmw7ztz:100";
-
+      const Memo =
+        "=:ETH.ETH:0x05ad7dd40fa9457f703191211bd4cb989fd06cbf:1094111:tthor12ctu8edzmpkcww68hu5dh4p8a9gsqc3wmw7ztz:100";
 
       const assetString = assetFromString("THOR.RUNE");
       console.log("assetString------------------------", assetString);
@@ -617,11 +613,14 @@ function App() {
         // recipient: to_address,
         memo: Memo,
       });
-      console.log("i am here =======================>HELLLLOOOO BNBBSwapping", result);
+      console.log(
+        "i am here =======================>HELLLLOOOO BNBBSwapping",
+        result
+      );
 
       return result;
     };
-     swapBUSDToETH();
+    swapBUSDToETH();
     (async () => {})();
 
     //Liquidty WORK COMING HERE
@@ -655,107 +654,100 @@ function App() {
     };
     // LiquidityBNB();
     (async () => {})();
-    
 
+    // const LiquidityXRUNE = async () => {
+    //   const destAddress = userEthereumClient.getAddress();
+    //   console.log(
+    //     "User Ethereum Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+    //     destAddress
+    //   );
+    //   const vaultAddress = "tbnb1gnhm7rp8cx5txje4wqnmk3pqc7e3a8tpz6c8cc";
+    //   const assetAddress= "0X69FA0FEE221AD11012BAB0FDB45D444D3D2CE71C";
+    //   const send_amount = baseAmount(100000, 6);
+    //   const Memo = "+:ETH.XRUNE-0X69FA0FEE221AD11012BAB0FDB45D444D3D2CE71C:";
 
+    //   const assetString = assetFromString('BNB BUSD-74E');
+    //   console.log('assetString------------------------', assetString);
+    //   const result = await EthUtilsService.callDeposit({
+    //     asset: assetFromString("BNB.BUSD-74E"),
+    //     amount: send_amount,
+    //     recipient: to_address,
+    //     memo: Memo,
+    //   });
+    //   console.log("i am here =======================>HELLLLOOOO LIQUIDTTTTYYYYYYYYYYYY", result);
 
-// const LiquidityXRUNE = async () => {
-//   const destAddress = userEthereumClient.getAddress();
-//   console.log(
-//     "User Ethereum Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
-//     destAddress
-//   );
-//   const vaultAddress = "tbnb1gnhm7rp8cx5txje4wqnmk3pqc7e3a8tpz6c8cc";
-//   const assetAddress= "0X69FA0FEE221AD11012BAB0FDB45D444D3D2CE71C";
-//   const send_amount = baseAmount(100000, 6);
-//   const Memo = "+:ETH.XRUNE-0X69FA0FEE221AD11012BAB0FDB45D444D3D2CE71C:";
+    //   return result;
+    // };
+    // LiquidityBNB();
+    (async () => {})();
 
-//   const assetString = assetFromString('BNB BUSD-74E');
-//   console.log('assetString------------------------', assetString);
-//   const result = await EthUtilsService.callDeposit({
-//     asset: assetFromString("BNB.BUSD-74E"),
-//     amount: send_amount,
-//     recipient: to_address,
-//     memo: Memo,
-//   });
-//   console.log("i am here =======================>HELLLLOOOO LIQUIDTTTTYYYYYYYYYYYY", result);
+    //REMOVAL OF LIQUIDITy   of BNB
+    console.log("usman my love<><><><><><><><><><><><><><><><><><>");
+    const BNBLiqudityRemoval = async () => {
+      const destAddress = userBinanceClient.getAddress();
+      console.log(
+        "User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+        destAddress
+      );
+      const to_address = "tbnb1gnhm7rp8cx5txje4wqnmk3pqc7e3a8tpz6c8cc";
+      const send_amount = baseAmount(1, 6);
+      // const Memo = "-:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
 
-//   return result;
-// };
-// LiquidityBNB();
-(async () => {})();
+      const Memo = "-:BNB.BNB:1000";
 
+      const assetString = assetFromString("BNB.BNB");
+      console.log("assetString------------------------", assetString);
+      const result = await userBinanceClient.transfer({
+        asset: assetFromString("BNB.BNB"),
+        amount: send_amount,
+        recipient: to_address,
+        memo: Memo,
+      });
+      console.log(
+        "i am here =======================>HELLLLOOOO LIQUIDTTTTYYYYYYYYYYYY",
+        result
+      );
 
+      return result;
+    };
+    // BNBLiqudityRemoval();
+    (async () => {})();
 
-//REMOVAL OF LIQUIDITy   of BNB
-console.log("usman my love<><><><><><><><><><><><><><><><><><>");
-const BNBLiqudityRemoval = async () => {
-  const destAddress = userBinanceClient.getAddress();
-  console.log(
-    "User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
-    destAddress
-  );
-  const to_address = "tbnb1gnhm7rp8cx5txje4wqnmk3pqc7e3a8tpz6c8cc";
-  const send_amount = baseAmount(1, 6);
-  // const Memo = "-:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
+    //REMOVAL OF LIQUIDITy   of XRUNE
+    console.log("usman my love<><><><><><><><><><><><><><><><><><>");
+    const XRUNELiqudityRemoval = async () => {
+      const destAddress = userEthereumClient.getAddress();
+      console.log(
+        "User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
+        destAddress
+      );
+      const to_address = "0xfc72634c90e0cc442dd53fcc4164af016093b6e4";
+      const send_amount = baseAmount(1, 18);
+      // const Memo = "-:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
 
-  const Memo = "-:BNB.BNB:1000";
+      const Memo = "-:ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23:";
 
-  const assetString = assetFromString("BNB.BNB");
-  console.log("assetString------------------------", assetString);
-  const result = await userBinanceClient.transfer({
-    asset: assetFromString("BNB.BNB"),
-    amount: send_amount,
-    recipient: to_address,
-    memo: Memo,
-  });
-  console.log(
-    "i am here =======================>HELLLLOOOO LIQUIDTTTTYYYYYYYYYYYY",
-    result
-  );
+      const assetString = assetFromString(
+        "ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23"
+      );
+      console.log("assetString------------------------", assetString);
+      const result = await ethUtilsService.callDeposit({
+        asset: assetFromString(
+          "ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23"
+        ),
+        amount: send_amount,
+        recipient: to_address,
+        memo: Memo,
+      });
+      console.log(
+        "i am here =======================>HELLLLOOOO LIQUIDTTTTYYYYYYYYYYYY",
+        result
+      );
 
-  return result;
-};
-// BNBLiqudityRemoval();
-(async () => {})();
-
-
-
-
-
-//REMOVAL OF LIQUIDITy   of XRUNE
-console.log("usman my love<><><><><><><><><><><><><><><><><><>");
-const XRUNELiqudityRemoval = async () => {
-  const destAddress = userEthereumClient.getAddress();
-  console.log(
-    "User Binance Client: >>>>>>>>>>>>>>>>>>>>>>>>>---------------> ",
-    destAddress
-  );
-  const to_address = "0xfc72634c90e0cc442dd53fcc4164af016093b6e4";
-  const send_amount = baseAmount(1, 18);
-  // const Memo = "-:BNB.BNB:tbnb1yc20slera2g4fhnkkyttqxf70qxa4jtm42qq4t";
-
-  const Memo = "-:ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23:";
-
-  const assetString = assetFromString("ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23");
-  console.log("assetString------------------------", assetString);
-  const result = await ethUtilsService.callDeposit({
-    asset: assetFromString("ETH.XRUNE-0X8626DB1A4F9F3E1002EEB9A4F3C6D391436FFC23"),
-    amount: send_amount,
-    recipient: to_address,
-    memo: Memo,
-  });
-  console.log(
-    "i am here =======================>HELLLLOOOO LIQUIDTTTTYYYYYYYYYYYY",
-    result
-  );
-
-  return result;
-};
-// XRUNELiqudityRemoval();
-(async () => {})();
-
-
+      return result;
+    };
+    // XRUNELiqudityRemoval();
+    (async () => {})();
 
     const checkBalanceOfCli = async () => {
       const destAddress = userBinanceClient.getAddress();
@@ -800,17 +792,10 @@ const XRUNELiqudityRemoval = async () => {
     "assetString----ASDASDSADASDASDASDASDADADASDSADASDSADSADSADSADASDASDSADSAD--------------------",
     assetString
   );
-  
 
-
-// const output = getSwapFee(();
-
-
+  // const output = getSwapFee(();
 
   // console.log("=======================>", output);
-
-
-
 
   //Submit button to trigger the things
   const SubmitAll = async () => {
